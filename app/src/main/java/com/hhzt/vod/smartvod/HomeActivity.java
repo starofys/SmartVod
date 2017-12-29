@@ -34,5 +34,4 @@ public class HomeActivity extends BaseActivity implements IHomeViewer {
 	public void showContent(int type) {
 
 	}
-	
 }
