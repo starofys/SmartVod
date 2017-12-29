@@ -3,9 +3,14 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmartVod.iml" filepath="$PROJECT_DIR$/SmartVod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartVod.iml" filepath="$PROJECT_DIR$/SmartVod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apilayer/apilayer.iml" filepath="$PROJECT_DIR$/apilayer/apilayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/apilayer/apilayer.iml" filepath="$PROJECT_DIR$/apilayer/apilayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/logiclayer/logiclayer.iml" filepath="$PROJECT_DIR$/logiclayer/logiclayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logiclayer/logiclayer.iml" filepath="$PROJECT_DIR$/logiclayer/logiclayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewlayer/viewlayer.iml" filepath="$PROJECT_DIR$/viewlayer/viewlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewlayer/viewlayer.iml" filepath="$PROJECT_DIR$/viewlayer/viewlayer.iml" />
     </modules>
   </component>
