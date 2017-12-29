@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+
+android {
+	compileSdkVersion 26
+	defaultConfig {
+		applicationId "com.hhzt.vod.smartvod"
+		minSdkVersion 19
+		targetSdkVersion 21
+		versionCode 1
+		versionName "1.0"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+		externalNativeBuild {
+			cmake {
+				cppFlags ""
+			}
+		}
+	}
+	signingConfigs {
+		release {
+			keyAlias 'hhztvod'
+			keyPassword '12345678'
+			storeFile file('../hhztvod')
+			storePassword '12345678'
+		}
+	}
+	buildTypes {
+		release {
+			signingConfigs.release
+			debuggable false
+			signingConfig signingConfigs.release
+			zipAlignEnabled true
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+		debug {
+			signingConfigs.release
+			debuggable true
+			signingConfig signingConfigs.release
+			zipAlignEnabled true
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+	externalNativeBuild {
+		cmake {
+			path "CMakeLists.txt"
+		}
+	}
+}
+
+dependencies {
+	compile fileTree(include: '*.jar', dir: 'libs')
+	compile project(':apilayer')
+	compile project(':logiclayer')
+	compile project(':viewlayer')
+
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation 'org.xutils:xutils:3.5.0'
+	implementation 'com.android.support:appcompat-v7:' + rootProject.supportLibVersion
+	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+	testImplementation 'junit:junit:4.12'
+	androidTestImplementation 'com.android.support.test:runner:1.0.1'
+	androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
