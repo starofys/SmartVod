@@ -101,6 +101,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播分组下分类详情
+     */
     public static void testHttpVod03() {
         HttpVod.getVodCategoryDetailByGroupDatas(
                 HttpConst.APP_KEY,
@@ -145,6 +148,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播节目详情
+     */
     public static void testHttpVod04() {
         HttpVod.getVodItemDetailDatas(
                 HttpConst.APP_KEY,
@@ -187,6 +193,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播节目播放记录和热度统计(热度每播放一次加一)
+     */
     public static void testHttpVod05() {
         HttpVod.getVodPlayRecordDatas(
                 HttpConst.APP_KEY,
@@ -230,6 +239,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播节目评星
+     */
     public static void testHttpVod06() {
         HttpVod.getVodItemStarDatas(
                 HttpConst.APP_KEY,
@@ -270,6 +282,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播搜索热度记录(每搜索一次加1)
+     */
     public static void testHttpVod07() {
         HttpVod.getVodItemSearchRecordNumberDatas(
                 HttpConst.APP_KEY,
@@ -309,6 +324,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播搜索主页
+     */
     public static void testHttpVod08() {
         HttpVod.getVodSearchMainDatas(
                 HttpConst.APP_KEY,
@@ -348,6 +366,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播搜索
+     */
     public static void testHttpVod09() {
         HttpVod.getVodSearchKeyCodeDatas(
                 HttpConst.APP_KEY,
@@ -390,6 +411,9 @@ public class HttpApiTestEng {
         );
     }
 
+    /**
+     * 接口名称:点播历史记录列表
+     */
     public static void testHttpVod10() {
         HttpVod.getVodSearchHistorListDatas(
                 HttpConst.APP_KEY,
