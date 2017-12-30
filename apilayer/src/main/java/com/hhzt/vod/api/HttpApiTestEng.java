@@ -212,7 +212,7 @@ public class HttpApiTestEng {
                 SimpleResultRep.class,
                 new IHttpRetCallBack<SimpleResultRep>() {
                     @Override
-                    public void onResponseSuccess(CommonRspRetBean bean, SimpleResultRep s) {
+                    public void onResponseSuccess(CommonRspRetBean bean, SimpleResultRep simpleResultRep) {
                         System.out.print("onResponseSuccess");
                     }
 
@@ -255,7 +255,7 @@ public class HttpApiTestEng {
                 SimpleResultRep.class,
                 new IHttpRetCallBack<SimpleResultRep>() {
                     @Override
-                    public void onResponseSuccess(CommonRspRetBean bean, SimpleResultRep s) {
+                    public void onResponseSuccess(CommonRspRetBean bean, SimpleResultRep simpleResultRep) {
                         System.out.print("onResponseSuccess");
                     }
 
@@ -297,7 +297,7 @@ public class HttpApiTestEng {
                 SimpleResultRep.class,
                 new IHttpRetCallBack<SimpleResultRep>() {
                     @Override
-                    public void onResponseSuccess(CommonRspRetBean bean, SimpleResultRep s) {
+                    public void onResponseSuccess(CommonRspRetBean bean, SimpleResultRep simpleResultRep) {
                         System.out.print("onResponseSuccess");
                     }
 

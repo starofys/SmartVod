@@ -153,7 +153,8 @@ public class HttpX {
             if (tClass == null) {
                 iHttpRetCallBack.onResponseSuccess(bean, null);
             } else {
-                iHttpRetCallBack.onResponseSuccess(bean, TypeUtils.castToJavaBean(bean.data, tClass));
+//                iHttpRetCallBack.onResponseSuccess(bean, TypeUtils.castToJavaBean(bean.data, tClass));
+                iHttpRetCallBack.onResponseSuccess(bean, JSON.parseObject(result, tClass));
             }
         } else {
             iHttpRetCallBack.onResponseFailed(bean);

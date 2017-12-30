@@ -12,10 +12,10 @@ public class CommonRspRetBean {
 
     @JSONField(name = "code", ordinal = 0)
     public int code;
-    @JSONField(name = "status", ordinal = 1)
-    public String status;
-    @JSONField(name = "desc", ordinal = 2)
-    public String desc;
+    @JSONField(name = "message", ordinal = 1)
+    public String message;
+    @JSONField(name = "solution", ordinal = 2)
+    public String solution;
     @JSONField(name = "data", ordinal = 3)
     public Object data;
 
@@ -23,8 +23,8 @@ public class CommonRspRetBean {
     public String toString() {
         return "CommonRspRetBean{" +
                 "code='" + code + '\'' +
-                ", status='" + status + '\'' +
-                ", desc='" + desc + '\'' +
+                ", message='" + message + '\'' +
+                ", solution='" + solution + '\'' +
                 ", data='" + data + '\'' +
                 '}';
     }
