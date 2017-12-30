@@ -29,4 +29,5 @@ task clean(type: Delete) {
 ext {
     supportLibVersion = "26.1.0"
     xutilsVersion = "3.5.0"
+    fastjosonVersion = "1.2.12"
 }

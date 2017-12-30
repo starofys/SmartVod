@@ -1,0 +1,298 @@
+getVodRecommendDatas
+{
+  "programSimpleBoList" : [ {
+    "id" : 43,
+    "name" : "Alien.Outpost",
+    "recommend" : 0,
+    "vipFlag" : 0,
+    "score" : null,
+    "smallPoster" : "http://192.168.1.182/static/null"
+  }, {
+    "id" : 38,
+    "name" : "记忆大师",
+    "recommend" : 0,
+    "vipFlag" : 0,
+    "score" : null,
+    "smallPoster" : "http://192.168.1.182/static/program/erect/201712/记忆大师.jpg"
+  } ],
+  "programGroupBoList" : [ {
+    "id" : 5,
+    "name" : "高清点播",
+    "pictureUrl" : "http://192.168.1.182/static/programGroup/电影_1_.png"
+  }, {
+    "id" : 1,
+    "name" : "电影",
+    "pictureUrl" : "http://192.168.1.182/static/programGroup/电影.png"
+  }, {
+    "id" : 2,
+    "name" : "综艺",
+    "pictureUrl" : "http://192.168.1.182/static/programGroup/综艺.png"
+  }, {
+    "id" : 3,
+    "name" : "电视剧",
+    "pictureUrl" : "http://192.168.1.182/static/programGroup/电视剧.png"
+  }, {
+    "id" : 4,
+    "name" : "画沙",
+    "pictureUrl" : "http://192.168.1.182/static/programGroup/沙画.png"
+  } ]
+}
+
+
+
+getVodCategoryDetailByGroupDatas
+{
+    "pageNum": 1,
+    "pageSize": 12,
+    "totalPage": 2,
+    "total": 14,
+    "categoryId": 1001,
+    "programGroupId": 1,
+    "programSimpleBoList": [
+        {
+            "id": 2,
+            "name": "地球的故事",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/null"
+        },
+        {
+            "id": 12,
+            "name": "恶人报喜",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/恶人报喜.jpg"
+        },
+        {
+            "id": 13,
+            "name": "五鼠闹东京01",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/五鼠闹东京01.jpg"
+        },
+        {
+            "id": 14,
+            "name": "蝙蝠侠大战超人：正义黎明",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/蝙蝠侠大战超人：正义黎明.jpg"
+        },
+        {
+            "id": 15,
+            "name": "疯狂动物城",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/疯狂动物城.jpg"
+        },
+        {
+            "id": 16,
+            "name": "惊天魔盗团2",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/惊天魔盗团2.jpg"
+        },
+        {
+            "id": 17,
+            "name": "忍者神龟2：破影而出",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/忍者神龟2：破影而出.jpg"
+        },
+        {
+            "id": 19,
+            "name": "千与千寻QIANYUQIANXUN_H264",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/千与千寻QIANYUQIANXUN_H264.jpg"
+        },
+        {
+            "id": 11,
+            "name": "功夫熊猫3",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/功夫熊猫3.jpg"
+        },
+        {
+            "id": 10,
+            "name": "钟馗伏魔：雪妖魔灵",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/钟馗伏魔：雪妖魔灵.jpg"
+        },
+        {
+            "id": 5,
+            "name": "一个都不能少HD国语",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": 0,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/一个都不能少HD国语.jpg"
+        },
+        {
+            "id": 6,
+            "name": "机械师2.HD1280",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/机械师2.HD1280.jpg"
+        }
+    ]
+}
+
+
+getVodMenuByGroupDatas
+{
+    "categoryBoList": [
+        {
+            "id": 1001,
+            "name": "喜剧"
+        },
+        {
+            "id": 1004,
+            "name": "战争"
+        },
+        {
+            "id": 1002,
+            "name": "惊悚"
+        },
+        {
+            "id": 1007,
+            "name": "奇幻"
+        },
+        {
+            "id": 1006,
+            "name": "动画"
+        }
+    ]
+}
+
+
+getVodItemStarDatas
+{
+    "result": false
+}
+
+
+
+getVodItemSearchRecordNumberDatas
+{
+    "result": false
+}
+
+
+getVodSearchHistorListDatas
+{
+    "programSuperSimpleBoList": [
+        {
+            "id": 37,
+            "name": "灰姑娘"
+        }
+    ]
+}
+
+
+
+
+getVodItemDetailDatas
+{
+    "programDetailBo": {
+        "id": 29,
+        "name": "终极硬汉.HD1280",
+        "year": "2016",
+        "areaname": "喜剧 | 惊悚 | 战争 | 动画 | 奇幻",
+        "actors": "陈天星 / 霸易 / 吕克·本扎 / 克瓦德沃·季德 / 吉安·德里克 / 沃里克·吉尔斯 / 多哥·巴巴鲁 / 以色列 / 刘永奇 / 于震寰",
+        "writers": "崔磊 / 陈天星",
+        "description": "　　电影《终极硬汉》讲述了一个跨境非洲的冒险故事。 　　安琪所在的勘探队在非洲挖掘到一枚超能量石，居心叵测的国际军火走私团伙得知该消息后，奔赴非洲意欲抢夺。退伍特种兵韩锋在非洲沙漠为了拯救持有超能量石逃窜的安琪，意外被卷入与国际军火走私团伙的斗争之中。",
+        "seriesFlag": 0,
+        "price": null,
+        "vipFlag": 0,
+        "score": null,
+        "smallPoster": "http://192.168.1.182/static/program/erect/201712/终极硬汉.HD1280.jpg",
+        "bigPoster": "http://192.168.1.182/static/program/transverse/201712/终极硬汉.HD1280.jpg",
+        "mediaList": [
+            {
+                "id": 29,
+                "name": "终极硬汉.HD1280",
+                "sequence": 1,
+                "cpobjectcode": "MOVZH0000000029@CRI",
+                "mediaType": null,
+                "duration": null,
+                "videoType": null,
+                "audioType": null,
+                "streamType": null,
+                "filePath": "http://192.168.1.251:9993/vod/宏辉智通宣传片.mov",
+                "fileSize": null,
+                "urlType": "f",
+                "otherPlayUrl": null
+            }
+        ]
+    },
+    "relevantList": null,
+    "hotList": [
+        {
+            "id": 37,
+            "name": "灰姑娘",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/灰姑娘.jpg"
+        },
+        {
+            "id": 5,
+            "name": "一个都不能少HD国语",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": 0,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/一个都不能少HD国语.jpg"
+        },
+        {
+            "id": 48,
+            "name": "盗墓笔记3",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": 0,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/盗墓笔记3.jpg"
+        },
+        {
+            "id": 2,
+            "name": "地球的故事",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/null"
+        },
+        {
+            "id": 6,
+            "name": "机械师2.HD1280",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/机械师2.HD1280.jpg"
+        },
+        {
+            "id": 7,
+            "name": "星球大战外传之侠盗一号",
+            "recommend": 0,
+            "vipFlag": 0,
+            "score": null,
+            "smallPoster": "http://192.168.1.182/static/program/erect/201712/星球大战外传之侠盗一号.jpg"
+        }
+    ]
+}
+
+
+getVodPlayRecordDatas
+{
+    "result": true
+}
+
+
