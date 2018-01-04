@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">api</string>
+
+    <string name="media_url_error_tips">媒体url错误</string>
 </resources>

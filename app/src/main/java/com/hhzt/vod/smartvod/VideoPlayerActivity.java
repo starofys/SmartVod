@@ -4,9 +4,9 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -14,6 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.hhzt.vod.viewlayer.media.VideoControllerView;
 
@@ -26,7 +27,7 @@ import org.xutils.view.annotation.ViewInject;
 @ContentView(R.layout.activity_video_player)
 public class VideoPlayerActivity extends BaseActivity implements SurfaceHolder.Callback, VideoControllerView.MediaPlayerControl,
         View.OnClickListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnCompletionListener,
-        MediaPlayer.OnVideoSizeChangedListener, OnPreparedListener, MediaPlayer.OnSeekCompleteListener,
+        MediaPlayer.OnVideoSizeChangedListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnSeekCompleteListener,
         MediaPlayer.OnErrorListener {
 
     private static final String TAG_MEDIA = "smartVod_Mdia";
@@ -48,8 +49,13 @@ public class VideoPlayerActivity extends BaseActivity implements SurfaceHolder.C
         super.onCreate(savedInstanceState);
 
         currDisplay = this.getWindowManager().getDefaultDisplay();
-//        String videoPath = getIntent().getStringExtra("url");
-        String videoPath = "http://szhhzt.cn:8001/vod/宏辉智通宣传片.mov";
+        String videoPath = getIntent().getStringExtra("url");
+        if(TextUtils.isEmpty(videoPath)) {
+            Toast.makeText(this, getText(R.string.media_url_error_tips), Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         videoSurfaceContainer.setOnClickListener(this);
         SurfaceHolder videoHolder = videoSurface.getHolder();
 
@@ -60,9 +66,14 @@ public class VideoPlayerActivity extends BaseActivity implements SurfaceHolder.C
 
         try {
             player.reset();
+            player.setOnBufferingUpdateListener(this);
+            player.setOnCompletionListener(this);
+            player.setOnErrorListener(this);
+            player.setOnVideoSizeChangedListener(this);
+            player.setOnSeekCompleteListener(this);
+            player.setOnPreparedListener(this);
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
             player.setDataSource(this, Uri.parse(videoPath));
-            player.setOnPreparedListener(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,8 +139,10 @@ public class VideoPlayerActivity extends BaseActivity implements SurfaceHolder.C
         lp.setMargins((windowWidth - vWidth) / 2, 0, 0, 0);
         videoSurface.setLayoutParams(lp);
         controller.setMediaPlayer(this);//为VideoController设置MediaPlayer
-        controller.setAnchorView((FrameLayout) findViewById(R.id.videoSurfaceContainer));
+        controller.setAnchorView(videoSurfaceContainer);
         controller.show();
+
+        player.start();
     }
 
     @Override
