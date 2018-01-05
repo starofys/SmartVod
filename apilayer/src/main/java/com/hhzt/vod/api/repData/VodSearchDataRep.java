@@ -1,6 +1,6 @@
 package com.hhzt.vod.api.repData;
 
-import com.hhzt.vod.api.repBean.SimpleRepDetailBean;
+import com.hhzt.vod.api.repBean.MovieInfoData;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class VodSearchDataRep {
     private int pageSize;
     private int totalPage;
     private int total;
-    private ArrayList<SimpleRepDetailBean> programSimpleBoList = new ArrayList<>();
+    private ArrayList<MovieInfoData> programSimpleBoList = new ArrayList<>();
 
     public int getPageNum() {
         return pageNum;
@@ -47,11 +47,11 @@ public class VodSearchDataRep {
         this.total = total;
     }
 
-    public ArrayList<SimpleRepDetailBean> getProgramSimpleBoList() {
+    public ArrayList<MovieInfoData> getProgramSimpleBoList() {
         return programSimpleBoList;
     }
 
-    public void setProgramSimpleBoList(ArrayList<SimpleRepDetailBean> programSimpleBoList) {
+    public void setProgramSimpleBoList(ArrayList<MovieInfoData> programSimpleBoList) {
         this.programSimpleBoList = programSimpleBoList;
     }
 

@@ -1,7 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content11"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layy64"
+        android:layout_marginTop="@dimen/layy86"
+        android:layout_marginBottom="@dimen/layy37"
+        android:paddingEnd="@dimen/layx85"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layx108"
+            android:src="@drawable/ic_cibn" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
+            android:id="@+id/ll_search"
+            android:layout_width="@dimen/layx170"
+            android:layout_height="@dimen/layy64"
+            android:background="@drawable/ic_search_backgroud"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/layx20"
+                android:src="@drawable/ic_search" />
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/layx60"
+                android:text="搜索"
+                android:textColor="@color/tv_white" />
+
+        </com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
+
+        <TextView
+            android:id="@+id/tv_current_time"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layx64"
+            android:layout_marginStart="@dimen/layx50"
+            android:gravity="center_vertical"
+            android:text="9:30"
+            android:textColor="@color/tv_white"
+            android:textSize="@dimen/layx50" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="@dimen/layy64"
+            android:layout_marginEnd="@dimen/layx10"
+            android:layout_marginStart="@dimen/layx10"
+            android:background="@color/tv_white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layy64"
+            android:gravity="center_vertical|right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="2017-12-28"
+                android:textColor="@color/tv_white" />
+
+            <TextView
+                android:id="@+id/tv_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="星期一"
+                android:textColor="@color/tv_white" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="@dimen/layy64"
+            android:layout_marginEnd="@dimen/layx10"
+            android:layout_marginStart="@dimen/layx10"
+            android:background="@color/tv_white" />
+
+        <ImageView
+            android:id="@+id/iv_climate_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_climate_icon"
+            android:textColor="@color/tv_white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layy64"
+            android:gravity="center_vertical|right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="25°C-30°C"
+                android:textColor="@color/tv_white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="深圳"
+                    android:textColor="@color/tv_white" />
+
+                <TextView
+                    android:id="@+id/tv_climate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="多云"
+                    android:textColor="@color/tv_white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

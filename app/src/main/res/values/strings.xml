@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">SmartVod</string>
+
+
+    <string name="pay_single_movie">尊敬的客户，您选择单部影片点播需支付：</string>
+    <string name="pay_one_day_movie">尊敬的客户，您选择包天影片点播需支付：</string>
+
+
+    <string name="movie_detail_director">导演:%1$s</string>
+    <string name="movie_detail_starring">主演:%1$s</string>
+    <string name="movie_detail_type">类型:%1$s</string>
+    <string name="movie_detail_description">简介:%1$s</string>
+
 </resources>

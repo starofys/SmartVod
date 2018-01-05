@@ -1,6 +1,6 @@
 package com.hhzt.vod.api.repData;
 
-import com.hhzt.vod.api.repBean.HotRepBean;
+import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SearchMainDatasRep {
     private ArrayList<SimpleRepBean> hotSearchList = new ArrayList<>();
-    private ArrayList<HotRepBean> hotList = new ArrayList<>();
+    private ArrayList<MovieInfoData> hotList = new ArrayList<>();
 
     public ArrayList<SimpleRepBean> getHotSearchList() {
         return hotSearchList;
@@ -21,11 +21,11 @@ public class SearchMainDatasRep {
         this.hotSearchList = hotSearchList;
     }
 
-    public ArrayList<HotRepBean> getHotList() {
+    public ArrayList<MovieInfoData> getHotList() {
         return hotList;
     }
 
-    public void setHotList(ArrayList<HotRepBean> hotList) {
+    public void setHotList(ArrayList<MovieInfoData> hotList) {
         this.hotList = hotList;
     }
 

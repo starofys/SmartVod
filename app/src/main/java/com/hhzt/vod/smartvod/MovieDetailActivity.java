@@ -1,5 +1,6 @@
 package com.hhzt.vod.smartvod;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -13,11 +14,22 @@ import org.xutils.view.annotation.ContentView;
 @ContentView(R.layout.activity_movie_detail)
 public class MovieDetailActivity extends BaseActivity {
 
-	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    public static final String MOVIE_TYPE_ID = "movie_tyype_Id";
+    public static final String MOVIE_DETAIL_ID = "movie_Detail_Id";
 
-		MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
-		FragmentUtil.replace(this, false, R.id.movie_detail_fragment_container, movieDetailFragment);
-	}
+    //电影类型id、具体电影id
+    private int mMovieTypeId;
+    private int mMovieDetailId;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        mMovieTypeId = intent.getIntExtra(MOVIE_TYPE_ID, 0);
+        mMovieDetailId = intent.getIntExtra(MOVIE_DETAIL_ID, 0);
+
+        MovieDetailFragment movieDetailFragment =  MovieDetailFragment.getInstance(mMovieTypeId,mMovieDetailId);
+        FragmentUtil.replace(this, false, R.id.movie_detail_fragment_container, movieDetailFragment);
+    }
 }

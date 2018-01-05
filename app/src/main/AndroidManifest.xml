@@ -17,11 +17,8 @@
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+			</intent-filter>
         </activity>
-
         <activity
             android:name=".MovieDetailActivity"
             android:screenOrientation="landscape"
@@ -37,6 +34,11 @@
             android:process=":com.hhzt.vod.smartvod.VideoPlayerActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
-    </application>
+
+		<!--<activity-->
+			<!--android:name=".MediaplayerX"-->
+			<!--android:theme="@style/AppTheme" />-->
+
+	</application>
 
 </manifest>

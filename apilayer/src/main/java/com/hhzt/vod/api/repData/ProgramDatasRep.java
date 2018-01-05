@@ -1,7 +1,7 @@
 package com.hhzt.vod.api.repData;
 
+import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.ProgramGroupBo;
-import com.hhzt.vod.api.repBean.ProgramSimpleBo;
 
 import java.util.ArrayList;
 
@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public class ProgramDatasRep {
 
-    private ArrayList<ProgramSimpleBo> programSimpleBoList = new ArrayList<>();
+    private ArrayList<MovieInfoData> programSimpleBoList = new ArrayList<>();
     private ArrayList<ProgramGroupBo> programGroupBoList = new ArrayList<>();
 
-    public ArrayList<ProgramSimpleBo> getProgramSimpleBoList() {
+    public ArrayList<MovieInfoData> getProgramSimpleBoList() {
         return programSimpleBoList;
     }
 
-    public void setProgramSimpleBoList(ArrayList<ProgramSimpleBo> programSimpleBoList) {
+    public void setProgramSimpleBoList(ArrayList<MovieInfoData> programSimpleBoList) {
         this.programSimpleBoList = programSimpleBoList;
     }
 
