@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="@dimen/layy67">
+        android:paddingTop="@dimen/layy67"
+        android:paddingBottom="@dimen/layy54">
 
         <LinearLayout
             android:id="@+id/ll_movie_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/layy54"
+            android:layout_height="@dimen/layy488"
+            android:layout_marginBottom="@dimen/layy56"
             android:orientation="horizontal"
             android:paddingEnd="@dimen/layx80"
             android:paddingStart="@dimen/layx110">
@@ -31,11 +32,11 @@
 
                 <com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
                     android:id="@+id/rl_movie_notice"
+                    android:layout_width="@dimen/layx865"
+                    android:layout_height="match_parent"
                     android:clickable="true"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_width="@dimen/layx865"
-                    android:layout_height="@dimen/layy488">
+                    android:focusableInTouchMode="true">
 
                     <ImageView
                         android:id="@+id/iv_movie_detail_icon"
@@ -63,41 +64,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="17px"
-                    android:text="魔兽"
                     android:textColor="@color/tv_white"
-                    android:textSize="58px" />
+                    android:textSize="@dimen/layx58" />
 
                 <TextView
                     android:id="@+id/tv_movie_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2016年上映|123分钟|美国|国语"
+                    android:layout_marginTop="@dimen/layx14"
                     android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:textSize="@dimen/layx30" />
 
                 <TextView
                     android:id="@+id/tv_movie_director"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="导演:邓肯"
                     android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:textSize="@dimen/layx30" />
 
                 <TextView
                     android:id="@+id/tv_movie_starring"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="主演：崔思维"
                     android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:textSize="@dimen/layx30" />
 
                 <TextView
                     android:id="@+id/tv_movie_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="类型：动作|战争|奇幻"
                     android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:textSize="@dimen/layx30" />
 
                 <TextView
                     android:id="@+id/tv_movie_description"
@@ -105,9 +102,8 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:lines="3"
-                    android:text="简介：艾泽拉斯于德拉若本的案情故家哈桑把房间哈省部级阿塞拜疆饭卡上飞机暗示法那份脑外暗示法那佛个安慰覅哦啊见佛个奥个接收到否事"
                     android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:textSize="@dimen/layx30" />
 
 
                 <TextView
@@ -136,7 +132,7 @@
                             android:id="@+id/btn_movie_full_screen"
                             android:layout_width="@dimen/layx200"
                             android:layout_height="@dimen/layx80"
-                            android:background="@drawable/bg_tv"
+                            android:background="@drawable/ic_search_backgroud"
                             android:gravity="center"
                             android:text="全屏"
                             android:textColor="@color/tv_white"
@@ -147,7 +143,6 @@
                         android:id="@+id/riv_movie_pay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/layx40"
                         android:clickable="true"
                         android:focusable="true"
                         android:focusableInTouchMode="true">
@@ -156,7 +151,7 @@
                             android:id="@+id/btn_movie_pay"
                             android:layout_width="@dimen/layx200"
                             android:layout_height="@dimen/layx80"
-                            android:background="@drawable/bg_tv"
+                            android:background="@drawable/ic_search_backgroud"
                             android:gravity="center"
                             android:text="付费"
                             android:textColor="@color/tv_white"
@@ -169,7 +164,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="53px"
                         android:text="可免费观看5分钟"
-                        android:visibility="gone" />
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/layx30" />
 
                 </com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
             </LinearLayout>
@@ -193,14 +189,25 @@
                 android:orientation="vertical"
                 android:paddingBottom="23px">
 
-                <TextView
-                    android:id="@+id/tv_tv_series_list"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="5px"
-                    android:text="聚集列表"
-                    android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/layx10"
+                        android:src="@drawable/ic_relate" />
+
+                    <TextView
+                        android:id="@+id/tv_tv_series_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="剧集列表"
+                        android:textColor="@color/tv_white_translate"
+                        android:textSize="30px" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -244,15 +251,26 @@
                 android:layout_marginTop="31px"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_relate_movie"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/layy20"
-                    android:drawablePadding="5px"
-                    android:text="相关电影"
-                    android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/layx10"
+                        android:src="@drawable/ic_relate" />
+
+                    <TextView
+                        android:id="@+id/tv_relate_movie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="相关电影"
+                        android:textColor="@color/tv_white_translate"
+                        android:textSize="30px" />
+                </LinearLayout>
 
                 <com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
                     android:id="@+id/rev_relate_movie"
@@ -270,16 +288,28 @@
                 android:layout_marginTop="31px"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_recommend_movie"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/layy20"
-                    android:drawablePadding="5px"
-                    android:drawableStart="@null"
-                    android:text="推荐影片"
-                    android:textColor="@color/tv_white_translate"
-                    android:textSize="30px" />
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/layx10"
+                        android:src="@drawable/ic_relate" />
+
+                    <TextView
+                        android:id="@+id/tv_recommend_movie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5px"
+                        android:drawableStart="@null"
+                        android:text="推荐影片"
+                        android:textColor="@color/tv_white_translate"
+                        android:textSize="30px" />
+                </LinearLayout>
 
                 <com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
                     android:id="@+id/rev_recommend_movie"

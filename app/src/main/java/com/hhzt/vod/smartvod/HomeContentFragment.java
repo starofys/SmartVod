@@ -162,8 +162,8 @@ public class HomeContentFragment extends BaseFragment {
                 mMovieType = MovieFactory.MOVIE_TYPE_MIX_PICTURE;
                 break;
             case 2:
-                mMovieType = MovieFactory.MOVIE_TYPE_SMALL_PICTURE;
             default:
+                mMovieType = MovieFactory.MOVIE_TYPE_SMALL_PICTURE;
                 break;
         }
         mMoviePictureListFragment = MovieFactory.getFragment(mMovieType, mMovieTypeName.get(pos).getId());

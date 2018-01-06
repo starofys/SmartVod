@@ -115,9 +115,10 @@ public class MovieBigPictureListFragment extends BaseFragment {
     }
 
     private void bindAdater() {
-        LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rcv_movie_type.setLayoutManager(layoutManager);
+        rcv_movie_type.setHasFixedSize(true);
         rcv_movie_type.setFocusable(false);
         GeneralAdapter generalAdapter = new GeneralAdapter(new BigPicturePresenter(mMovieInfoList));
         rcv_movie_type.setAdapter(generalAdapter);

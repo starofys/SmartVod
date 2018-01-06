@@ -3,7 +3,7 @@
     android:layout_width="@dimen/layx162"
     android:layout_height="@dimen/layy85"
     android:layout_marginEnd="@dimen/layx10"
-    android:background="@drawable/bg_tv"
+    android:background="@drawable/ic_search_backgroud"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
