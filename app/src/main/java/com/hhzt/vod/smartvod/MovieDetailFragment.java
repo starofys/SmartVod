@@ -1,15 +1,14 @@
 package com.hhzt.vod.smartvod;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,14 +16,12 @@ import android.widget.TextView;
 
 import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.IHttpRetCallBack;
+import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
-import com.hhzt.vod.smartvod.adapter.BigPicturePresenter;
 import com.hhzt.vod.smartvod.adapter.EpisodePresenter;
 import com.hhzt.vod.smartvod.adapter.EpisodeRangePresenter;
 import com.hhzt.vod.smartvod.adapter.SmallPicturePresenter;
 import com.hhzt.vod.smartvod.api.HttpApiTestEng;
-import com.hhzt.vod.smartvod.bean.EpisodeBean;
-import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.smartvod.iview.IMovieDetail;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
@@ -45,7 +42,7 @@ import java.util.List;
  * Created by wujichang on 2017/12/28.
  */
 @ContentView(R.layout.fragment_movie_detail)
-public class MovieDetailFragment extends BaseFragment implements IMovieDetail {
+public class MovieDetailFragment extends BaseFragment implements IMovieDetail, View.OnClickListener {
 
     //播放
     @ViewInject(R.id.lml_movie_play)
@@ -255,6 +252,7 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail {
     }
 
     private void initEvent() {
+        riv_movie_full_screen.setOnClickListener(this);
         lml_movie_play.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
             @Override
             public void onGlobalFocusChanged(final View oldFocus, final View newFocus) {
@@ -421,5 +419,18 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail {
     @Override
     public void showMovieRecommend() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.riv_movie_full_screen:
+                Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+                intent.putExtra("url", mProgramDetaiContentDataRep.programDetailBo.mediaList.get(0).filePath);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -94,7 +94,6 @@ public class HomeContentFragment extends BaseFragment {
         LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rcv_movie_type.setLayoutManager(layoutManager);
-        rcv_movie_type.setFocusable(false);
         GeneralAdapter generalAdapter = new GeneralAdapter(new LeftMenuPresenter(mMovieTypeName));
         rcv_movie_type.setAdapter(generalAdapter);
     }

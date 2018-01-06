@@ -1,6 +1,7 @@
 package com.hhzt.vod.logiclayer;
 
 import android.app.Application;
+import android.content.Context;
 
 import org.xutils.x;
 
@@ -10,9 +11,13 @@ import org.xutils.x;
 
 public class App extends Application {
 
+	public static Context mContext;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		mContext = this;
 
 		x.Ext.init(this);
 		x.Ext.setDebug(com.hhzt.vod.logiclayer.BuildConfig.DEBUG);

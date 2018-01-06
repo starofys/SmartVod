@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.hhzt.vod.logiclayer.App;
 import com.hhzt.vod.viewlayer.media.VideoControllerView;
 
 import org.xutils.view.annotation.ContentView;
@@ -50,8 +51,8 @@ public class VideoPlayerActivity extends BaseActivity implements SurfaceHolder.C
 
         currDisplay = this.getWindowManager().getDefaultDisplay();
         String videoPath = getIntent().getStringExtra("url");
-        if(TextUtils.isEmpty(videoPath)) {
-            Toast.makeText(this, getText(R.string.media_url_error_tips), Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(videoPath)) {
+            Toast.makeText(App.mContext, getText(R.string.media_url_error_tips), Toast.LENGTH_LONG).show();
             finish();
             return;
         }
