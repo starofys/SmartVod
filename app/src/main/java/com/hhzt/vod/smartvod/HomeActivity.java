@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.hhzt.vod.api.ConfigMgr;
-import com.hhzt.vod.logiclayer.FragmentUtil;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.iview.IHomeViewer;
+import com.hhzt.vod.smartvod.utils.FragmentUtil;
 
 import org.xutils.view.annotation.ContentView;
 

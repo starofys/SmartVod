@@ -38,16 +38,10 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 
-                    <ImageView
-                        android:id="@+id/iv_movie_detail_icon"
+                    <com.hhzt.vod.media.NiceVideoPlayer
+                        android:id="@+id/nice_video_player"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY" />
-
-                    <ImageView
-                        android:id="@+id/iv_movie_play"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent" />
 
                 </com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
             </com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>

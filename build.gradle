@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
+apply from: "config.gradle"
 buildscript {
     
     repositories {
@@ -24,10 +24,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    supportLibVersion = "26.1.0"
-    xutilsVersion = "3.5.0"
-    fastjosonVersion = "1.2.12"
 }

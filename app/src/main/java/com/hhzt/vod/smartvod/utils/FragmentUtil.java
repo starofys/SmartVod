@@ -1,4 +1,4 @@
-package com.hhzt.vod.logiclayer;
+package com.hhzt.vod.smartvod.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;

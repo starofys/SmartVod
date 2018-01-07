@@ -3,7 +3,7 @@ package com.hhzt.vod.smartvod;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.hhzt.vod.logiclayer.FragmentUtil;
+import com.hhzt.vod.smartvod.utils.FragmentUtil;
 
 import org.xutils.view.annotation.ContentView;
 

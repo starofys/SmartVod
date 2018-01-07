@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">SmartVod</string>
 
+    <string name="media_clarities_270p">270p</string>
+    <string name="media_clarities_480p">480p</string>
+    <string name="media_clarities_720p">720p</string>
+    <string name="media_clarities_1080p">1080p</string>
+
+    <string name="media_clarities_normal">标清</string>
+    <string name="media_clarities_high">高清</string>
+    <string name="media_clarities_super">超清</string>
+    <string name="media_clarities_blue">蓝光</string>
 
     <string name="pay_single_movie">尊敬的客户，您选择单部影片点播需支付：</string>
     <string name="pay_one_day_movie">尊敬的客户，您选择包天影片点播需支付：</string>

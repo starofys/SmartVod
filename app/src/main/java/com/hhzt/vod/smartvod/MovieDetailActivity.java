@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.hhzt.vod.logiclayer.FragmentUtil;
+import com.hhzt.vod.media.NiceVideoPlayerManager;
+import com.hhzt.vod.smartvod.utils.FragmentUtil;
 
 import org.xutils.view.annotation.ContentView;
 
@@ -29,7 +30,21 @@ public class MovieDetailActivity extends BaseActivity {
         mMovieTypeId = intent.getIntExtra(MOVIE_TYPE_ID, 0);
         mMovieDetailId = intent.getIntExtra(MOVIE_DETAIL_ID, 0);
 
-        MovieDetailFragment movieDetailFragment =  MovieDetailFragment.getInstance(mMovieTypeId,mMovieDetailId);
+        MovieDetailFragment movieDetailFragment = MovieDetailFragment.getInstance(mMovieTypeId, mMovieDetailId);
         FragmentUtil.replace(this, false, R.id.movie_detail_fragment_container, movieDetailFragment);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 在全屏或者小窗口时按返回键要先退出全屏或小窗口，
+        // 所以在Activity中onBackPress要交给NiceVideoPlayer先处理。
+        if (NiceVideoPlayerManager.instance().onBackPressd()) return;
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
     }
 }

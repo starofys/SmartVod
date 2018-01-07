@@ -1,1 +1,1 @@
-include ':app', ':apilayer', ':viewlayer', ':logiclayer'
+include ':app', ':apilayer', ':viewlayer', ':logiclayer', ':media'

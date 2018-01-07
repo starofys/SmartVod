@@ -3,6 +3,7 @@
     package="com.hhzt.vod.smartvod">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
@@ -16,6 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,14 +26,24 @@
         </activity>
         <activity
             android:name=".MovieDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".SearchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".VideoPlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleInstance"
+            android:process=":com.hhzt.vod.smartvod.VideoPlayerActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".SmartVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleInstance"
             android:process=":com.hhzt.vod.smartvod.VideoPlayerActivity"

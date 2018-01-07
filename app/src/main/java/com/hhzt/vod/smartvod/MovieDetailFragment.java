@@ -10,14 +10,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
+import com.hhzt.vod.media.Clarity;
+import com.hhzt.vod.media.NiceVideoPlayer;
+import com.hhzt.vod.media.TxVideoPlayerController;
 import com.hhzt.vod.smartvod.adapter.EpisodePresenter;
 import com.hhzt.vod.smartvod.adapter.EpisodeRangePresenter;
 import com.hhzt.vod.smartvod.adapter.SmallPicturePresenter;
@@ -33,7 +36,6 @@ import com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +49,8 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
     //播放
     @ViewInject(R.id.lml_movie_play)
     private LinearMainLayout lml_movie_play;
-    @ViewInject(R.id.iv_movie_detail_icon)
-    private ImageView iv_movie_detail_icon;
+    @ViewInject(R.id.nice_video_player)
+    private NiceVideoPlayer mNiceVideoPlayer;
 
     //电影详情(名字、时间、导演、主演、类型、简介)
     @ViewInject(R.id.tv_movie_name)
@@ -154,6 +156,7 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
                 initData();
                 bindAdapter();
                 initEvent();
+                initMedia();
             }
 
             @Override
@@ -179,9 +182,6 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
     }
 
     private void initData() {
-        //播放电影的背景图片
-        x.image().bind(iv_movie_detail_icon, mProgramDetaiContentDataRep.programDetailBo.smallPoster);
-
         //电影详情(名字、时间、导演、主演、类型、简介)
         String writers = String.format(getResources().getString(R.string.movie_detail_director), mProgramDetaiContentDataRep.programDetailBo.name);
         String actors = String.format(getResources().getString(R.string.movie_detail_starring), mProgramDetaiContentDataRep.programDetailBo.year);
@@ -399,6 +399,29 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 //                onViewItemClick(itemView, position);
             }
         });
+    }
+
+    private void initMedia() {
+        mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_NATIVE); // IjkPlayer or MediaPlayer
+        TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
+        controller.setTitle(mProgramDetaiContentDataRep.programDetailBo.name);
+        controller.setLenght(117000);
+        controller.setClarity(getClarites(), 0);
+        Glide.with(getActivity())
+                .load(mProgramDetaiContentDataRep.programDetailBo.smallPoster)
+                .placeholder(R.drawable.img_default)
+                .crossFade()
+                .into(controller.imageView());
+        mNiceVideoPlayer.setController(controller);
+    }
+
+    public List<Clarity> getClarites() {
+        List<Clarity> clarities = new ArrayList<>();
+        clarities.add(new Clarity(getString(R.string.media_clarities_normal), getString(R.string.media_clarities_270p), mProgramDetaiContentDataRep.programDetailBo.mediaList.get(0).filePath));
+        clarities.add(new Clarity(getString(R.string.media_clarities_high), getString(R.string.media_clarities_480p), mProgramDetaiContentDataRep.programDetailBo.mediaList.get(0).filePath));
+        clarities.add(new Clarity(getString(R.string.media_clarities_super), getString(R.string.media_clarities_720p), mProgramDetaiContentDataRep.programDetailBo.mediaList.get(0).filePath));
+        clarities.add(new Clarity(getString(R.string.media_clarities_blue), getString(R.string.media_clarities_1080p), mProgramDetaiContentDataRep.programDetailBo.mediaList.get(0).filePath));
+        return clarities;
     }
 
     @Override
