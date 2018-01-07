@@ -27,7 +27,7 @@ public class HttpUrlCreator {
                                             String username,
                                             String tenantid,
                                             String sign) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -57,7 +57,7 @@ public class HttpUrlCreator {
                                              String session,
                                              String username,
                                              int programGroupId) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -94,7 +94,7 @@ public class HttpUrlCreator {
                                                    String username,
                                                    int programGroupId,
                                                    String sign) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -130,7 +130,7 @@ public class HttpUrlCreator {
                                              int categoryId,
                                              String username,
                                              int programGroupId) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -167,7 +167,7 @@ public class HttpUrlCreator {
                                                 String requestIp,
                                                 int playingTime,
                                                 int tenantId) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -199,7 +199,7 @@ public class HttpUrlCreator {
                                                String session,
                                                int programId,
                                                int starRating) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -226,7 +226,7 @@ public class HttpUrlCreator {
                                                  String v,
                                                  String session,
                                                  int programId) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -252,7 +252,7 @@ public class HttpUrlCreator {
                                              String v,
                                              String session,
                                              String username) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -284,7 +284,7 @@ public class HttpUrlCreator {
                                             int pageSize,
                                             String searchKeyword,
                                             String username) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method
@@ -314,7 +314,7 @@ public class HttpUrlCreator {
                                                 String v,
                                                 String session,
                                                 String username) {
-        return HttpConst.BASE_HOST
+        return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
                 + "&method=" + method

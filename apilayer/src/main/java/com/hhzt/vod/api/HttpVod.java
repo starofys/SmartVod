@@ -13,7 +13,6 @@ public class HttpVod {
      * @param method           请求API方法的名称
      * @param v                版本号
      * @param session          登陆之后的session
-     * @param username         登陆账号名
      * @param tenantid         租户ID
      * @param sign             签名
      * @param iHttpRetCallBack 回调接口
@@ -26,13 +25,12 @@ public class HttpVod {
                                                 String method,
                                                 String v,
                                                 String session,
-                                                String username,
                                                 String tenantid,
                                                 String sign,
                                                 String tag,
                                                 Class<T> tClass,
                                                 IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodRecommendUrl(appkey, format, method, v, session, username, tenantid, sign);
+        String url = HttpUrlCreator.getVodRecommendUrl(appkey, format, method, v, session, ConfigMgr.getInstance().getUserName(), tenantid, sign);
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
@@ -44,7 +42,6 @@ public class HttpVod {
      * @param method           请求API方法的名称
      * @param v                版本号
      * @param session          登陆之后的session
-     * @param username         登陆账号名
      * @param programGroupId   租ID
      * @param tag              tag
      * @param tClass           范型类型
@@ -56,12 +53,11 @@ public class HttpVod {
                                                   String method,
                                                   String v,
                                                   String session,
-                                                  String username,
                                                   int programGroupId,
                                                   String tag,
                                                   Class<T> tClass,
                                                   IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodGroupDatasUrl(appkey, format, method, v, session, username, programGroupId);
+        String url = HttpUrlCreator.getVodGroupDatasUrl(appkey, format, method, v, session, ConfigMgr.getInstance().getUserName(), programGroupId);
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
@@ -76,7 +72,6 @@ public class HttpVod {
      * @param pageNum
      * @param pageSize
      * @param categoryId
-     * @param username
      * @param programGroupId
      * @param sign
      * @param tag
@@ -92,13 +87,12 @@ public class HttpVod {
                                                             int pageNum,
                                                             int pageSize,
                                                             int categoryId,
-                                                            String username,
                                                             int programGroupId,
                                                             String sign,
                                                             String tag,
                                                             Class<T> tClass,
                                                             IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodGroupDetailDatasUrl(appkey, format, method, v, session, pageNum, pageSize, categoryId, username, programGroupId, sign);
+        String url = HttpUrlCreator.getVodGroupDetailDatasUrl(appkey, format, method, v, session, pageNum, pageSize, categoryId, ConfigMgr.getInstance().getUserName(), programGroupId, sign);
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
@@ -112,7 +106,6 @@ public class HttpVod {
      * @param session
      * @param programId
      * @param categoryId
-     * @param username
      * @param programGroupId
      * @param tag
      * @param tClass
@@ -126,12 +119,11 @@ public class HttpVod {
                                                  String session,
                                                  int programId,
                                                  int categoryId,
-                                                 String username,
                                                  int programGroupId,
                                                  String tag,
                                                  Class<T> tClass,
                                                  IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodItemDetailUrl(appkey, format, method, v, session, programId, categoryId, username, programGroupId);
+        String url = HttpUrlCreator.getVodItemDetailUrl(appkey, format, method, v, session, programId, categoryId, ConfigMgr.getInstance().getUserName(), programGroupId);
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
@@ -143,7 +135,6 @@ public class HttpVod {
      * @param method
      * @param v
      * @param session
-     * @param username
      * @param mediaId
      * @param requestIp
      * @param playingTime
@@ -158,7 +149,6 @@ public class HttpVod {
                                                  String method,
                                                  String v,
                                                  String session,
-                                                 String username,
                                                  int mediaId,
                                                  String requestIp,
                                                  int playingTime,
@@ -166,7 +156,7 @@ public class HttpVod {
                                                  String tag,
                                                  Class<T> tClass,
                                                  IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodPlayNumRecordUrl(appkey, format, method, v, session, username, mediaId, requestIp, playingTime, tenantId);
+        String url = HttpUrlCreator.getVodPlayNumRecordUrl(appkey, format, method, v, session, ConfigMgr.getInstance().getUserName(), mediaId, requestIp, playingTime, tenantId);
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
@@ -234,7 +224,6 @@ public class HttpVod {
      * @param method
      * @param v
      * @param session
-     * @param username
      * @param tag
      * @param tClass
      * @param iHttpRetCallBack
@@ -245,11 +234,10 @@ public class HttpVod {
                                                  String method,
                                                  String v,
                                                  String session,
-                                                 String username,
                                                  String tag,
                                                  Class<T> tClass,
                                                  IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodSearchMainUrl(appkey, format, method, v, session, username);
+        String url = HttpUrlCreator.getVodSearchMainUrl(appkey, format, method, v, session, ConfigMgr.getInstance().getUserName());
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
@@ -264,7 +252,6 @@ public class HttpVod {
      * @param pageNum
      * @param pageSize
      * @param searchKeyword
-     * @param username
      * @param tag
      * @param tClass
      * @param iHttpRetCallBack
@@ -278,11 +265,10 @@ public class HttpVod {
                                                     int pageNum,
                                                     int pageSize,
                                                     String searchKeyword,
-                                                    String username,
                                                     String tag,
                                                     Class<T> tClass,
                                                     IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodSearchVodUrl(appkey, format, method, v, session, pageNum, pageSize, searchKeyword, username);
+        String url = HttpUrlCreator.getVodSearchVodUrl(appkey, format, method, v, session, pageNum, pageSize, searchKeyword, ConfigMgr.getInstance().getUserName());
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
@@ -294,7 +280,6 @@ public class HttpVod {
      * @param method
      * @param v
      * @param session
-     * @param username
      * @param tag
      * @param tClass
      * @param iHttpRetCallBack
@@ -305,11 +290,10 @@ public class HttpVod {
                                                        String method,
                                                        String v,
                                                        String session,
-                                                       String username,
                                                        String tag,
                                                        Class<T> tClass,
                                                        IHttpRetCallBack<T> iHttpRetCallBack) {
-        String url = HttpUrlCreator.getVodPlayHistoryUrl(appkey, format, method, v, session, username);
+        String url = HttpUrlCreator.getVodPlayHistoryUrl(appkey, format, method, v, session, ConfigMgr.getInstance().getUserName());
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 

@@ -29,7 +29,6 @@ public class HttpApiTestEng {
                 HttpConst.METHOD_01,
                 HttpConst.VERSION,
                 "",
-                HttpConst.USERNAME,
                 "",
                 "",
                 "getVodRecommendDatas",
@@ -72,7 +71,6 @@ public class HttpApiTestEng {
                 HttpConst.METHOD_02,
                 HttpConst.VERSION,
                 "",
-                HttpConst.USERNAME,
                 1,
                 "getVodMenuByGroupDatas",
                 CategoryBoDatasRep.class,
@@ -93,7 +91,6 @@ public class HttpApiTestEng {
                 pageNum,
                 pageSize,
                 categoryId,
-                HttpConst.USERNAME,
                 1,
                 "",
                 "getVodCategoryDetailByGroupDatas",
@@ -131,7 +128,7 @@ public class HttpApiTestEng {
     /**
      * 接口名称:点播节目详情
      */
-    public static void testHttpVod04(int programId,int categoryId,IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack) {
+    public static void testHttpVod04(int programId, int categoryId, IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack) {
         HttpVod.getVodItemDetailDatas(
                 HttpConst.APP_KEY,
                 HttpConst.FORMAT,
@@ -140,7 +137,6 @@ public class HttpApiTestEng {
                 "",
                 programId,
                 categoryId,
-                HttpConst.USERNAME,
                 1,
                 "getVodItemDetailDatas",
                 ProgramDetaiContentDataRep.class,
@@ -158,7 +154,6 @@ public class HttpApiTestEng {
                 HttpConst.METHOD_05,
                 HttpConst.VERSION,
                 "",
-                HttpConst.USERNAME,
                 37,
                 "192.168.1.149",
                 5555,
@@ -289,7 +284,6 @@ public class HttpApiTestEng {
                 HttpConst.METHOD_08,
                 HttpConst.VERSION,
                 "",
-                HttpConst.USERNAME,
                 "getVodSearchMainDatas",
                 SearchMainDatasRep.class,
                 new IHttpRetCallBack<SearchMainDatasRep>() {
@@ -334,7 +328,6 @@ public class HttpApiTestEng {
                 1,
                 8,
                 "it",
-                HttpConst.USERNAME,
                 "getVodSearchKeyCodeDatas",
                 VodSearchDataRep.class,
                 new IHttpRetCallBack<VodSearchDataRep>() {
@@ -376,7 +369,6 @@ public class HttpApiTestEng {
                 HttpConst.METHOD_10,
                 HttpConst.VERSION,
                 "",
-                HttpConst.USERNAME,
                 "getVodSearchHistorListDatas",
                 ProgramSuperDataRep.class,
                 new IHttpRetCallBack<ProgramSuperDataRep>() {
