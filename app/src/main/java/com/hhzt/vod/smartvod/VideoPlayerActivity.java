@@ -32,6 +32,7 @@ public class VideoPlayerActivity extends BaseActivity implements SurfaceHolder.C
         MediaPlayer.OnErrorListener {
 
     private static final String TAG_MEDIA = "smartVod_Mdia";
+    public static final String MOVIEW_PLAYER_URL = "url";
 
     @ViewInject(R.id.videoSurface)
     private SurfaceView videoSurface;
@@ -50,7 +51,7 @@ public class VideoPlayerActivity extends BaseActivity implements SurfaceHolder.C
         super.onCreate(savedInstanceState);
 
         currDisplay = this.getWindowManager().getDefaultDisplay();
-        String videoPath = getIntent().getStringExtra("url");
+        String videoPath = getIntent().getStringExtra(MOVIEW_PLAYER_URL);
         if (TextUtils.isEmpty(videoPath)) {
             Toast.makeText(App.mContext, getText(R.string.media_url_error_tips), Toast.LENGTH_LONG).show();
             finish();

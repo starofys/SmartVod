@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><dimen name="h_1">0.55px</dimen>
+<resources><dimen name="layy1">0.55px</dimen>
 <dimen name="layy2">1.11px</dimen>
 <dimen name="layy3">1.66px</dimen>
 <dimen name="layy4">2.22px</dimen>

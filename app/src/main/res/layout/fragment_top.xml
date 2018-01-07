@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/layx60"
-                android:text="搜索"
+                android:text="@string/search"
                 android:textColor="@color/tv_white" />
 
         </com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
@@ -66,7 +66,7 @@
             android:textSize="@dimen/layx50" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="@dimen/layx1"
             android:layout_height="@dimen/layy64"
             android:layout_marginEnd="@dimen/layx10"
             android:layout_marginStart="@dimen/layx10"
@@ -95,7 +95,7 @@
         </LinearLayout>
 
         <View
-            android:layout_width="1px"
+            android:layout_width="@dimen/layx1"
             android:layout_height="@dimen/layy64"
             android:layout_marginEnd="@dimen/layx10"
             android:layout_marginStart="@dimen/layx10"

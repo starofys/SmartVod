@@ -59,13 +59,13 @@ public class BigPicturePresenter extends OpenPresenter {
         MovieGridViewHolder movieGridViewHolder = (MovieGridViewHolder) viewHolder;
 
         MovieInfoData movieInfoBean = mMovieInfoList.get(position);
-        movieGridViewHolder.ivMovieName.setText(movieInfoBean.name);
+        movieGridViewHolder.ivMovieName.setText(movieInfoBean.getName());
 
         //满足有付费的标签
 //        movieGridViewHolder.ivPayLable.setVisibility(true ? View.VISIBLE : View.GONE);
 
         //设置背景图片
-        x.image().bind(movieGridViewHolder.ivMoviePicture, movieInfoBean.smallPoster);
+        x.image().bind(movieGridViewHolder.ivMoviePicture, movieInfoBean.getSmallPoster());
     }
 
 }

@@ -15,8 +15,8 @@ import org.xutils.view.annotation.ContentView;
 @ContentView(R.layout.activity_movie_detail)
 public class MovieDetailActivity extends BaseActivity {
 
-    public static final String MOVIE_TYPE_ID = "movie_tyype_Id";
-    public static final String MOVIE_DETAIL_ID = "movie_Detail_Id";
+    public static final String MOVIE_TYPE_ID = "movie_tyype_id";
+    public static final String MOVIE_DETAIL_ID = "movie_Detail_id";
 
     //电影类型id、具体电影id
     private int mMovieTypeId;

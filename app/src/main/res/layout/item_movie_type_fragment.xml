@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/layx100"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:background="@drawable/movie_type_backgroud"
-    android:orientation="vertical">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="@dimen/layx100"
+	android:background="@drawable/movie_type_backgroud"
+	android:focusable="true"
+	android:focusableInTouchMode="true"
+	android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_movie_type"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:singleLine="true"
-        android:textColor="@color/tv_white"
-        android:textSize="50px" />
+	<TextView
+		android:id="@+id/tv_movie_type"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center"
+		android:singleLine="true"
+		android:textColor="@color/tv_white"
+		android:textSize="@dimen/layx50"/>
 
 </LinearLayout>

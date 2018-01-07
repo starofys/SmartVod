@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">SmartVod</string>
 
+    <!--通用-->
+    <string name="search">搜索</string>
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="saturday">星期六</string>
+    <string name="sunday">星期日</string>
+
     <string name="media_clarities_270p">270p</string>
     <string name="media_clarities_480p">480p</string>
     <string name="media_clarities_720p">720p</string>
@@ -15,9 +25,16 @@
     <string name="pay_one_day_movie">尊敬的客户，您选择包天影片点播需支付：</string>
 
 
+    <!--电影详情-->
     <string name="movie_detail_director">导演:%1$s</string>
     <string name="movie_detail_starring">主演:%1$s</string>
     <string name="movie_detail_type">类型:%1$s</string>
     <string name="movie_detail_description">简介:%1$s</string>
+    <string name="movie_detail_tv_series">剧集列表</string>
+    <string name="movie_detail_relate_movie">相关电影</string>
+    <string name="movie_detail_recommend_movie">推荐电影</string>
+    <string name="movie_detail_full_screen">全屏</string>
+    <string name="movie_detail_pay">付费</string>
+    <string name="movie_detail_movie_watch_for_free_time">可免费观看5分钟</string>
 
 </resources>

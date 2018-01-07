@@ -16,6 +16,7 @@ import com.hhzt.vod.api.repData.VodGroupDetailDataRep;
 import com.hhzt.vod.smartvod.adapter.BigPicturePresenter;
 import com.hhzt.vod.smartvod.adapter.SmallPicturePresenter;
 import com.hhzt.vod.smartvod.api.HttpApiTestEng;
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.GridLayoutManagerTV;
@@ -34,14 +35,12 @@ import java.util.List;
  */
 public class MovieMixPictureListFragment extends BaseFragment {
 
-    public static final String MOVIE_TYPE = "movie_type";
-
     private View mView;
     private RecyclerViewTV mRcvMovieBigPicture;
     private RecyclerViewTV mRcvMovieSmallPicture;
     private MainUpView mMainUpView;
 
-    private int mMovieType;
+    private int mMovieTypeId;
     private RecyclerViewBridge mRecyclerViewBridge;
 
     private VodGroupDetailDataRep mVodGroupDetailDataRep;
@@ -49,13 +48,13 @@ public class MovieMixPictureListFragment extends BaseFragment {
     private List<MovieInfoData> mMovieSmallPictureList = new ArrayList<>();
 
     /**
-     * @param movieType 电影类型
+     * @param movieTypeid 电影类型
      * @return
      */
-    public static MovieMixPictureListFragment getIntance(int movieType) {
+    public static MovieMixPictureListFragment getIntance(int movieTypeid) {
         MovieMixPictureListFragment fragment = new MovieMixPictureListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(MOVIE_TYPE, movieType);
+        bundle.putInt(MovieDetailActivity.MOVIE_TYPE_ID, movieTypeid);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -63,7 +62,7 @@ public class MovieMixPictureListFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMovieType = getArguments().getInt(MOVIE_TYPE);
+        mMovieTypeId = getArguments().getInt(MovieDetailActivity.MOVIE_TYPE_ID);
     }
 
     @Nullable
@@ -96,7 +95,7 @@ public class MovieMixPictureListFragment extends BaseFragment {
     }
 
     private void initData() {
-        HttpApiTestEng.testHttpVod03(1, 30, mMovieType, new IHttpRetCallBack<VodGroupDetailDataRep>() {
+        HttpApiTestEng.testHttpVod03(1, 30, mMovieTypeId, new IHttpRetCallBack<VodGroupDetailDataRep>() {
             @Override
             public void onResponseSuccess(CommonRspRetBean bean, VodGroupDetailDataRep vodGroupDetailDataRep) {
                 mVodGroupDetailDataRep = vodGroupDetailDataRep;
@@ -167,7 +166,7 @@ public class MovieMixPictureListFragment extends BaseFragment {
 
             @Override
             public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-                mRecyclerViewBridge.setFocusView(itemView, 1.0f);
+                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
             }
 
             /**
@@ -175,18 +174,18 @@ public class MovieMixPictureListFragment extends BaseFragment {
              */
             @Override
             public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-                mRecyclerViewBridge.setFocusView(itemView, 1.0f);
+                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
             }
         });
         mRcvMovieBigPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
                 Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, mMovieType);
+                intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, mMovieTypeId);
                 if(position<=1){
-                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieBigPictureList.get(position).id);
+                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieBigPictureList.get(position).getId());
                 }else{
-                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieSmallPictureList.get(position).id);
+                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieSmallPictureList.get(position).getId());
                 }
                 startActivity(intent);
             }
@@ -202,7 +201,7 @@ public class MovieMixPictureListFragment extends BaseFragment {
 
             @Override
             public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-                mRecyclerViewBridge.setFocusView(itemView, 1.0f);
+                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
             }
 
             /**
@@ -210,18 +209,18 @@ public class MovieMixPictureListFragment extends BaseFragment {
              */
             @Override
             public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-                mRecyclerViewBridge.setFocusView(itemView, 1.0f);
+                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
             }
         });
         mRcvMovieSmallPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, mMovieType);
+                intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, mMovieTypeId);
                 if(position<=1){
-                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieBigPictureList.get(position).id);
+                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieBigPictureList.get(position).getId());
                 }else{
-                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieSmallPictureList.get(position).id);
+                    intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieSmallPictureList.get(position).getId());
                 }
                 startActivity(intent);
             }
