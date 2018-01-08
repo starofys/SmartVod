@@ -115,7 +115,7 @@ public class MovieBigPictureListFragment extends BaseFragment {
 		mRcvMovieType.setLayoutManager(layoutManager);
 		mRcvMovieType.setHasFixedSize(true);
 		mRcvMovieType.setFocusable(false);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new BigPicturePresenter(mMovieInfoList));
+		GeneralAdapter generalAdapter = new GeneralAdapter(new BigPicturePresenter(getContext(), mMovieInfoList));
 		mRcvMovieType.setAdapter(generalAdapter);
 //        mRcvMovieType.setSelectedItemOffset(111, 111); // 测试移动间距.
 	}

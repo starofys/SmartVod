@@ -144,7 +144,7 @@ public class MovieMixPictureListFragment extends BaseFragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRcvMovieBigPicture.setLayoutManager(layoutManager);
         mRcvMovieBigPicture.setFocusable(false);
-        GeneralAdapter generalAdapter = new GeneralAdapter(new BigPicturePresenter(mMovieBigPictureList));
+        GeneralAdapter generalAdapter = new GeneralAdapter(new BigPicturePresenter(getContext(), mMovieBigPictureList));
         mRcvMovieBigPicture.setAdapter(generalAdapter);
 
         GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2); // 解决快速长按焦点丢失问题.
@@ -152,7 +152,7 @@ public class MovieMixPictureListFragment extends BaseFragment {
         mRcvMovieSmallPicture.setLayoutManager(gridlayoutManager);
         mRcvMovieSmallPicture.setFocusable(false);
         mRcvMovieSmallPicture.setSelectedItemOffset(111, 111); // 测试移动间距.
-        generalAdapter = new GeneralAdapter(new SmallPicturePresenter(mMovieSmallPictureList));
+        generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), mMovieSmallPictureList));
         mRcvMovieSmallPicture.setAdapter(generalAdapter);
     }
 

@@ -234,7 +234,7 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 			mRcvRelateMovie.setLayoutManager(layoutManager);
 			mRcvRelateMovie.setFocusable(false);
 //        mProgramDetaiContentDataRep.relevantList
-			generalAdapter = new GeneralAdapter(new SmallPicturePresenter(mRelateMovie));
+			generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), mRelateMovie));
 			mRcvRelateMovie.setAdapter(generalAdapter);
 		}
 
@@ -246,7 +246,7 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 			mRcvRecommendMovie.setLayoutManager(layoutManager);
 			mRcvRecommendMovie.setFocusable(false);
-			generalAdapter = new GeneralAdapter(new SmallPicturePresenter(mHotMovie));
+			generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), mHotMovie));
 			mRcvRecommendMovie.setAdapter(generalAdapter);
 		}
 	}

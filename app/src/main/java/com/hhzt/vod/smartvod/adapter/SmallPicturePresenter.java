@@ -1,15 +1,15 @@
 package com.hhzt.vod.smartvod.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.smartvod.R;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
-
-import org.xutils.x;
 
 import java.util.List;
 
@@ -18,10 +18,12 @@ import java.util.List;
  */
 public class SmallPicturePresenter extends OpenPresenter {
 
+    private Context mContext;
     private List<MovieInfoData> mMovieInfoList;
     private GeneralAdapter mAdapter;
 
-    public SmallPicturePresenter(List<MovieInfoData> mMovieInfoList) {
+    public SmallPicturePresenter(Context context, List<MovieInfoData> mMovieInfoList) {
+        this.mContext = context;
         this.mMovieInfoList = mMovieInfoList;
     }
 
@@ -65,7 +67,12 @@ public class SmallPicturePresenter extends OpenPresenter {
 //        movieGridViewHolder.ivPayLable.setVisibility(true ? View.VISIBLE : View.GONE);
 
         //设置背景图片
-        x.image().bind(movieGridViewHolder.ivMoviePicture, movieInfoBean.getSmallPoster());
+//        x.image().bind(movieGridViewHolder.ivMoviePicture, movieInfoBean.getSmallPoster());
+        Glide.with(mContext)
+                .load(movieInfoBean.getSmallPoster())
+                .placeholder(R.drawable.img_default)
+                .crossFade()
+                .into(movieGridViewHolder.ivMoviePicture);
     }
 
 }

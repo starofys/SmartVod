@@ -115,7 +115,7 @@ public class MovieSmallPictureListFragment extends BaseFragment {
         mRcvMovieType.setLayoutManager(gridlayoutManager);
         mRcvMovieType.setFocusable(false);
 //        mRcvMovieType.setSelectedItemOffset(111, 111); // 测试移动间距.
-        GeneralAdapter generalAdapter = new GeneralAdapter(new SmallPicturePresenter(mMovieInfoList));
+        GeneralAdapter generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), mMovieInfoList));
         mRcvMovieType.setAdapter(generalAdapter);
     }
 
