@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class LeftMenuPresenter extends OpenPresenter {
 
-    private List<SimpleRepBean> mMovieTypeName = new ArrayList<SimpleRepBean>();
+    private List<SimpleRepBean> mMovieTypeName = new ArrayList<>();
 
     public LeftMenuPresenter(List<SimpleRepBean> mMovieTypeName) {
         this.mMovieTypeName = mMovieTypeName;

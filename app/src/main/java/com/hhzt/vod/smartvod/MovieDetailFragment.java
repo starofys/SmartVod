@@ -45,7 +45,7 @@ import java.util.List;
  * Created by wujichang on 2017/12/28.
  */
 @ContentView(R.layout.fragment_movie_detail)
-public class MovieDetailFragment extends BaseFragment implements IMovieDetail, View.OnClickListener ,ViewTreeObserver.OnGlobalFocusChangeListener{
+public class MovieDetailFragment extends BaseFragment implements IMovieDetail, View.OnClickListener, ViewTreeObserver.OnGlobalFocusChangeListener {
 
 	//播放
 	@ViewInject(R.id.lml_movie_play)

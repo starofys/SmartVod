@@ -26,16 +26,16 @@ import java.util.List;
 /**
  * Created by wujichang on 2017/12/28.
  */
-@ContentView(R.layout.fragment_main)
+@ContentView(R.layout.fragment_home_main)
 public class HomeContentFragment extends BaseFragment {
 	private int mMovieShowType = MovieFactory.MOVIE_SHOW_TYPE_BIG_PICTURE;
 
-	@ViewInject(R.id.rcv_movie_type)
-	private RecyclerViewTV mRcvMovieType;
+	@ViewInject(R.id.rcv_movie_type_list)
+	private RecyclerViewTV mRcvMovieTypeList;
 
 	//暂时用工厂模式。。如需完美的满足编码以及接口的原则，可以使用工厂模式+反射方式实现。满足接口的思想："封装隔离"
 	private BaseFragment mMoviePictureListFragment;
-	private List<SimpleRepBean> mMovieTypeName = new ArrayList<>();
+	private List<SimpleRepBean> mMovieTypeNames = new ArrayList<>();
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,9 +57,9 @@ public class HomeContentFragment extends BaseFragment {
 		HttpApiTestEng.testHttpVod02(new IHttpRetCallBack<CategoryBoDatasRep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, CategoryBoDatasRep categoryBoDatasRep) {
-				mMovieTypeName = categoryBoDatasRep.getCategoryBoList();
+				mMovieTypeNames = categoryBoDatasRep.getCategoryBoList();
 
-				mMoviePictureListFragment = MovieFactory.getFragment(mMovieShowType, mMovieTypeName.get(0).getId());
+				mMoviePictureListFragment = MovieFactory.getFragment(mMovieShowType, mMovieTypeNames.get(0).getId());
 				FragmentUtil.replace(getActivity(), false, R.id.fragment_movie_container, mMoviePictureListFragment);
 				bindAdater();
 				initEvent();
@@ -90,19 +90,22 @@ public class HomeContentFragment extends BaseFragment {
 	private void bindAdater() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-		mRcvMovieType.setLayoutManager(layoutManager);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new LeftMenuPresenter(mMovieTypeName));
-		mRcvMovieType.setAdapter(generalAdapter);
+		mRcvMovieTypeList.setLayoutManager(layoutManager);
+		GeneralAdapter generalAdapter = new GeneralAdapter(new LeftMenuPresenter(mMovieTypeNames));
+		mRcvMovieTypeList.setAdapter(generalAdapter);
 	}
 
 	private void initEvent() {
-		mRcvMovieType.setOnItemListener(new RecyclerViewTV.OnItemListener() {
+		mRcvMovieTypeList.setDefaultSelect(0);
+		mRcvMovieTypeList.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
+
 			}
 
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
+				onViewItemClick(itemView, position);
 			}
 
 			/**
@@ -112,14 +115,14 @@ public class HomeContentFragment extends BaseFragment {
 			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
 			}
 		});
-		mRcvMovieType.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+		mRcvMovieTypeList.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
 				onViewItemClick(itemView, position);
 			}
 		});
 
-		mRcvMovieType.setOnKeyListener(new View.OnKeyListener() {
+		mRcvMovieTypeList.setOnKeyListener(new View.OnKeyListener() {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (keyCode == KeyEvent.ACTION_UP) {
@@ -144,7 +147,7 @@ public class HomeContentFragment extends BaseFragment {
 				mMovieShowType = MovieFactory.MOVIE_SHOW_TYPE_SMALL_PICTURE;
 				break;
 		}
-		mMoviePictureListFragment = MovieFactory.getFragment(mMovieShowType, mMovieTypeName.get(pos).getId());
+		mMoviePictureListFragment = MovieFactory.getFragment(mMovieShowType, mMovieTypeNames.get(pos).getId());
 		FragmentUtil.replace(getActivity(), false, R.id.fragment_movie_container, mMoviePictureListFragment);
 	}
 

@@ -24,7 +24,7 @@
 			android:orientation="horizontal">
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
-				android:id="@+id/rcv_movie_type"
+				android:id="@+id/rcv_movie_type_list"
 				android:layout_width="@dimen/layx365"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
