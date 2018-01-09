@@ -1,32 +1,32 @@
 package com.hhzt.vod.smartvod;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.hhzt.vod.api.CommonRspRetBean;
-import com.hhzt.vod.api.IHttpRetCallBack;
+import com.hhzt.vod.api.otherBean.EpisodeBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
-import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
+import com.hhzt.vod.api.repBean.ProgrameDetailBo;
 import com.hhzt.vod.media.Clarity;
 import com.hhzt.vod.media.NiceVideoPlayer;
 import com.hhzt.vod.media.TxVideoPlayerController;
 import com.hhzt.vod.smartvod.adapter.EpisodePresenter;
 import com.hhzt.vod.smartvod.adapter.EpisodeRangePresenter;
 import com.hhzt.vod.smartvod.adapter.SmallPicturePresenter;
-import com.hhzt.vod.smartvod.api.HttpApiTestEng;
 import com.hhzt.vod.smartvod.constant.ConfigX;
-import com.hhzt.vod.smartvod.iview.IMovieDetail;
+import com.hhzt.vod.smartvod.callback.MovieDetailCallBack;
+import com.hhzt.vod.smartvod.mvp.link.InJection;
+import com.hhzt.vod.smartvod.mvp.link.MovieDetailContract;
+import com.hhzt.vod.smartvod.mvp.presenter.MovieDetailLinkPresenter;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.LinearLayoutManagerTV;
@@ -45,7 +45,7 @@ import java.util.List;
  * Created by wujichang on 2017/12/28.
  */
 @ContentView(R.layout.fragment_movie_detail)
-public class MovieDetailFragment extends BaseFragment implements IMovieDetail, View.OnClickListener, ViewTreeObserver.OnGlobalFocusChangeListener {
+public class MovieDetailFragment extends BaseFragment implements View.OnClickListener, ViewTreeObserver.OnGlobalFocusChangeListener, MovieDetailContract.MovieDetailView {
 
 	//播放
 	@ViewInject(R.id.lml_movie_play)
@@ -98,14 +98,12 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 
 	private RecyclerViewBridge mRecyclerViewBridge;
 
-	private ProgramDetaiContentDataRep mProgramDetaiContentDataRep;
-	private List<MovieInfoData> mRelateMovie = new ArrayList<>();
-	private List<MovieInfoData> mHotMovie = new ArrayList<>();
-	private List<String> mEpisodeList = new ArrayList<>();
-	private List<String> mEpisodeRangeList = new ArrayList<>();
-
+	private int mPlayLocation;
 	private int mMovieTypeId;
 	private int mMovieDetailId;
+
+	private MovieDetailContract.MovieDetailPresenter mMovieDetailLinkPresenter;
+	private MovieDetailCallBack mMovieDetailCallBack;
 
 	public static MovieDetailFragment getInstance(int movieTypeId, int movieDetailId) {
 		MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
@@ -124,6 +122,15 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 	@Override
 	public void onAttach(Context context) {
 		super.onAttach(context);
+		mMovieDetailLinkPresenter = new MovieDetailLinkPresenter(context, InJection.initMovieDetail(), this);
+		mMovieDetailLinkPresenter.start();
+		mMovieDetailLinkPresenter.init();
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mMovieDetailCallBack = (MovieDetailCallBack) activity;
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.O)
@@ -134,7 +141,9 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mMovieDetailId = getArguments().getInt(MovieDetailActivity.MOVIE_DETAIL_ID, 0);
 
 		initView();
-		requestData();
+		mMovieDetailLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, 29, 99999);
+//		mMovieDetailLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, mMovieTypeId, mMovieDetailId);
+		initEvent();
 	}
 
 	private void initView() {
@@ -143,124 +152,14 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 	}
 
-	private void requestData() {
-		HttpApiTestEng.testHttpVod04(29, 99999, new IHttpRetCallBack<ProgramDetaiContentDataRep>() {
-			@Override
-			public void onResponseSuccess(CommonRspRetBean bean, ProgramDetaiContentDataRep programDetaiContentDataRep) {
-				Log.e("aaaaaonResponseSuccess", programDetaiContentDataRep.toString());
-				Log.e("aaaaaonResponseSuccess", mMovieTypeId + "   ====     " + mMovieDetailId);
-				mProgramDetaiContentDataRep = programDetaiContentDataRep;
-				mRelateMovie.addAll(new ArrayList<MovieInfoData>());
-				mHotMovie.addAll(mProgramDetaiContentDataRep.hotList);
-
-				initData();
-				bindAdapter();
-				initEvent();
-				initMedia();
-			}
-
-			@Override
-			public void onResponseFailed(CommonRspRetBean bean) {
-				Log.e("aaaaaonResponseFailed", mMovieTypeId + "   ====     " + mMovieDetailId);
-			}
-
-			@Override
-			public void onError(String result) {
-				Log.e("aaaaaonError", mMovieTypeId + "   ====     " + mMovieDetailId + "     result=" + result);
-			}
-
-			@Override
-			public void onCancelled() {
-				Log.e("aaaaaonCancelled", mMovieTypeId + "   ====     " + mMovieDetailId);
-			}
-
-			@Override
-			public void onFinish() {
-				Log.e("aaaaaonFinish", mMovieTypeId + "   ====     " + mMovieDetailId);
-			}
-		});
-	}
-
-	private void initData() {
-		//电影详情(名字、时间、导演、主演、类型、简介)
-		String writers = String.format(getResources().getString(R.string.movie_detail_director), mProgramDetaiContentDataRep.programDetailBo.getName());
-		String actors = String.format(getResources().getString(R.string.movie_detail_starring), mProgramDetaiContentDataRep.programDetailBo.getYear());
-		String areaname = String.format(getResources().getString(R.string.movie_detail_type), mProgramDetaiContentDataRep.programDetailBo.getAreaname());
-		String description = String.format(getResources().getString(R.string.movie_detail_description), mProgramDetaiContentDataRep.programDetailBo.getDescription());
-		mTvMovieName.setText(mProgramDetaiContentDataRep.programDetailBo.getName());
-		mTvMovieTime.setText(mProgramDetaiContentDataRep.programDetailBo.getYear());
-		mTvMovieDirector.setText(writers);
-		mTvMovieStarring.setText(actors);
-		mTvMovieType.setText(areaname);
-		mTvMovieDescription.setText(description);
-
-		int number = mProgramDetaiContentDataRep.programDetailBo.getMediaList().size();
-		for (int i = 1; i <= number; i++) {
-			mEpisodeList.add(i + "");
-		}
-
-		boolean divided = number % 10 == 0;
-		if (divided) {
-			number = number / 10;
-		} else {
-			number = number / 10 + 1;
-		}
-		for (int i = 0; i < number; i++) {
-			mEpisodeRangeList.add("" + (i * 10 + 1) + "-" + (i * 10 + 10));
-		}
-	}
-
-	private void bindAdapter() {
-		LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
-		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-		mRcvEpisode.setLayoutManager(layoutManager);
-		mRcvEpisode.setFocusable(false);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new EpisodePresenter(mEpisodeList));
-		mRcvEpisode.setAdapter(generalAdapter);
-
-		layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
-		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-		mRcvEpisodeRange.setLayoutManager(layoutManager);
-		mRcvEpisodeRange.setFocusable(false);
-		generalAdapter = new GeneralAdapter(new EpisodeRangePresenter(mEpisodeRangeList));
-		mRcvEpisodeRange.setAdapter(generalAdapter);
-
-		if (mRelateMovie.size() == 0) {
-			mLlRelateMovie.setVisibility(View.GONE);
-		} else {
-			mLlRelateMovie.setVisibility(View.VISIBLE);
-			layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
-			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-			mRcvRelateMovie.setLayoutManager(layoutManager);
-			mRcvRelateMovie.setFocusable(false);
-//        mProgramDetaiContentDataRep.relevantList
-			generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), mRelateMovie));
-			mRcvRelateMovie.setAdapter(generalAdapter);
-		}
-
-		if (mHotMovie.size() == 0) {
-			mLlRecommendMovie.setVisibility(View.GONE);
-		} else {
-			mLlRecommendMovie.setVisibility(View.VISIBLE);
-			layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
-			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-			mRcvRecommendMovie.setLayoutManager(layoutManager);
-			mRcvRecommendMovie.setFocusable(false);
-			generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), mHotMovie));
-			mRcvRecommendMovie.setAdapter(generalAdapter);
-		}
-	}
-
 	private void initEvent() {
 		mRivMovieFullScreen.setOnClickListener(this);
 		mLmlMoviePlay.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 		mLmlFullscreenOrPay.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 
-
 		mRcvEpisode.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-				// 传入 itemView也可以, 自己保存的 oldView也可以.
 				mRecyclerViewBridge.setUnFocusView(itemView);
 			}
 
@@ -280,7 +179,7 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mRcvEpisode.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-				//todo
+				mPlayLocation = position;
 			}
 		});
 
@@ -288,7 +187,6 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mRcvEpisodeRange.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-				// 传入 itemView也可以, 自己保存的 oldView也可以.
 				mRecyclerViewBridge.setUnFocusView(itemView);
 			}
 
@@ -316,7 +214,6 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mRcvRelateMovie.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-				// 传入 itemView也可以, 自己保存的 oldView也可以.
 				mRecyclerViewBridge.setUnFocusView(itemView);
 			}
 
@@ -336,7 +233,7 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mRcvRelateMovie.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-				//todo
+				if (mMovieDetailCallBack != null) mMovieDetailLinkPresenter.clickOtherMovieDetail(mMovieDetailCallBack, MovieDetailLinkPresenter.TYPE_HOT, position);
 			}
 		});
 
@@ -344,7 +241,6 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mRcvRecommendMovie.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-				// 传入 itemView也可以, 自己保存的 oldView也可以.
 				mRecyclerViewBridge.setUnFocusView(itemView);
 			}
 
@@ -364,61 +260,16 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 		mRcvRecommendMovie.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-				//todo
+				if (mMovieDetailCallBack != null) mMovieDetailLinkPresenter.clickOtherMovieDetail(mMovieDetailCallBack, MovieDetailLinkPresenter.TYPE_HOT, position);
 			}
 		});
-	}
-
-	private void initMedia() {
-		mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_NATIVE); // IjkPlayer or MediaPlayer
-		TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
-		controller.setTitle(mProgramDetaiContentDataRep.programDetailBo.getName());
-		controller.setLenght(117000);
-		controller.setClarity(getClarites(), 0);
-		Glide.with(getActivity())
-				.load(mProgramDetaiContentDataRep.programDetailBo.getSmallPoster())
-				.placeholder(R.drawable.img_default)
-				.crossFade()
-				.into(controller.imageView());
-		mNiceVideoPlayer.setController(controller);
-	}
-
-	public List<Clarity> getClarites() {
-		List<Clarity> clarities = new ArrayList<>();
-		clarities.add(new Clarity(getString(R.string.media_clarities_normal), getString(R.string.media_clarities_270p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-		clarities.add(new Clarity(getString(R.string.media_clarities_high), getString(R.string.media_clarities_480p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-		clarities.add(new Clarity(getString(R.string.media_clarities_super), getString(R.string.media_clarities_720p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-		clarities.add(new Clarity(getString(R.string.media_clarities_blue), getString(R.string.media_clarities_1080p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-		return clarities;
-	}
-
-	@Override
-	public void showSmallVideo() {
-
-	}
-
-	@Override
-	public void showMovieDetail() {
-
-	}
-
-	@Override
-	public void showMovieItemTips() {
-
-	}
-
-	@Override
-	public void showMovieRecommend() {
-
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.riv_movie_full_screen:
-				Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
-				intent.putExtra(VideoPlayerActivity.MOVIEW_PLAYER_URL, mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath());
-				startActivity(intent);
+				mMovieDetailLinkPresenter.toVideoPlayerActivity(getActivity(), VideoPlayerActivity.class, mPlayLocation);
 				break;
 			default:
 				break;
@@ -431,5 +282,84 @@ public class MovieDetailFragment extends BaseFragment implements IMovieDetail, V
 			newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
 		float scale = ConfigX.SCALE;
 		mMainUpView.setFocusView(newFocus, scale);
+	}
+
+	@Override
+	public void setPresenter(MovieDetailContract.MovieDetailPresenter presenter) {
+		mMovieDetailLinkPresenter = presenter;
+	}
+
+	@Override
+	public void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon) {
+		mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_NATIVE); // IjkPlayer or MediaPlayer
+		TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
+		controller.setTitle(movieName);
+		controller.setLenght(117000);
+		controller.setClarity(clarities, 0);
+		Glide.with(getActivity())
+				.load(urlIcon)
+				.placeholder(R.drawable.img_default)
+				.crossFade()
+				.into(controller.imageView());
+		mNiceVideoPlayer.setController(controller);
+	}
+
+	@Override
+	public void showMovieDetail(List<EpisodeBean> episodeList, List<String> episodeRangeList, ProgrameDetailBo programDetailBo) {
+		//电影详情(名字、时间、导演、主演、类型、简介)
+		String writers = String.format(getResources().getString(R.string.movie_detail_director), programDetailBo.getName());
+		String actors = String.format(getResources().getString(R.string.movie_detail_starring), programDetailBo.getYear());
+		String areaname = String.format(getResources().getString(R.string.movie_detail_type), programDetailBo.getAreaname());
+		String description = String.format(getResources().getString(R.string.movie_detail_description), programDetailBo.getDescription());
+		mTvMovieName.setText(programDetailBo.getName());
+		mTvMovieTime.setText(programDetailBo.getYear());
+		mTvMovieDirector.setText(writers);
+		mTvMovieStarring.setText(actors);
+		mTvMovieType.setText(areaname);
+		mTvMovieDescription.setText(description);
+
+		LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+		mRcvEpisode.setLayoutManager(layoutManager);
+		mRcvEpisode.setFocusable(false);
+		GeneralAdapter generalAdapter = new GeneralAdapter(new EpisodePresenter(episodeList));
+		mRcvEpisode.setAdapter(generalAdapter);
+
+		LinearLayoutManagerTV layoutManagerRange = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+		layoutManagerRange.setOrientation(LinearLayoutManager.HORIZONTAL);
+		mRcvEpisodeRange.setLayoutManager(layoutManagerRange);
+		mRcvEpisodeRange.setFocusable(false);
+		GeneralAdapter generalAdapterRange = new GeneralAdapter(new EpisodeRangePresenter(episodeRangeList));
+		mRcvEpisodeRange.setAdapter(generalAdapterRange);
+	}
+
+	@Override
+	public void showMovieRelate(ArrayList<MovieInfoData> relevantList) {
+		if (relevantList.size() == 0) {
+			mLlRelateMovie.setVisibility(View.GONE);
+		} else {
+			mLlRelateMovie.setVisibility(View.VISIBLE);
+			LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+			mRcvRelateMovie.setLayoutManager(layoutManager);
+			mRcvRelateMovie.setFocusable(false);
+			GeneralAdapter generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), relevantList));
+			mRcvRelateMovie.setAdapter(generalAdapter);
+		}
+	}
+
+	@Override
+	public void showMovieHot(ArrayList<MovieInfoData> hotList) {
+		if (hotList.size() == 0) {
+			mLlRecommendMovie.setVisibility(View.GONE);
+		} else {
+			mLlRecommendMovie.setVisibility(View.VISIBLE);
+			LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+			mRcvRecommendMovie.setLayoutManager(layoutManager);
+			mRcvRecommendMovie.setFocusable(false);
+			GeneralAdapter generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), hotList));
+			mRcvRecommendMovie.setAdapter(generalAdapter);
+		}
 	}
 }

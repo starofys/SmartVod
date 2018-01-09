@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.hhzt.vod.smartvod.iview.ISearchView;
+import com.hhzt.vod.smartvod.mvp.iview.ISearchView;
 
 import org.xutils.view.annotation.ContentView;
 

@@ -7,35 +7,29 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.hhzt.vod.api.CommonRspRetBean;
-import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
-import com.hhzt.vod.api.repData.CategoryBoDatasRep;
 import com.hhzt.vod.smartvod.adapter.LeftMenuPresenter;
-import com.hhzt.vod.smartvod.api.HttpApiTestEng;
-import com.hhzt.vod.smartvod.utils.FragmentUtil;
+import com.hhzt.vod.smartvod.constant.ConfigX;
+import com.hhzt.vod.smartvod.mvp.link.HomeMovieTypeContract;
+import com.hhzt.vod.smartvod.mvp.link.InJection;
+import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieTypeLinkPresenter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by wujichang on 2017/12/28.
  */
 @ContentView(R.layout.fragment_home_main)
-public class HomeContentFragment extends BaseFragment {
-	private int mMovieShowType = MovieFactory.MOVIE_SHOW_TYPE_BIG_PICTURE;
-
+public class HomeContentFragment extends BaseFragment implements HomeMovieTypeContract.IHomeMovieTypeView {
 	@ViewInject(R.id.rcv_movie_type_list)
 	private RecyclerViewTV mRcvMovieTypeList;
 
-	//暂时用工厂模式。。如需完美的满足编码以及接口的原则，可以使用工厂模式+反射方式实现。满足接口的思想："封装隔离"
-	private BaseFragment mMoviePictureListFragment;
-	private List<SimpleRepBean> mMovieTypeNames = new ArrayList<>();
+	private HomeMovieTypeContract.HomeMovieTypePresenter mHomeMovieTypeLinkPresenter;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,53 +39,22 @@ public class HomeContentFragment extends BaseFragment {
 	@Override
 	public void onAttach(Context context) {
 		super.onAttach(context);
+		mHomeMovieTypeLinkPresenter = new HomeMovieTypeLinkPresenter(context, InJection.initHomeType(), this);
+		mHomeMovieTypeLinkPresenter.start();
+		mHomeMovieTypeLinkPresenter.init();
 	}
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		requestData();
+		mHomeMovieTypeLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID);
 	}
 
-	private void requestData() {
-		HttpApiTestEng.testHttpVod02(new IHttpRetCallBack<CategoryBoDatasRep>() {
-			@Override
-			public void onResponseSuccess(CommonRspRetBean bean, CategoryBoDatasRep categoryBoDatasRep) {
-				mMovieTypeNames = categoryBoDatasRep.getCategoryBoList();
-
-				mMoviePictureListFragment = MovieFactory.getFragment(mMovieShowType, mMovieTypeNames.get(0).getId());
-				FragmentUtil.replace(getActivity(), false, R.id.fragment_movie_container, mMoviePictureListFragment);
-				bindAdater();
-				initEvent();
-			}
-
-			@Override
-			public void onResponseFailed(CommonRspRetBean bean) {
-
-			}
-
-			@Override
-			public void onError(String result) {
-
-			}
-
-			@Override
-			public void onCancelled() {
-
-			}
-
-			@Override
-			public void onFinish() {
-
-			}
-		});
-	}
-
-	private void bindAdater() {
+	private void bindAdater(List<SimpleRepBean> movieTypeNames) {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 		mRcvMovieTypeList.setLayoutManager(layoutManager);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new LeftMenuPresenter(mMovieTypeNames));
+		GeneralAdapter generalAdapter = new GeneralAdapter(new LeftMenuPresenter(movieTypeNames));
 		mRcvMovieTypeList.setAdapter(generalAdapter);
 	}
 
@@ -105,7 +68,7 @@ public class HomeContentFragment extends BaseFragment {
 
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-				onViewItemClick(itemView, position);
+				mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
 			}
 
 			/**
@@ -118,7 +81,7 @@ public class HomeContentFragment extends BaseFragment {
 		mRcvMovieTypeList.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-				onViewItemClick(itemView, position);
+				mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
 			}
 		});
 
@@ -133,25 +96,21 @@ public class HomeContentFragment extends BaseFragment {
 		});
 	}
 
-	// 左边侧边栏的单击事件.
-	private void onViewItemClick(View v, int pos) {
-		switch (pos) {
-			case 0:
-				mMovieShowType = MovieFactory.MOVIE_SHOW_TYPE_BIG_PICTURE;
-				break;
-			case 1:
-				mMovieShowType = MovieFactory.MOVIE_SHOW_TYPE_MIX_PICTURE;
-				break;
-			case 2:
-			default:
-				mMovieShowType = MovieFactory.MOVIE_SHOW_TYPE_SMALL_PICTURE;
-				break;
-		}
-		mMoviePictureListFragment = MovieFactory.getFragment(mMovieShowType, mMovieTypeNames.get(pos).getId());
-		FragmentUtil.replace(getActivity(), false, R.id.fragment_movie_container, mMoviePictureListFragment);
+	@Override
+	public void setPresenter(HomeMovieTypeContract.HomeMovieTypePresenter presenter) {
+		mHomeMovieTypeLinkPresenter = presenter;
 	}
 
-	public float getDimension(int id) {
-		return getResources().getDimension(id);
+	@Override
+	public void showData(List<SimpleRepBean> movieTypeNames) {
+		mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, 0);
+		bindAdater(movieTypeNames);
+		initEvent();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mHomeMovieTypeLinkPresenter.destoryInit();
 	}
 }

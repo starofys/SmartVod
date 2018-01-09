@@ -3,11 +3,8 @@ package com.hhzt.vod.smartvod;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.hhzt.vod.smartvod.iview.IHomeTopView;
+import com.hhzt.vod.smartvod.mvp.iview.IHomeTopView;
 
 import org.xutils.view.annotation.ContentView;
 

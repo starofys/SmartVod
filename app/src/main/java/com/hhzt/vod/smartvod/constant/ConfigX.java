@@ -12,4 +12,5 @@ public class ConfigX {
 
     //图片选中缩放大小
 	public static final float SCALE = 1.0f;
+	public static final int PROGRAM_GROUP_ID = 1;
 }

@@ -1,7 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
+	android:background="@drawable/bg_main"
+	android:orientation="horizontal"
+	android:paddingEnd="@dimen/layx106"
+	android:paddingStart="@dimen/layx106"
+	android:paddingTop="@dimen/layx80">
 
+	<LinearLayout
+		android:layout_width="@dimen/layx633"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
+			android:id="@+id/lml_keyboard"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/layy81"
+			android:gravity="bottom"
+			android:orientation="horizontal">
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
+				android:id="@+id/riv_full_keyboard"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:focusableInTouchMode="true">
+
+				<TextView
+					android:id="@+id/tv_full_keyboard"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@drawable/ic_search_backgroud"
+					android:gravity="center"
+					android:text="@string/search_full_keyboard"
+					android:textColor="@drawable/tv_color_blue_white_selector"/>
+			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
+				android:id="@+id/riv_t9_keyboard"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:focusableInTouchMode="true">
+
+				<TextView
+					android:id="@+id/tv_t9_keyboard"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginStart="@dimen/layx23"
+					android:background="@drawable/ic_search_backgroud"
+					android:gravity="center"
+					android:text="@string/search_t9_keyboard"
+					android:textColor="@drawable/tv_color_blue_white_selector"/>
+			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
+		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/layx55"
+			android:layout_marginTop="@dimen/layx83"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/layx50"
+				android:src="@drawable/ic_search2"/>
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/layx30"
+				android:src="@drawable/ic_vertical_line"/>
+
+			<TextView
+				android:id="@+id/tv_search_movie_name"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/search_movie_tip"
+				android:textColor="@color/tv_white_translate"
+				android:textSize="@dimen/layx32"/>
+		</LinearLayout>
+
+		<view
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/layy1"
+			android:textColor="@color/tv_white_translate"/>
+
+		<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+
+
+		<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
+			android:id="@+id/lml_delete_or_clear"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/layy81"
+			android:gravity="bottom"
+			android:orientation="horizontal">
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
+				android:id="@+id/riv_delete"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:focusableInTouchMode="true">
+
+				<TextView
+					android:id="@+id/tv_delete"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@drawable/ic_search_backgroud"
+					android:gravity="center"
+					android:text="@string/delete"
+					android:textColor="@color/tv_white"/>
+			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
+				android:id="@+id/riv_clear"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:focusableInTouchMode="true">
+
+				<TextView
+					android:id="@+id/rb_clear"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginStart="@dimen/layx23"
+					android:background="@drawable/ic_search_backgroud"
+					android:gravity="center"
+					android:text="@string/clear"
+					android:textColor="@color/tv_white"/>
+			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
+		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
+	</LinearLayout>
+
+
+	<View
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"/>
+
+	<LinearLayout
+		android:layout_width="@dimen/layx854"
+		android:layout_height="match_parent"
+		android:layout_marginTop="@dimen/layy105"
+		android:orientation="vertical">
+
+	</LinearLayout>
 </LinearLayout>
