@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +8,7 @@
 	android:background="@drawable/bg_main"
 	android:paddingEnd="@dimen/layx106"
 	android:paddingStart="@dimen/layx106"
+	android:orientation="horizontal"
 	android:paddingTop="@dimen/layx80">
 
 	<LinearLayout
@@ -38,7 +40,7 @@
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/search_full_keyboard"
-					android:textColor="@color/tv_white"/>
+					android:textColor="@color/blue"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
@@ -90,7 +92,7 @@
 				android:textSize="@dimen/layx32"/>
 		</LinearLayout>
 
-		<view
+		<View
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/layy1"
 			android:textColor="@color/tv_white_translate"/>
@@ -199,6 +201,7 @@
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:visibility="gone"
 				android:gravity="center_vertical">
 
 				<ImageView
@@ -219,6 +222,7 @@
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_search_history"
 				android:layout_width="match_parent"
+				android:visibility="gone"
 				android:layout_height="@dimen/layy248"
 				android:layout_marginTop="@dimen/layy18"/>
 
@@ -228,7 +232,8 @@
 			android:id="@+id/ll_search_result"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:orientation="vertical">
+			android:orientation="vertical"
+			android:visibility="gone">
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_search_result"
@@ -240,8 +245,8 @@
 
 	<com.hhzt.vod.viewlayer.androidtvwidget.view.MainUpView
 		android:id="@+id/mainUpView1"
-		focusable="true"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:focusable="true"
 		app:upImageRes="@drawable/ic_select_border"/>
 </RelativeLayout>
