@@ -5,13 +5,12 @@ import android.os.Bundle;
 
 import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.smartvod.constant.ConfigX;
-import com.hhzt.vod.smartvod.mvp.iview.IHomeViewer;
 import com.hhzt.vod.smartvod.utils.FragmentUtil;
 
 import org.xutils.view.annotation.ContentView;
 
 @ContentView(R.layout.activity_main)
-public class HomeActivity extends BaseActivity implements IHomeViewer {
+public class HomeActivity extends BaseActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +29,6 @@ public class HomeActivity extends BaseActivity implements IHomeViewer {
         super.onNewIntent(intent);
 
         initConfig();
-    }
-
-    @Override
-    public void showTypeList() {
-
-    }
-
-    @Override
-    public void showTopInfo() {
-
-    }
-
-    @Override
-    public void showContent(int type) {
-
     }
 
     private void initConfig() {

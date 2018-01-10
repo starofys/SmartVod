@@ -21,7 +21,7 @@ import com.hhzt.vod.media.NiceVideoPlayer;
 import com.hhzt.vod.media.TxVideoPlayerController;
 import com.hhzt.vod.smartvod.adapter.EpisodePresenter;
 import com.hhzt.vod.smartvod.adapter.EpisodeRangePresenter;
-import com.hhzt.vod.smartvod.adapter.SmallPicturePresenter;
+import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.callback.MovieDetailCallBack;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
@@ -343,7 +343,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 			mRcvRelateMovie.setLayoutManager(layoutManager);
 			mRcvRelateMovie.setFocusable(false);
-			GeneralAdapter generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), relevantList));
+			GeneralAdapter generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), relevantList));
 			mRcvRelateMovie.setAdapter(generalAdapter);
 		}
 	}
@@ -358,7 +358,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 			mRcvRecommendMovie.setLayoutManager(layoutManager);
 			mRcvRecommendMovie.setFocusable(false);
-			GeneralAdapter generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), hotList));
+			GeneralAdapter generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), hotList));
 			mRcvRecommendMovie.setAdapter(generalAdapter);
 		}
 	}

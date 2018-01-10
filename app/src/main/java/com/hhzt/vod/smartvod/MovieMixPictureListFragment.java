@@ -8,8 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.hhzt.vod.api.repBean.MovieInfoData;
-import com.hhzt.vod.smartvod.adapter.BigPicturePresenter;
-import com.hhzt.vod.smartvod.adapter.SmallPicturePresenter;
+import com.hhzt.vod.smartvod.adapter.HomeBigPicturePresenter;
+import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
@@ -97,14 +97,14 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 		mRcvMovieBigPicture.setLayoutManager(layoutManager);
 		mRcvMovieBigPicture.setFocusable(false);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new BigPicturePresenter(getContext(), mMovieBigPictureList));
+		GeneralAdapter generalAdapter = new GeneralAdapter(new HomeBigPicturePresenter(getContext(), mMovieBigPictureList));
 		mRcvMovieBigPicture.setAdapter(generalAdapter);
 
 		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
 		gridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
 		mRcvMovieSmallPicture.setLayoutManager(gridlayoutManager);
 		mRcvMovieSmallPicture.setFocusable(false);
-		generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), mMovieSmallPictureList));
+		generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), mMovieSmallPictureList));
 		mRcvMovieSmallPicture.setAdapter(generalAdapter);
 	}
 

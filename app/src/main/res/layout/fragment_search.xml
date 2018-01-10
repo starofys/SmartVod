@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@drawable/bg_main"
-	android:orientation="horizontal"
 	android:paddingEnd="@dimen/layx106"
 	android:paddingStart="@dimen/layx106"
 	android:paddingTop="@dimen/layx80">
 
 	<LinearLayout
+		android:id="@+id/ll_search_keyboard"
 		android:layout_width="@dimen/layx633"
 		android:layout_height="match_parent"
 		android:orientation="vertical">
@@ -37,7 +38,7 @@
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/search_full_keyboard"
-					android:textColor="@drawable/tv_color_blue_white_selector"/>
+					android:textColor="@color/tv_white"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
@@ -57,7 +58,7 @@
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/search_t9_keyboard"
-					android:textColor="@drawable/tv_color_blue_white_selector"/>
+					android:textColor="@color/tv_white"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 
@@ -95,8 +96,11 @@
 			android:textColor="@color/tv_white_translate"/>
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+			android:id="@+id/rcv_keyboard"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/layy45"
+			android:layout_marginTop="@dimen/layy54"/>
 
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
@@ -147,17 +151,97 @@
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 	</LinearLayout>
 
-
-	<View
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_weight="1"/>
-
-	<LinearLayout
+	<RelativeLayout
 		android:layout_width="@dimen/layx854"
 		android:layout_height="match_parent"
+		android:layout_marginStart="@dimen/layx229"
 		android:layout_marginTop="@dimen/layy105"
-		android:orientation="vertical">
+		android:layout_toEndOf="@+id/ll_search_keyboard">
 
-	</LinearLayout>
-</LinearLayout>
+		<LinearLayout
+			android:id="@+id/ll_hot_search"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="@dimen/layx10"
+					android:src="@drawable/ic_relate"/>
+
+				<TextView
+					android:id="@+id/tv_hot_search"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/search_hot_search"
+					android:textColor="@color/tv_white_translate"
+					android:textSize="@dimen/layx30"/>
+			</LinearLayout>
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+				android:id="@+id/rcv_hot_search_up"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/layy248"
+				android:layout_marginTop="@dimen/layy10"/>
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+				android:id="@+id/rcv_hot_search_down"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/layy248"
+				android:layout_marginTop="@dimen/layy21"/>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="@dimen/layx10"
+					android:src="@drawable/ic_relate"/>
+
+				<TextView
+					android:id="@+id/tv_tv_search_history"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/search_search_history"
+					android:textColor="@color/tv_white_translate"
+					android:textSize="@dimen/layx30"/>
+			</LinearLayout>
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+				android:id="@+id/rcv_search_history"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/layy248"
+				android:layout_marginTop="@dimen/layy18"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/ll_search_result"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+				android:id="@+id/rcv_search_result"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+
+		</LinearLayout>
+	</RelativeLayout>
+
+	<com.hhzt.vod.viewlayer.androidtvwidget.view.MainUpView
+		android:id="@+id/mainUpView1"
+		focusable="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:upImageRes="@drawable/ic_select_border"/>
+</RelativeLayout>

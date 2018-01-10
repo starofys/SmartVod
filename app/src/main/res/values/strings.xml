@@ -43,5 +43,8 @@
 	<string name="search_t9_keyboard">T9键盘</string>
 	<string name="search_full_keyboard">全键盘</string>
 	<string name="search_movie_tip">输入片名/人名的首字母或全拼</string>
+	<string name="search_hot_search">热门搜索</string>
+	<string name="search_search_history">搜索历史</string>
+	<string name="search_relate_search">搜索历史</string>
 
 </resources>

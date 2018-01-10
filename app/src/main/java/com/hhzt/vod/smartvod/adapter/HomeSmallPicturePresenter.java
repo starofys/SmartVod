@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * 大图
  */
-public class SmallPicturePresenter extends OpenPresenter {
+public class HomeSmallPicturePresenter extends OpenPresenter {
 
     private Context mContext;
     private List<MovieInfoData> mMovieInfoList;
     private GeneralAdapter mAdapter;
 
-    public SmallPicturePresenter(Context context, List<MovieInfoData> mMovieInfoList) {
+    public HomeSmallPicturePresenter(Context context, List<MovieInfoData> mMovieInfoList) {
         this.mContext = context;
         this.mMovieInfoList = mMovieInfoList;
     }

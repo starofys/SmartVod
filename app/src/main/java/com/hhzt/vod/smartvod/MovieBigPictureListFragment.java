@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.hhzt.vod.api.repBean.MovieInfoData;
-import com.hhzt.vod.smartvod.adapter.BigPicturePresenter;
+import com.hhzt.vod.smartvod.adapter.HomeBigPicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
@@ -87,7 +87,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 		mRcvMovieType.setLayoutManager(layoutManager);
 		mRcvMovieType.setHasFixedSize(true);
 		mRcvMovieType.setFocusable(false);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new BigPicturePresenter(getContext(), movieInfoList));
+		GeneralAdapter generalAdapter = new GeneralAdapter(new HomeBigPicturePresenter(getContext(), movieInfoList));
 		mRcvMovieType.setAdapter(generalAdapter);
 	}
 

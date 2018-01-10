@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
 import com.hhzt.vod.api.repBean.MovieInfoData;
-import com.hhzt.vod.smartvod.adapter.SmallPicturePresenter;
+import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
@@ -86,7 +86,7 @@ public class MovieSmallPictureListFragment extends MovieListFragment implements 
 		gridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
 		mRcvMovieType.setLayoutManager(gridlayoutManager);
 		mRcvMovieType.setFocusable(false);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new SmallPicturePresenter(getContext(), movieInfoList));
+		GeneralAdapter generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), movieInfoList));
 		mRcvMovieType.setAdapter(generalAdapter);
 	}
 
