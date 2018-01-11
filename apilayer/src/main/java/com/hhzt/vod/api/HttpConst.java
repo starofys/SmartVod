@@ -8,6 +8,7 @@ public class HttpConst {
 
     public static final String DEFAULT_NAME = "10001";
     public static final String DEFAULT_HOST = "http://szhhzt.cn:8001/epg/router?";
+    public static final String DEFAULT_PAY_HOST = "http://59.40.117.174:5555/epg/auth/order/";
 
     public static final String APP_KEY = "hhzt";
     public static final String FORMAT = "json";

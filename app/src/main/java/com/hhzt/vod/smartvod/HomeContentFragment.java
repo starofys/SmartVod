@@ -40,8 +40,8 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	public void onAttach(Context context) {
 		super.onAttach(context);
 		mHomeMovieTypeLinkPresenter = new HomeMovieTypeLinkPresenter(context, InJection.initHomeType(), this);
-		mHomeMovieTypeLinkPresenter.start();
 		mHomeMovieTypeLinkPresenter.init();
+		mHomeMovieTypeLinkPresenter.start();
 	}
 
 	@Override

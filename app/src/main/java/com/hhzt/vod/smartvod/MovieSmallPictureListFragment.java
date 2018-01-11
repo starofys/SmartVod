@@ -58,8 +58,8 @@ public class MovieSmallPictureListFragment extends MovieListFragment implements 
 	public void onAttach(Context context) {
 		super.onAttach(context);
 		mHomeMovieListLinkPresenter = new HomeMovieListLinkPresenter(context, InJection.initHomeTypeList(), this);
-		mHomeMovieListLinkPresenter.start();
 		mHomeMovieListLinkPresenter.init();
+		mHomeMovieListLinkPresenter.start();
 	}
 
 	@Override

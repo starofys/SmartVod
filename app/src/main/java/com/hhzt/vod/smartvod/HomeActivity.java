@@ -36,6 +36,7 @@ public class HomeActivity extends BaseActivity{
         if (null != intent) {
             ConfigMgr.getInstance().initUrl(intent.getStringExtra(ConfigX.HOST));
             ConfigMgr.getInstance().initUserName(intent.getStringExtra(ConfigX.USERNAME));
+            ConfigMgr.getInstance().initPayUrl(intent.getStringExtra(ConfigX.PAY_HOST));
         }
     }
 }

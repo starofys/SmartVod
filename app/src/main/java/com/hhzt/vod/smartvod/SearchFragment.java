@@ -95,8 +95,8 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	public void onAttach(Context context) {
 		super.onAttach(context);
 		mSearchMoviePresenter = new SearchMovieLinkPresenter(context, InJection.initSearchMovie(), this);
-		mSearchMoviePresenter.start();
 		mSearchMoviePresenter.init();
+		mSearchMoviePresenter.start();
 	}
 
 	@Override

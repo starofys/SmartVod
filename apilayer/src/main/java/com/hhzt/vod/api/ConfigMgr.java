@@ -13,6 +13,8 @@ public class ConfigMgr {
     private String mUrlHost;
     private String mUserName;
 
+    private String mPayUrlHost;
+
     private ConfigMgr() {
 
     }
@@ -37,11 +39,19 @@ public class ConfigMgr {
         mUserName = name;
     }
 
+    public void initPayUrl(String url) {
+        mPayUrlHost = url;
+    }
+
     public String getUserName() {
         return TextUtils.isEmpty(mUserName) ? HttpConst.DEFAULT_NAME : mUserName;
     }
 
     public String getUrlHost() {
         return TextUtils.isEmpty(mUrlHost) ? HttpConst.DEFAULT_HOST : mUrlHost;
+    }
+
+    public String getPayUrlHost() {
+        return TextUtils.isEmpty(mPayUrlHost) ? HttpConst.DEFAULT_PAY_HOST : mPayUrlHost;
     }
 }

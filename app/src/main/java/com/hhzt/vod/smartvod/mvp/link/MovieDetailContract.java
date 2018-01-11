@@ -1,6 +1,7 @@
 package com.hhzt.vod.smartvod.mvp.link;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 
 import com.hhzt.vod.api.otherBean.EpisodeBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
@@ -21,27 +22,29 @@ import java.util.List;
  */
 
 public class MovieDetailContract {
-	public interface MovieDetailView extends BaseView<MovieDetailPresenter> {
-		void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon);
+    public interface MovieDetailView extends BaseView<MovieDetailPresenter> {
+        void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon);
 
-		void showMovieDetail(List<EpisodeBean> episodeList, List<String> episodeRangeList, ProgrameDetailBo programDetailBo);
+        void showMovieDetail(List<EpisodeBean> episodeList, List<String> episodeRangeList, ProgrameDetailBo programDetailBo);
 
-		void showMovieRelate(ArrayList<MovieInfoData> relevantList);
+        void showMovieRelate(ArrayList<MovieInfoData> relevantList);
 
-		void showMovieHot(ArrayList<MovieInfoData> hotList);
-	}
+        void showMovieHot(ArrayList<MovieInfoData> hotList);
+    }
 
-	public interface MovieDetailPresenter extends BasePresenter {
-		void init();
+    public interface MovieDetailPresenter extends BasePresenter {
+        void init();
 
-		void showData(int programGroupId, int programId, int categoryId);
+        void showData(int programGroupId, int programId, int categoryId);
 
-		void clickOtherMovieDetail(MovieDetailCallBack movieDetailCallBack, int type, int position);
+        void clickOtherMovieDetail(MovieDetailCallBack movieDetailCallBack, int type, int position);
 
-		void clearData();
+        void clearData();
 
-		void destoryInit();
+        void destoryInit();
 
-		void toVideoPlayerActivity(Context packageContext, Class<?> cls,int position);
-	}
+        void toVideoPlayerActivity(Context packageContext, Class<?> cls, int position);
+
+        void showPayWeb(FragmentManager fragmentManager);
+    }
 }

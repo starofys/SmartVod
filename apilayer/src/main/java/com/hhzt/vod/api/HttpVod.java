@@ -297,5 +297,43 @@ public class HttpVod {
         HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
     }
 
+    /**
+     * 获取支付结果
+     *
+     * @param contentId
+     * @param type
+     * @param tag
+     * @param tClass
+     * @param iHttpRetCallBack
+     * @param <T>
+     */
+    public static <T> void getVodPayResultDatas(String contentId,
+                                                String type,
+                                                String tag,
+                                                Class<T> tClass,
+                                                IHttpRetCallBack<T> iHttpRetCallBack) {
+        String url = HttpUrlCreator.getVodPayResultUrl(ConfigMgr.getInstance().getUserName(), contentId, type);
+        HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
+    }
+
+    /**
+     * 显示H5支付页面
+     *
+     * @param contentId
+     * @param type
+     * @param tag
+     * @param tClass
+     * @param iHttpRetCallBack
+     * @param <T>
+     */
+    public static <T> void getVodPayWebTips(String contentId,
+                                            String type,
+                                            String tag,
+                                            Class<T> tClass,
+                                            IHttpRetCallBack<T> iHttpRetCallBack) {
+        String url = HttpUrlCreator.getVodPayActionTipsUrl(ConfigMgr.getInstance().getUserName(), contentId, type);
+        HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.hhzt.vod.api;
 
 import com.hhzt.vod.api.repData.CategoryBoDatasRep;
+import com.hhzt.vod.api.repData.PayResultRep;
 import com.hhzt.vod.api.repData.ProgramDatasRep;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 import com.hhzt.vod.api.repData.ProgramSuperDataRep;
@@ -443,5 +444,70 @@ public class HttpApiTestEng {
                     }
                 }
         );
+    }
+
+    public static void testHttpVod11() {
+        /**
+         * 支付媒体类型type：
+         * 1---直播
+         * 2---点播
+         * 3---套餐
+         * 4---音乐
+         */
+        HttpVod.getVodPayResultDatas(11 + "", 1 + "", "", PayResultRep.class, new IHttpRetCallBack<PayResultRep>() {
+            @Override
+            public void onResponseSuccess(CommonRspRetBean bean, PayResultRep payResultRep) {
+                System.out.print("onResponseSuccess:" + payResultRep.getMsg());
+            }
+
+            @Override
+            public void onResponseFailed(CommonRspRetBean bean) {
+                System.out.print("onResponseFailed:" + bean.msg);
+            }
+
+            @Override
+            public void onError(String result) {
+                System.out.print("onError:" + result);
+            }
+
+            @Override
+            public void onCancelled() {
+                System.out.print("onCancelled");
+            }
+
+            @Override
+            public void onFinish() {
+                System.out.print("onFinish");
+            }
+        });
+    }
+
+    public static void testHttpVod12() {
+        HttpVod.getVodPayWebTips(11 + "", 1 + "", "", String.class, new IHttpRetCallBack<String>() {
+            @Override
+            public void onResponseSuccess(CommonRspRetBean bean, String s) {
+                System.out.print("onResponseSuccess:" + s);
+            }
+
+            @Override
+            public void onResponseFailed(CommonRspRetBean bean) {
+                System.out.print("onResponseFailed:" + bean.msg);
+            }
+
+            @Override
+            public void onError(String result) {
+                System.out.print("onError:" + result);
+            }
+
+            @Override
+            public void onCancelled() {
+                System.out.print("onCancelled");
+            }
+
+            @Override
+            public void onFinish() {
+                System.out.print("onFinish");
+            }
+        });
     }
 }

@@ -309,11 +309,11 @@ public class HttpUrlCreator {
      * @return
      */
     public static String getVodPlayHistoryUrl(String appkey,
-                                                String format,
-                                                String method,
-                                                String v,
-                                                String session,
-                                                String username) {
+                                              String format,
+                                              String method,
+                                              String v,
+                                              String session,
+                                              String username) {
         return ConfigMgr.getInstance().getUrlHost()
                 + "appkey=" + appkey
                 + "&format=" + format
@@ -321,5 +321,37 @@ public class HttpUrlCreator {
                 + "&v=" + v
                 + "&session=" + session
                 + "&username=" + username;
+    }
+
+    /**
+     * 点播鉴权接口
+     *
+     * @param userName
+     * @param contentId
+     * @param type
+     * @return
+     */
+    public static String getVodPayResultUrl(String userName, String contentId, String type) {
+        return ConfigMgr.getInstance().getPayUrlHost()
+                + "authentication?"
+                + "username=" + userName
+                + "&contentId=" + contentId
+                + "&type=" + type;
+    }
+
+    /**
+     * 支付提示页面展示接口
+     *
+     * @param userName
+     * @param contentId
+     * @param type
+     * @return
+     */
+    public static String getVodPayActionTipsUrl(String userName, String contentId, String type) {
+        return ConfigMgr.getInstance().getPayUrlHost()
+                + "productInfo?"
+                + "username=" + userName
+                + "&contentId=" + contentId
+                + "&type=" + type;
     }
 }

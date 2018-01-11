@@ -1,5 +1,6 @@
 package com.hhzt.vod.smartvod.mvp.model;
 
+import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.HttpConst;
 import com.hhzt.vod.api.HttpVod;
 import com.hhzt.vod.api.IHttpRetCallBack;
@@ -12,7 +13,7 @@ import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
  * @Author zengxiaoping
  */
 
-public class MovieDetailModel implements IMovieDetail{
+public class MovieDetailModel implements IMovieDetail {
 	@Override
 	public void requestMovieDetail(int programGroupId, int programId, int categoryId, IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack) {
 		HttpVod.getVodItemDetailDatas(
@@ -28,5 +29,15 @@ public class MovieDetailModel implements IMovieDetail{
 				ProgramDetaiContentDataRep.class,
 				iHttpRetCallBack
 		);
+	}
+
+	@Override
+	public void requestVodPayResult(String contentId, String type, IHttpRetCallBack<CommonRspRetBean> iHttpRetCallBack) {
+		HttpVod.getVodPayResultDatas(
+				contentId,
+				type,
+				"",
+				CommonRspRetBean.class,
+				iHttpRetCallBack);
 	}
 }
