@@ -6,6 +6,7 @@ package com.hhzt.vod.api.repBean;
 
 public class SimpleRepBean {
     private int id;
+    private int programId;
     private String name;
 
     public int getId() {
@@ -14,6 +15,14 @@ public class SimpleRepBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(int programId) {
+        this.programId = programId;
     }
 
     public String getName() {
@@ -28,6 +37,7 @@ public class SimpleRepBean {
     public String toString() {
         return "SimpleRepBean{" +
                 "id=" + id +
+                ", programId=" + programId +
                 ", name='" + name + '\'' +
                 '}';
     }

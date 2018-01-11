@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
@@ -38,7 +37,9 @@ import java.util.ArrayList;
  * Created by wujichang on 2017/12/28.
  */
 @ContentView(R.layout.fragment_search)
-public class SearchFragment extends BaseFragment implements SearchMovieContract.SearchMovieView, View.OnClickListener, ViewTreeObserver.OnGlobalFocusChangeListener {
+public class SearchFragment extends BaseFragment implements SearchMovieContract.SearchMovieView, View.OnClickListener, ViewTreeObserver.OnGlobalFocusChangeListener, RecyclerViewTV.OnItemListener {
+	public static final int TYPE_KEY_BOARD_FULL = 0;
+	public static final int TYPE_KEY_BOARD_t9 = 1;
 
 	//左半部分------------------------------------------------------------------
 	@ViewInject(R.id.lml_keyboard)
@@ -49,7 +50,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	private TextView mTvFullKeyboard;
 	@ViewInject(R.id.riv_t9_keyboard)
 	private ReflectItemView mRivT9Keyboard;
-	@ViewInject(R.id.tv_full_keyboard)
+	@ViewInject(R.id.tv_t9_keyboard)
 	private TextView mTvT9Keyboard;
 
 	@ViewInject(R.id.tv_search_movie_name)
@@ -82,8 +83,8 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	@ViewInject(R.id.mainUpView1)
 	private MainUpView mMainUpView;
 
+	private int mKeyBoardType = TYPE_KEY_BOARD_FULL;
 	private RecyclerViewBridge mRecyclerViewBridge;
-
 	private SearchMovieContract.SearchMoviePresenter mSearchMoviePresenter;
 
 	@Override
@@ -122,37 +123,45 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mLmlKeyboard.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 		mLmlDeleteOrClear.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 
-		//键盘
+		//全键盘(T9键盘特殊：走adpter里面的监听)
 		mRcvKeyboard.setDefaultSelect(0);
-		mRcvKeyboard.setOnItemListener(new RecyclerViewTV.OnItemListener() {
-			@Override
-			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-
-			}
-
-			@Override
-			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-			}
-
-			/**
-			 * 这里是调整开头和结尾的移动边框.
-			 */
-			@Override
-			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-			}
-		});
+		mRcvKeyboard.setOnItemListener(this);
 		mRcvKeyboard.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-				//todo 未做:去搜索
-				Toast.makeText(getActivity(), "点击了：" + position, Toast.LENGTH_SHORT).show();
+				if (mKeyBoardType == TYPE_KEY_BOARD_FULL) {
+					String searchKeyWord = mTvSearchMovieName.getText().toString();
+					mSearchMoviePresenter.clickFullKey(position, searchKeyWord);
+				}
 			}
 		});
 
 		//热门电影up
-		//热门电影down
-		//搜索结果
+		mRcvHotSearchUp.setOnItemListener(this);
+		mRcvHotSearchUp.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+			@Override
+			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+				mSearchMoviePresenter.clickOtherMovieDetail(getActivity(), SearchMovieLinkPresenter.TYPE_HOT_LIST, position);
+			}
+		});
 
+		//热门电影down
+		mRcvHotSearchDown.setOnItemListener(this);
+		mRcvHotSearchDown.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+			@Override
+			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+				mSearchMoviePresenter.clickOtherMovieDetail(getActivity(), SearchMovieLinkPresenter.TYPE_HOT_SEARCH_LIST, position);
+			}
+		});
+
+		//搜索结果
+		mRcvSearchResult.setOnItemListener(this);
+		mRcvSearchResult.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+			@Override
+			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+				mSearchMoviePresenter.clickOtherMovieDetail(getActivity(), SearchMovieLinkPresenter.TYPE_SEARCH_RESULT, position);
+			}
+		});
 	}
 
 	@Override
@@ -185,30 +194,49 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	public void showSearchHistoryData(ArrayList<String> keyList) {
 		mLlHotSearch.setVisibility(View.VISIBLE);
 		mLlSearchResult.setVisibility(View.GONE);
-		//todo 数据暂定.目前还不确定是后台返回还是本地存储
+		//todo 数据暂定不做.目前还不确定是后台返回还是本地存储
 	}
 
 	@Override
 	public void showSearchMovieReultData(ArrayList<MovieInfoData> searchMovieResultData) {
 		mLlHotSearch.setVisibility(View.GONE);
 		mLlSearchResult.setVisibility(View.VISIBLE);
+
+		ArrayList<SimpleRepBean> movieList = new ArrayList<>();
+		for (MovieInfoData movieInfoData : searchMovieResultData) {
+			SimpleRepBean simpleRepBean = new SimpleRepBean();
+			simpleRepBean.setId(movieInfoData.getId());
+			simpleRepBean.setProgramId(movieInfoData.getProgramId());
+			simpleRepBean.setName(movieInfoData.getName());
+			movieList.add(simpleRepBean);
+		}
+
+		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
+		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+		mRcvHotSearchDown.setLayoutManager(gridlayoutManager);
+		mRcvHotSearchDown.setFocusable(false);
+		GeneralAdapter generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(movieList));
+		mRcvHotSearchDown.setAdapter(generalAdapter);
 	}
 
 	@Override
 	public void showFullKeyBoardData(ArrayList<String> keyList) {
-		if (mRcvKeyboard != null) {
-			GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 6);
-			gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-			mRcvKeyboard.setLayoutManager(gridlayoutManager);
-			mRcvKeyboard.setFocusable(false);
-			GeneralAdapter generalAdapter = new GeneralAdapter(new FullKeyboardPresenter(getContext(), keyList));
-			mRcvKeyboard.setAdapter(generalAdapter);
-		}
+		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 6);
+		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+		mRcvKeyboard.setLayoutManager(gridlayoutManager);
+		mRcvKeyboard.setFocusable(false);
+		GeneralAdapter generalAdapter = new GeneralAdapter(new FullKeyboardPresenter(getContext(), keyList));
+		mRcvKeyboard.setAdapter(generalAdapter);
 	}
 
 	@Override
 	public void showT9KeyBoardData(ArrayList<KeyBean> keyBeanList) {
 
+	}
+
+	@Override
+	public void showSearchMovieName(String searchMovieName) {
+		mTvSearchMovieName.setText(searchMovieName);
 	}
 
 	@Override
@@ -231,19 +259,10 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 				mTvT9Keyboard.setTextColor(getResources().getColor(R.color.blue));
 				break;
 			case R.id.riv_clear:
-				mTvSearchMovieName.setText("");
-				mSearchMoviePresenter.showHotMovieData();
+				mSearchMoviePresenter.clickClear();
 				break;
 			case R.id.riv_delete:
-				String searchKeyWord = mTvSearchMovieName.getText().toString();
-				if (searchKeyWord.length() == 1) {
-					mTvSearchMovieName.setText("");
-					mSearchMoviePresenter.showHotMovieData();
-				} else {
-					searchKeyWord = searchKeyWord.substring(0, searchKeyWord.length() - 2);
-					mTvSearchMovieName.setText(searchKeyWord);
-					mSearchMoviePresenter.showSearchReultMovieData(1, 18, searchKeyWord);
-				}
+				mSearchMoviePresenter.clickDelete(mTvSearchMovieName.getText().toString());
 				break;
 			default:
 				break;
@@ -256,5 +275,20 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 			newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
 		float scale = ConfigX.SCALE;
 		mMainUpView.setFocusView(newFocus, scale);
+	}
+
+	@Override
+	public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
+		mRecyclerViewBridge.setUnFocusView(itemView);
+	}
+
+	@Override
+	public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
+		mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
+	}
+
+	@Override
+	public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
+		mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
 	}
 }

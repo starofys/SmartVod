@@ -292,7 +292,7 @@ public class HttpUrlCreator {
                 + "&session=" + session
                 + "&pageNum=" + pageNum
                 + "&pageSize=" + pageSize
-                + "&searchKeyword" + searchKeyword
+                + "&searchKeyword=" + searchKeyword
                 + "&username=" + username;
 
     }

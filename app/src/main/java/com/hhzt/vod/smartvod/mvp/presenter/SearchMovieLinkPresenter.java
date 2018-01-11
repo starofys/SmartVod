@@ -1,6 +1,7 @@
 package com.hhzt.vod.smartvod.mvp.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.IHttpRetCallBack;
@@ -9,6 +10,7 @@ import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
 import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
+import com.hhzt.vod.smartvod.MovieDetailActivity;
 import com.hhzt.vod.smartvod.mvp.link.SearchMovieContract;
 import com.hhzt.vod.smartvod.mvp.model.ISearchMovie;
 
@@ -22,6 +24,10 @@ import java.util.ArrayList;
  */
 
 public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMoviePresenter {
+	public static final int TYPE_HOT_SEARCH_LIST = 0;   //热门搜素down
+	public static final int TYPE_HOT_LIST = 1;          //热门搜索up
+	public static final int TYPE_SEARCH_RESULT = 2;     //搜索结果
+
 	private Context mContext;
 	private ISearchMovie mISearchMovie;
 	private SearchMovieContract.SearchMovieView mSearchMovieView;
@@ -136,6 +142,60 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 	@Override
 	public void showT9KeyboardData() {
 		mSearchMovieView.showT9KeyBoardData(mT9BoardList);
+	}
+
+	@Override
+	public void clickOtherMovieDetail(Context packageContext, int type, int position) {
+		Intent intent = new Intent(packageContext, MovieDetailActivity.class);
+		int movieTypeId = 0;
+		int movieDetailId = 0;
+		switch (type) {
+			case TYPE_HOT_SEARCH_LIST:
+				movieTypeId = mHotSearchList.get(position).getProgramId();
+				movieDetailId = mHotSearchList.get(position).getId();
+				break;
+			case TYPE_HOT_LIST:
+				movieTypeId = mHotList.get(position).getProgramId();
+				movieDetailId = mHotList.get(position).getId();
+				break;
+			case TYPE_SEARCH_RESULT:
+				movieTypeId = mSearchMovieReultList.get(position).getProgramId();
+				movieDetailId = mSearchMovieReultList.get(position).getId();
+				break;
+		}
+		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, movieTypeId);
+		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, movieDetailId);
+		packageContext.startActivity(intent);
+	}
+
+	@Override
+	public void clickFullKey(int position, String currentName) {
+		currentName += mFullBoardList.get(position);
+		mSearchMovieView.showSearchMovieName(currentName);
+		showSearchReultMovieData(1, 18, currentName);
+	}
+
+	@Override
+	public void clickT9Key(int parentPosition, int childPosition, String currentName) {
+
+	}
+
+	@Override
+	public void clickDelete(String currentName) {
+		if (currentName.length() == 1) {
+			mSearchMovieView.showSearchMovieName("");
+			showHotMovieData();
+		} else {
+			currentName = currentName.substring(0, currentName.length() - 1);
+			mSearchMovieView.showSearchMovieName(currentName);
+			showSearchReultMovieData(1, 18, currentName);
+		}
+	}
+
+	@Override
+	public void clickClear() {
+		mSearchMovieView.showSearchMovieName("");
+		showHotMovieData();
 	}
 
 	@Override
