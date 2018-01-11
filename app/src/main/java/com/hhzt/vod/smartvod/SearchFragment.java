@@ -24,7 +24,6 @@ import com.hhzt.vod.smartvod.mvp.presenter.SearchMovieLinkPresenter;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.GridLayoutManagerTV;
-import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.LinearLayoutManagerTV;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout;
 import com.hhzt.vod.viewlayer.androidtvwidget.view.MainUpView;
@@ -166,7 +165,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mLlHotSearch.setVisibility(View.VISIBLE);
 		mLlSearchResult.setVisibility(View.GONE);
 
-		LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+		LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 		mRcvHotSearchUp.setLayoutManager(layoutManager);
 		mRcvHotSearchUp.setFocusable(false);
