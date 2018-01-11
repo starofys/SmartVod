@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="@dimen/layx106"
-	android:layout_height="@dimen/layy106"
-	android:background="@drawable/bg_color_blue_translate_selector"
-	android:descendantFocusability="blocksDescendants"
+	android:layout_width="@dimen/layx414"
+	android:layout_height="@dimen/layy64"
+	android:layout_marginEnd="@dimen/layx21"
+	android:layout_marginBottom="@dimen/layx10"
+	android:background="@drawable/ic_search_backgroud"
 	android:focusable="true"
 	android:focusableInTouchMode="true"
 	android:orientation="vertical">
 
 	<TextView
-		android:id="@+id/tv_full_keyboard_item"
+		android:id="@+id/tv_search_movie_name_item"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:gravity="center"
-		android:textColor="@color/tv_white_translate"
-		android:textSize="@dimen/layx32"/>
+		android:textColor="@color/tv_white"
+		android:textSize="@dimen/layx30"/>
 
 </RelativeLayout>

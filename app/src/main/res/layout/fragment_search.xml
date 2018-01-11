@@ -47,6 +47,7 @@
 				android:id="@+id/riv_t9_keyboard"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
+				android:layout_marginStart="@dimen/layx23"
 				android:layout_weight="1"
 				android:clickable="true"
 				android:focusable="true"
@@ -56,7 +57,6 @@
 					android:id="@+id/tv_t9_keyboard"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_marginStart="@dimen/layx23"
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/search_t9_keyboard"
@@ -67,7 +67,7 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/layx55"
-			android:layout_marginTop="@dimen/layx83"
+			android:layout_marginTop="@dimen/layx63"
 			android:gravity="center_vertical"
 			android:orientation="horizontal">
 
@@ -81,6 +81,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="@dimen/layx30"
+				android:layout_marginEnd="@dimen/layx32"
 				android:src="@drawable/ic_vertical_line"/>
 
 			<TextView
@@ -95,14 +96,14 @@
 		<View
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/layy1"
-			android:textColor="@color/tv_white_translate"/>
+			android:background="@color/tv_white_translate"/>
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 			android:id="@+id/rcv_keyboard"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/layy45"
-			android:layout_marginTop="@dimen/layy54"/>
+			android:layout_marginBottom="@dimen/layy15"
+			android:layout_marginTop="@dimen/layy25"/>
 
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
@@ -135,6 +136,7 @@
 				android:id="@+id/riv_clear"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
+				android:layout_marginStart="@dimen/layx23"
 				android:layout_weight="1"
 				android:clickable="true"
 				android:focusable="true"
@@ -144,7 +146,6 @@
 					android:id="@+id/rb_clear"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_marginStart="@dimen/layx23"
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/clear"
@@ -195,7 +196,7 @@
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_hot_search_down"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/layy248"
+				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/layy21"/>
 
 			<LinearLayout

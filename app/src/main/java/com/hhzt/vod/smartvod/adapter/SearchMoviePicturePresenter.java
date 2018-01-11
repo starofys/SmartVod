@@ -8,18 +8,18 @@ import com.hhzt.vod.smartvod.R;
 import java.util.List;
 
 /**
- * 小图
  * Created by zengxiaoping on 2018/1/11.
+ *
+ * @Author zengxiaoping
  */
-public class HomeSmallPicturePresenter extends BasePicturePresenter {
+public class SearchMoviePicturePresenter extends BasePicturePresenter {
 
-	public HomeSmallPicturePresenter(Context context, List<MovieInfoData> mMovieInfoList) {
+	public SearchMoviePicturePresenter(Context context, List<MovieInfoData> mMovieInfoList) {
 		super(context, mMovieInfoList);
 	}
 
 	@Override
 	int getLayoutId() {
-		return R.layout.item_movie_type_small_picture_fragment;
+		return R.layout.item_search_movie_picture_fragment;
 	}
-
 }

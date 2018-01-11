@@ -11,13 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hhzt.vod.api.otherBean.EpisodeBean;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
-import com.hhzt.vod.smartvod.adapter.EpisodePresenter;
 import com.hhzt.vod.smartvod.adapter.FullKeyboardPresenter;
-import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
+import com.hhzt.vod.smartvod.adapter.SearchMovieKeyPresenter;
+import com.hhzt.vod.smartvod.adapter.SearchMoviePicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.link.SearchMovieContract;
@@ -35,7 +34,6 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by wujichang on 2017/12/28.
@@ -172,21 +170,15 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 		mRcvHotSearchUp.setLayoutManager(layoutManager);
 		mRcvHotSearchUp.setFocusable(false);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), hotList));
+		GeneralAdapter generalAdapter = new GeneralAdapter(new SearchMoviePicturePresenter(getContext(), hotList));
 		mRcvHotSearchUp.setAdapter(generalAdapter);
 
 
-		List<EpisodeBean> episodeList = new ArrayList<>();
-		for (int i = 0; i < hotSearchList.size(); i++) {
-			EpisodeBean episodeBean = new EpisodeBean();
-			episodeBean.setEpisode(hotSearchList.get(i).getName());
-			episodeList.add(episodeBean);
-		}
 		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
 		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 		mRcvHotSearchDown.setLayoutManager(gridlayoutManager);
 		mRcvHotSearchDown.setFocusable(false);
-		generalAdapter = new GeneralAdapter(new EpisodePresenter(episodeList));
+		generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(hotSearchList));
 		mRcvHotSearchDown.setAdapter(generalAdapter);
 	}
 
@@ -207,7 +199,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	public void showFullKeyBoardData(ArrayList<String> keyList) {
 		if (mRcvKeyboard != null) {
 			GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 6);
-			gridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+			gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 			mRcvKeyboard.setLayoutManager(gridlayoutManager);
 			mRcvKeyboard.setFocusable(false);
 			GeneralAdapter generalAdapter = new GeneralAdapter(new FullKeyboardPresenter(getContext(), keyList));

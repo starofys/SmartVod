@@ -65,6 +65,13 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 				mHotSearchList.addAll(searchMainDatasRep.getHotSearchList());
 				mHotList.addAll(searchMainDatasRep.getHotList());
 
+				if (mHotSearchList.size() > 6) {
+					ArrayList<SimpleRepBean> hotSearchList = new ArrayList<>();
+					for (int i = 0; i < 6; i++) {
+						hotSearchList.add(mHotSearchList.get(i));
+					}
+					mHotSearchList = hotSearchList;
+				}
 				mSearchMovieView.showHotMovieData(mHotSearchList, mHotList);
 			}
 
