@@ -356,7 +356,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
             mLlRelateMovie.setVisibility(View.GONE);
         } else {
             mLlRelateMovie.setVisibility(View.VISIBLE);
-            LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRcvRelateMovie.setLayoutManager(layoutManager);
             mRcvRelateMovie.setFocusable(false);
@@ -371,7 +371,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
             mLlRecommendMovie.setVisibility(View.GONE);
         } else {
             mLlRecommendMovie.setVisibility(View.VISIBLE);
-            LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRcvRecommendMovie.setLayoutManager(layoutManager);
             mRcvRecommendMovie.setFocusable(false);

@@ -276,10 +276,17 @@
 						android:textSize="@dimen/layx30"/>
 				</LinearLayout>
 
-				<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
-					android:id="@+id/rev_relate_movie"
+				<com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView
 					android:layout_width="match_parent"
-					android:layout_height="@dimen/layy332"/>
+					android:layout_height="wrap_content"
+					android:clipChildren="false"
+					android:clipToPadding="false">
+
+					<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+						android:id="@+id/rev_relate_movie"
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/layy332"/>
+				</com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView>
 
 			</LinearLayout>
 
@@ -315,10 +322,17 @@
 						android:textSize="@dimen/layx30"/>
 				</LinearLayout>
 
-				<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
-					android:id="@+id/rev_recommend_movie"
+				<com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView
 					android:layout_width="match_parent"
-					android:layout_height="@dimen/layy332"/>
+					android:layout_height="wrap_content"
+					android:clipChildren="false"
+					android:clipToPadding="false">
+
+					<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
+						android:id="@+id/rev_recommend_movie"
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/layy332"/>
+				</com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView>
 
 			</LinearLayout>
 		</LinearLayout>
