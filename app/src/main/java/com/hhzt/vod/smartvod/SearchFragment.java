@@ -16,6 +16,7 @@ import com.hhzt.vod.api.repBean.SimpleRepBean;
 import com.hhzt.vod.smartvod.adapter.FullKeyboardPresenter;
 import com.hhzt.vod.smartvod.adapter.SearchMovieKeyPresenter;
 import com.hhzt.vod.smartvod.adapter.SearchMoviePicturePresenter;
+import com.hhzt.vod.smartvod.adapter.T9KeyboardPresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.link.SearchMovieContract;
@@ -231,7 +232,12 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 
 	@Override
 	public void showT9KeyBoardData(ArrayList<KeyBean> keyBeanList) {
-
+		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 3);
+		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+		mRcvKeyboard.setLayoutManager(gridlayoutManager);
+		mRcvKeyboard.setFocusable(false);
+		GeneralAdapter generalAdapter = new GeneralAdapter(new T9KeyboardPresenter(getContext(), keyBeanList));
+		mRcvKeyboard.setAdapter(generalAdapter);
 	}
 
 	@Override
