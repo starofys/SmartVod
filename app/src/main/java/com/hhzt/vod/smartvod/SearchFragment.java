@@ -124,7 +124,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mLmlDeleteOrClear.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 
 		//全键盘(T9键盘特殊：走adpter里面的监听)
-		mRcvKeyboard.setDefaultSelect(0);
+		mRcvKeyboard.setItemSelected(0);
 		mRcvKeyboard.setOnItemListener(this);
 		mRcvKeyboard.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override

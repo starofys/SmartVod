@@ -1,7 +1,9 @@
 package com.hhzt.vod.smartvod;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.mvp.link.HomeTopConstract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.presenter.HomeTopLinkPresenter;
@@ -42,6 +45,8 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
 
 	private HomeTopConstract.HomeTopPresenter mHomeTopPresenter;
 
+	private HomeTopBroadCastReceiver mHomeTopBroadCastReceiver;
+
 	@Override
 	public void onAttach(Context context) {
 		super.onAttach(context);
@@ -58,6 +63,10 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
 		mHomeTopPresenter.showWeek();
 		mHomeTopPresenter.showWeather();
 		initEvent();
+
+		mHomeTopBroadCastReceiver = new HomeTopBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
+		getActivity().registerReceiver(mHomeTopBroadCastReceiver, intentFilter);
 	}
 
 	@Override
@@ -111,5 +120,26 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
 	public void onDestroy() {
 		super.onDestroy();
 		mHomeTopPresenter.destoryInit();
+		getActivity().unregisterReceiver(mHomeTopBroadCastReceiver);
+	}
+
+	private final class HomeTopBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (null != intent) {
+				switch (intent.getAction()) {
+					case KeyFactoryConst.KEY_LISTEN_ACTION:
+						String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
+						if (KeyFactoryConst.KEY_CODE_UP.equalsIgnoreCase(keyType)) {
+							mLlSearch.requestLayout();
+							mLlSearch.requestFocus();
+						}
+						break;
+					default:
+						break;
+				}
+			}
+		}
 	}
 }

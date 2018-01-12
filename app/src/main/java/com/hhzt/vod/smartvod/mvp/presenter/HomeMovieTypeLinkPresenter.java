@@ -112,4 +112,8 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 		moviePictureListFragment = MovieFactory.getFragment(movieShowType, mMovieTypeNames.get(position).getId());
 		FragmentUtil.replace(activity, false, R.id.fragment_movie_container, moviePictureListFragment);
 	}
+
+	public List<SimpleRepBean> getMovieTypeNames() {
+		return mMovieTypeNames;
+	}
 }

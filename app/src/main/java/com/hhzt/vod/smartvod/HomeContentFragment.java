@@ -1,6 +1,9 @@
 package com.hhzt.vod.smartvod;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.adapter.LeftMenuPresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieTypeContract;
@@ -31,6 +35,10 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 
 	private HomeMovieTypeContract.HomeMovieTypePresenter mHomeMovieTypeLinkPresenter;
 
+	private int mVodListItemSelectedIndex;
+
+	private ListSelectFoucsBroadCastReceiver mListSelectFoucsBroadCastReceiver;
+
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +56,10 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mHomeMovieTypeLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID);
+
+		mListSelectFoucsBroadCastReceiver = new ListSelectFoucsBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
+		getActivity().registerReceiver(mListSelectFoucsBroadCastReceiver, intentFilter);
 	}
 
 	private void bindAdater(List<SimpleRepBean> movieTypeNames) {
@@ -59,7 +71,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	}
 
 	private void initEvent() {
-		mRcvMovieTypeList.setDefaultSelect(0);
+		mRcvMovieTypeList.setItemSelected(0);
 		mRcvMovieTypeList.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
@@ -68,7 +80,10 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-				mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
+				if (position != mVodListItemSelectedIndex) {
+					mVodListItemSelectedIndex = position;
+					mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
+				}
 			}
 
 			/**
@@ -85,12 +100,22 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			}
 		});
 
-		mRcvMovieTypeList.setOnKeyListener(new View.OnKeyListener() {
+		mRcvMovieTypeList.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
 			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				if (keyCode == KeyEvent.ACTION_UP) {
-
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				int size = ((HomeMovieTypeLinkPresenter) mHomeMovieTypeLinkPresenter).getMovieTypeNames().size();
+				if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+					if (mVodListItemSelectedIndex == 0) {
+						mRcvMovieTypeList.setItemSelected(size - 1);
+						return true;
+					}
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+					if (mVodListItemSelectedIndex == size - 1) {
+						mRcvMovieTypeList.setItemSelected(0);
+						return true;
+					}
 				}
+
 				return false;
 			}
 		});
@@ -112,5 +137,25 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	public void onDestroy() {
 		super.onDestroy();
 		mHomeMovieTypeLinkPresenter.destoryInit();
+		getActivity().unregisterReceiver(mListSelectFoucsBroadCastReceiver);
+	}
+
+	private final class ListSelectFoucsBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (null != intent) {
+				switch (intent.getAction()) {
+					case KeyFactoryConst.KEY_LISTEN_ACTION:
+						String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
+						if (KeyFactoryConst.KEY_CODE_LEFT.equalsIgnoreCase(keyType)) {
+							mRcvMovieTypeList.setItemSelected(mVodListItemSelectedIndex);
+						}
+						break;
+					default:
+						break;
+				}
+			}
+		}
 	}
 }

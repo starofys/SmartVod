@@ -12,25 +12,25 @@ import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
  */
 public class ItemKeyHelper extends ItemTouchHelper {
 
-    public ItemKeyHelper(Callback callback) {
-        super(callback);
-    }
+	public ItemKeyHelper(Callback callback) {
+		super(callback);
+	}
 
-    @Override
-    public void attachToRecyclerView(RecyclerView recyclerView) {
-        super.attachToRecyclerView(recyclerView);
-        if (recyclerView instanceof RecyclerViewTV) {
-            RecyclerViewTV recyclerViewTV = (RecyclerViewTV) recyclerView;
-            recyclerViewTV.addOnItemKeyListener(mOnItemKeyListener);
-        }
-    }
+	@Override
+	public void attachToRecyclerView(RecyclerView recyclerView) {
+		super.attachToRecyclerView(recyclerView);
+		if (recyclerView instanceof RecyclerViewTV) {
+			RecyclerViewTV recyclerViewTV = (RecyclerViewTV) recyclerView;
+			recyclerViewTV.setOnItemKeyListener(mOnItemKeyListener);
+		}
+	}
 
-    private final RecyclerViewTV.OnItemKeyListener mOnItemKeyListener
-            = new RecyclerViewTV.OnItemKeyListener() {
-        @Override
-        public boolean dispatchKeyEvent(KeyEvent event) {
-            return false;
-        }
-    };
+	private final RecyclerViewTV.OnItemKeyListener mOnItemKeyListener
+			= new RecyclerViewTV.OnItemKeyListener() {
+		@Override
+		public boolean dispatchKeyEvent(KeyEvent event) {
+			return false;
+		}
+	};
 
 }

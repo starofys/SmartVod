@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.hhzt.vod.api.repBean.MovieInfoData;
+import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
+import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
@@ -32,9 +35,9 @@ import java.util.List;
 @ContentView(R.layout.fragment_big_picture_list)
 public class MovieSmallPictureListFragment extends MovieListFragment implements HomeMovieListContract.HomeMovieListView {
 
-	@ViewInject(R.id.rcv_movie_type)
-	private RecyclerViewTV mRcvMovieType;
-	@ViewInject(R.id.mainUpView1)
+	@ViewInject(R.id.rcv_movie_item_container)
+	private RecyclerViewTV mRcvMovieItemContainer;
+	@ViewInject(R.id.mainUpView)
 	private MainUpView mMainUpView;
 
 	private int mMovieTypeId;
@@ -84,14 +87,14 @@ public class MovieSmallPictureListFragment extends MovieListFragment implements 
 	private void bindAdater(List<MovieInfoData> movieInfoList) {
 		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
 		gridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
-		mRcvMovieType.setLayoutManager(gridlayoutManager);
-		mRcvMovieType.setFocusable(false);
+		mRcvMovieItemContainer.setLayoutManager(gridlayoutManager);
+		mRcvMovieItemContainer.setFocusable(false);
 		GeneralAdapter generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), movieInfoList));
-		mRcvMovieType.setAdapter(generalAdapter);
+		mRcvMovieItemContainer.setAdapter(generalAdapter);
 	}
 
 	private void initEvent() {
-		mRcvMovieType.setOnItemListener(new RecyclerViewTV.OnItemListener() {
+		mRcvMovieItemContainer.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
 				mRecyclerViewBridge.setUnFocusView(itemView);
@@ -110,10 +113,29 @@ public class MovieSmallPictureListFragment extends MovieListFragment implements 
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
 			}
 		});
-		mRcvMovieType.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+		mRcvMovieItemContainer.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
 				mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position, mMovieTypeId);
+			}
+		});
+		mRcvMovieItemContainer.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
+					int index = mRcvMovieItemContainer.getSelectPostion();
+					if (index == 0 || index == 1) {
+						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						return true;
+					}
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+					int index = mRcvMovieItemContainer.getSelectPostion();
+					if (index % 2 == 0) {
+						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						return true;
+					}
+				}
+				return false;
 			}
 		});
 	}

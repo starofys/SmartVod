@@ -34,7 +34,7 @@
 	</com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView>
 
 	<com.hhzt.vod.viewlayer.androidtvwidget.view.MainUpView
-		android:id="@+id/mainUpView1"
+		android:id="@+id/mainUpView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		app:upImageRes="@drawable/ic_select_border"/>

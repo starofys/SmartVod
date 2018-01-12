@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.hhzt.vod.api.repBean.MovieInfoData;
+import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
+import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.adapter.HomeBigPicturePresenter;
 import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
@@ -39,7 +42,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	private RecyclerViewTV mRcvMovieBigPicture;
 	@ViewInject(R.id.rcv_movie_small_picture)
 	private RecyclerViewTV mRcvMovieSmallPicture;
-	@ViewInject(R.id.mainUpView1)
+	@ViewInject(R.id.mainUpView)
 	private MainUpView mMainUpView;
 
 	private int mMovieTypeId;
@@ -162,6 +165,25 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
 				mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position + mMovieBigPictureList.size(), mMovieTypeId);
+			}
+		});
+		mRcvMovieBigPicture.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
+					int index = mRcvMovieBigPicture.getSelectPostion();
+					if (index == 0) {
+						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						return true;
+					}
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+					int index = mRcvMovieBigPicture.getSelectPostion();
+					if (index % 2 == 0) {
+						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						return true;
+					}
+				}
+				return false;
 			}
 		});
 	}
