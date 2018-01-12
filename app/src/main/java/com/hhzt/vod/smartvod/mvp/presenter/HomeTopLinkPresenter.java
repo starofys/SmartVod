@@ -1,6 +1,9 @@
 package com.hhzt.vod.smartvod.mvp.presenter;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 
 import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.IHttpRetCallBack;
@@ -21,6 +24,17 @@ public class HomeTopLinkPresenter implements HomeTopConstract.HomeTopPresenter {
 	private IWeather mIWeather;
 	private HomeTopConstract.HomeTopView mIHomeTopView;
 
+	private BroadcastReceiver mTimereceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (Intent.ACTION_TIME_TICK.equals(intent.getAction())) {
+				showCurrentTime();
+				showDataTime();
+				showWeek();
+			}
+		}
+	};
+
 	public HomeTopLinkPresenter(Context context, IDataTime IDataTime, IWeather IWeather, HomeTopConstract.HomeTopView IHomeTopView) {
 		mContext = context;
 		mIDataTime = IDataTime;
@@ -37,7 +51,9 @@ public class HomeTopLinkPresenter implements HomeTopConstract.HomeTopPresenter {
 
 	@Override
 	public void init() {
-		//todo 开一个时间得监听   去设置时间等参数
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(Intent.ACTION_TIME_TICK);
+		mContext.registerReceiver(mTimereceiver, intentFilter);
 	}
 
 	@Override
@@ -91,6 +107,6 @@ public class HomeTopLinkPresenter implements HomeTopConstract.HomeTopPresenter {
 
 	@Override
 	public void destoryInit() {
-		//todo 删除监听
+		mContext.unregisterReceiver(mTimereceiver);
 	}
 }

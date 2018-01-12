@@ -1,5 +1,7 @@
 package com.hhzt.vod.smartvod.mvp.model;
 
+import com.hhzt.vod.smartvod.utils.ComTimeUtils;
+
 /**
  * Created by zengxiaoping on 2018/1/11.
  *
@@ -10,16 +12,16 @@ package com.hhzt.vod.smartvod.mvp.model;
 public class DataModel implements IDataTime {
 	@Override
 	public String requestCurreuntTime() {
-		return null;
+		return ComTimeUtils.getTodayTime();
 	}
 
 	@Override
 	public String requestDataTime() {
-		return null;
+		return ComTimeUtils.getTodayDate();
 	}
 
 	@Override
 	public String requestWeek() {
-		return null;
+		return ComTimeUtils.getTodayWeek();
 	}
 }

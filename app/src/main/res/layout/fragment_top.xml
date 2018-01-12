@@ -14,6 +14,7 @@
 		android:layout_marginBottom="@dimen/layy37"
 		android:layout_marginTop="@dimen/layy86"
 		android:orientation="horizontal"
+		android:gravity="center_vertical"
 		android:paddingEnd="@dimen/layx85">
 
 		<ImageView
@@ -65,7 +66,7 @@
 		<TextView
 			android:id="@+id/tv_current_time"
 			android:layout_width="wrap_content"
-			android:layout_height="@dimen/layx64"
+			android:layout_height="@dimen/layx72"
 			android:layout_marginStart="@dimen/layx50"
 			android:gravity="center_vertical"
 			android:textColor="@color/tv_white"
@@ -74,8 +75,8 @@
 		<View
 			android:layout_width="@dimen/layx1"
 			android:layout_height="@dimen/layy64"
-			android:layout_marginEnd="@dimen/layx10"
-			android:layout_marginStart="@dimen/layx10"
+			android:layout_marginEnd="@dimen/layx20"
+			android:layout_marginStart="@dimen/layx20"
 			android:background="@color/tv_white"/>
 
 		<LinearLayout
@@ -103,14 +104,15 @@
 		<View
 			android:layout_width="@dimen/layx1"
 			android:layout_height="@dimen/layy64"
-			android:layout_marginEnd="@dimen/layx10"
-			android:layout_marginStart="@dimen/layx10"
+			android:layout_marginEnd="@dimen/layx20"
+			android:layout_marginStart="@dimen/layx20"
 			android:background="@color/tv_white"/>
 
 		<ImageView
 			android:id="@+id/iv_climate_icon"
 			android:layout_width="@dimen/layx50"
 			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/layx20"
 			android:src="@drawable/ic_climate_icon"
 			android:textColor="@color/tv_white"/>
 
