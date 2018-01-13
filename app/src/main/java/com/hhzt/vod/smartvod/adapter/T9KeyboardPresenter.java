@@ -23,7 +23,8 @@ public class T9KeyboardPresenter extends OpenPresenter {
 	private GeneralAdapter mAdapter;
 	private Context mContext;
 	private T9ClickCallBack mT9ClickCallBack;
-	private int mFoucusPosition = 0;
+	private int mClickPosition = 0;
+	private boolean mEditState = false;
 
 	public T9KeyboardPresenter(Context context, ArrayList<KeyBean> mEpisodeList) {
 		this.mKeyList = mEpisodeList;
@@ -62,16 +63,29 @@ public class T9KeyboardPresenter extends OpenPresenter {
 		t9KeyboardViewHolder.mTvKeyNumber.setText(keyBean.getNumberKeyBoard());
 		t9KeyboardViewHolder.mTvKeyLetter.setText(keyBean.getLetterKeyBoard());
 
+		showT9Expanding(t9KeyboardViewHolder, mEditState);
+
 		t9KeyboardViewHolder.mRivT9.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				mEditState = true;
 				showExpanding(t9KeyboardViewHolder, position);
+				mClickPosition = position;
+			}
+		});
+		t9KeyboardViewHolder.mRivT9.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (mEditState && hasFocus) {
+					mEditState = false;
+					mAdapter.notifyItemChanged(mClickPosition);
+				}
 			}
 		});
 	}
 
 	public void showExpanding(final T9KeyboardViewHolder viewHolder, final int position) {
-		showT9Expanding(viewHolder, true);
+		showT9Expanding(viewHolder, mEditState);
 
 		final String keyLetter[] = new String[3];
 		final String letterKeyBoard = mKeyList.get(position).getLetterKeyBoard();
@@ -138,6 +152,7 @@ public class T9KeyboardPresenter extends OpenPresenter {
 			public void onClick(View v) {
 				if (mT9ClickCallBack != null) {
 					mT9ClickCallBack.t9KeyBoardClickPosition(position, 0, numberKeyBoard, numberKeyBoard);
+					mEditState = false;
 					showT9Expanding(viewHolder, false);
 				}
 			}
@@ -147,6 +162,7 @@ public class T9KeyboardPresenter extends OpenPresenter {
 			public void onClick(View v) {
 				if (mT9ClickCallBack != null) {
 					mT9ClickCallBack.t9KeyBoardClickPosition(position, 1, letterKeyBoard, keyLetter[0]);
+					mEditState = false;
 					showT9Expanding(viewHolder, false);
 				}
 			}
@@ -156,6 +172,7 @@ public class T9KeyboardPresenter extends OpenPresenter {
 			public void onClick(View v) {
 				if (mT9ClickCallBack != null) {
 					mT9ClickCallBack.t9KeyBoardClickPosition(position, 2, letterKeyBoard, keyLetter[1]);
+					mEditState = false;
 					showT9Expanding(viewHolder, false);
 				}
 			}
@@ -165,6 +182,7 @@ public class T9KeyboardPresenter extends OpenPresenter {
 			public void onClick(View v) {
 				if (mT9ClickCallBack != null) {
 					mT9ClickCallBack.t9KeyBoardClickPosition(position, 3, letterKeyBoard, keyLetter[2]);
+					mEditState = false;
 					showT9Expanding(viewHolder, false);
 				}
 			}
