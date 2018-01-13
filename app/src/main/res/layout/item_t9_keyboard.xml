@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+	android:id="@+id/rl_content"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="@dimen/layx200"
-	android:layout_height="@dimen/layy200"
-	android:background="@drawable/bg_color_blue_translate_selector"
+	android:layout_width="@dimen/layx210"
+	android:layout_height="@dimen/layy210"
 	android:focusable="true"
 	android:focusableInTouchMode="true"
 	android:orientation="vertical">
@@ -33,7 +33,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:gravity="center"
-					android:text="A"/>
+					android:text="A"
+					android:textColor="@color/tv_white_translate"/>
 
 				<View
 					android:layout_width="@dimen/layx100"
@@ -45,7 +46,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:gravity="center"
-					android:text="ABC"/>
+					android:text="ABC"
+					android:textColor="@color/tv_white_translate"/>
 			</LinearLayout>
 
 
@@ -57,8 +59,9 @@
 		android:id="@+id/ll_t9_expanding"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:visibility="gone"
-		android:orientation="vertical">
+		android:gravity="center"
+		android:orientation="vertical"
+		android:visibility="gone">
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
 			android:id="@+id/riv_t9_expanding_up"
@@ -66,13 +69,14 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
 			android:clickable="true"
+			android:descendantFocusability="blocksDescendants"
 			android:focusable="true"
 			android:focusableInTouchMode="true">
 
 			<TextView
 				android:id="@+id/tv_t9_expanding_up"
-				android:layout_width="@dimen/layx65"
-				android:layout_height="@dimen/layx65"
+				android:layout_width="@dimen/layx60"
+				android:layout_height="@dimen/layx60"
 				android:background="@drawable/bg_color_blue_white_selector"
 				android:gravity="center"
 				android:text="1"
@@ -90,13 +94,14 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:clickable="true"
+				android:descendantFocusability="blocksDescendants"
 				android:focusable="true"
 				android:focusableInTouchMode="true">
 
 				<TextView
 					android:id="@+id/tv_t9_expanding_left"
-					android:layout_width="@dimen/layx65"
-					android:layout_height="@dimen/layx65"
+					android:layout_width="@dimen/layx60"
+					android:layout_height="@dimen/layx60"
 					android:background="@drawable/bg_color_blue_white_selector"
 					android:gravity="center"
 					android:text="A"
@@ -110,13 +115,14 @@
 				android:layout_marginEnd="@dimen/layx10"
 				android:layout_marginStart="@dimen/layx10"
 				android:clickable="true"
+				android:descendantFocusability="blocksDescendants"
 				android:focusable="true"
 				android:focusableInTouchMode="true">
 
 				<TextView
 					android:id="@+id/tv_t9_expanding_down"
-					android:layout_width="@dimen/layx65"
-					android:layout_height="@dimen/layx65"
+					android:layout_width="@dimen/layx60"
+					android:layout_height="@dimen/layx60"
 					android:background="@drawable/bg_color_blue_white_selector"
 					android:gravity="center"
 					android:text="B"
@@ -128,13 +134,14 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:clickable="true"
+				android:descendantFocusability="blocksDescendants"
 				android:focusable="true"
 				android:focusableInTouchMode="true">
 
 				<TextView
 					android:id="@+id/tv_t9_expanding_right"
-					android:layout_width="@dimen/layx65"
-					android:layout_height="@dimen/layx65"
+					android:layout_width="@dimen/layx60"
+					android:layout_height="@dimen/layx60"
 					android:background="@drawable/bg_color_blue_white_selector"
 					android:gravity="center"
 					android:text="C"

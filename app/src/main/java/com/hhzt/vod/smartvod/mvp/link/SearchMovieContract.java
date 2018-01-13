@@ -47,7 +47,7 @@ public class SearchMovieContract {
 
 		void clickFullKey(int position, String currentName);
 
-		void clickT9Key(int parentPosition, int childPosition, String currentName);
+		void clickT9Key(int parentPosition, int childPosition, String currentName, String addName);
 
 		void clickDelete(String currentName);
 

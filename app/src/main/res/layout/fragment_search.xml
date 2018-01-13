@@ -244,6 +244,26 @@
 			android:orientation="vertical"
 			android:visibility="gone">
 
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="@dimen/layx10"
+					android:src="@drawable/ic_relate"/>
+
+				<TextView
+					android:id="@+id/tv_relate_search"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/search_relate_search"
+					android:textColor="@color/tv_white_translate"
+					android:textSize="@dimen/layx30"/>
+			</LinearLayout>
+
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_search_result"
 				android:layout_width="match_parent"

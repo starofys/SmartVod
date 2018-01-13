@@ -176,8 +176,10 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 	}
 
 	@Override
-	public void clickT9Key(int parentPosition, int childPosition, String currentName) {
-
+	public void clickT9Key(int parentPosition, int childPosition, String currentName, String addName) {
+		currentName += addName;
+		mSearchMovieView.showSearchMovieName(currentName);
+		showSearchReultMovieData(1, 18, currentName);
 	}
 
 	@Override
