@@ -34,7 +34,8 @@
 					android:layout_height="wrap_content"
 					android:gravity="center"
 					android:text="A"
-					android:textColor="@color/tv_white_translate"/>
+					android:textColor="@color/tv_white_translate"
+					android:textSize="@dimen/layx42"/>
 
 				<View
 					android:layout_width="@dimen/layx100"
@@ -47,7 +48,8 @@
 					android:layout_height="wrap_content"
 					android:gravity="center"
 					android:text="ABC"
-					android:textColor="@color/tv_white_translate"/>
+					android:textColor="@color/tv_white_translate"
+					android:textSize="@dimen/layx42"/>
 			</LinearLayout>
 
 
@@ -79,12 +81,14 @@
 				android:background="@drawable/bg_color_blue_white_selector"
 				android:gravity="center"
 				android:text="1"
-				android:textColor="@drawable/tv_color_white_blue_seletor"/>
+				android:textColor="@drawable/tv_color_white_blue_seletor"
+				android:textSize="@dimen/layx42"/>
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
 			android:layout_marginTop="@dimen/layy10"
 			android:orientation="horizontal">
 
@@ -103,7 +107,8 @@
 					android:background="@drawable/bg_color_blue_white_selector"
 					android:gravity="center"
 					android:text="A"
-					android:textColor="@drawable/tv_color_white_blue_seletor"/>
+					android:textColor="@drawable/tv_color_white_blue_seletor"
+					android:textSize="@dimen/layx42"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
@@ -123,7 +128,8 @@
 					android:background="@drawable/bg_color_blue_white_selector"
 					android:gravity="center"
 					android:text="B"
-					android:textColor="@drawable/tv_color_white_blue_seletor"/>
+					android:textColor="@drawable/tv_color_white_blue_seletor"
+					android:textSize="@dimen/layx42"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
@@ -142,7 +148,8 @@
 					android:background="@drawable/bg_color_blue_white_selector"
 					android:gravity="center"
 					android:text="C"
-					android:textColor="@drawable/tv_color_white_blue_seletor"/>
+					android:textColor="@drawable/tv_color_white_blue_seletor"
+					android:textSize="@dimen/layx42"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 
