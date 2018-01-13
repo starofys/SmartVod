@@ -79,6 +79,7 @@ public class T9KeyboardPresenter extends OpenPresenter {
 				if (mEditState && hasFocus) {
 					mEditState = false;
 					mAdapter.notifyItemChanged(mClickPosition);
+//					Toast.makeText(mContext,"mClickPosition:"+mClickPosition+"  position:"+position,Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -101,51 +102,6 @@ public class T9KeyboardPresenter extends OpenPresenter {
 
 		viewHolder.mRivT9ExpandingUp.requestLayout();
 		viewHolder.mRivT9ExpandingUp.requestFocus();
-
-//		final boolean[] upFoucus = {false};
-//		final boolean[] leftFoucus = {false};
-//		final boolean[] downFoucus = {false};
-//		final boolean[] rightFoucus = {false};
-//		viewHolder.mRivT9ExpandingUp.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//			@Override
-//			public void onFocusChange(View v, boolean hasFocus) {
-//				upFoucus[0] = hasFocus;
-//				if (!hasFocus) {
-//					if (!leftFoucus[0] && !downFoucus[0] && !rightFoucus[0])
-//						showT9Expanding(viewHolder, false);
-//				}
-//			}
-//		});
-//		viewHolder.mRivT9ExpandingLeft.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//			@Override
-//			public void onFocusChange(View v, boolean hasFocus) {
-//				leftFoucus[0] = hasFocus;
-//				if (!hasFocus) {
-//					if (!upFoucus[0] && !downFoucus[0] && !rightFoucus[0])
-//						showT9Expanding(viewHolder, false);
-//				}
-//			}
-//		});
-//		viewHolder.mRivT9ExpandingDown.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//			@Override
-//			public void onFocusChange(View v, boolean hasFocus) {
-//				downFoucus[0] = hasFocus;
-//				if (!hasFocus) {
-//					if (!upFoucus[0] && !leftFoucus[0] && !rightFoucus[0])
-//						showT9Expanding(viewHolder, false);
-//				}
-//			}
-//		});
-//		viewHolder.mRivT9ExpandingRight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//			@Override
-//			public void onFocusChange(View v, boolean hasFocus) {
-//				rightFoucus[0] = hasFocus;
-//				if (!hasFocus) {
-//					if (!upFoucus[0] && !leftFoucus[0] && !downFoucus[0])
-//						showT9Expanding(viewHolder, false);
-//				}
-//			}
-//		});
 
 		viewHolder.mRivT9ExpandingUp.setOnClickListener(new View.OnClickListener() {
 			@Override
