@@ -35,7 +35,7 @@ public class KeyBroadcastSender {
 		App.mContext.sendBroadcast(intent);
 	}
 
-	public void sendBottonBordKey(int source) {
+	public void sendDownBordKey(int source) {
 		Intent intent = new Intent();
 		intent.setAction(KeyFactoryConst.KEY_LISTEN_ACTION);
 		intent.putExtra(KeyFactoryConst.KEY_CODE_TAG, KeyFactoryConst.KEY_CODE_DOWN);
