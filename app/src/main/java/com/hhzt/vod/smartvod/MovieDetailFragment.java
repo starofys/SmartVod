@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,10 +51,10 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
     //播放
     @ViewInject(R.id.lml_movie_play)
     private LinearMainLayout mLmlMoviePlay;
+    @ViewInject(R.id.rl_movie_preview)
+    private ReflectItemView mVideoItemView;
     @ViewInject(R.id.nice_video_player)
     private NiceVideoPlayer mNiceVideoPlayer;
-    @ViewInject(R.id.rl_movie_preview)
-    private ReflectItemView mSmallVideoItemView;
 
     //电影详情(名字、时间、导演、主演、类型、简介)
     @ViewInject(R.id.tv_movie_name)
@@ -155,9 +156,10 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void initEvent() {
-        mSmallVideoItemView.setOnClickListener(this);
+        mVideoItemView.setOnClickListener(this);
         mRivMovieFullScreen.setOnClickListener(this);
         mRivMoviePay.setOnClickListener(this);
+        mVideoItemView.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
         mLmlMoviePlay.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
         mLmlFullscreenOrPay.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 
@@ -269,6 +271,17 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
                     mMovieDetailLinkPresenter.clickOtherMovieDetail(mMovieDetailCallBack, MovieDetailLinkPresenter.TYPE_HOT, position);
             }
         });
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerViewBridge.setFocusView(mVideoItemView, ConfigX.SCALE);
+                mVideoItemView.requestLayout();
+                mVideoItemView.requestFocus();
+            }
+        }, 500);
     }
 
     @Override
@@ -277,12 +290,13 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
             case R.id.rl_movie_preview:
                 if (mNiceVideoPlayer.isPlaying()) {
                     mNiceVideoPlayer.pause();
+                } else if (mNiceVideoPlayer.isPaused()) {
+                    mNiceVideoPlayer.restart();
                 } else {
                     mNiceVideoPlayer.start();
                 }
                 break;
             case R.id.riv_movie_full_screen:
-//                mMovieDetailLinkPresenter.toVideoPlayerActivity(getActivity(), VideoPlayerActivity.class, mPlayLocation);
                 mNiceVideoPlayer.enterFullScreen();
                 break;
             case R.id.riv_movie_pay:

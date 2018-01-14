@@ -439,6 +439,15 @@ public class RecyclerViewTV extends RecyclerView implements PrvInterface {
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		int action = event.getAction();
 		int keyCode = event.getKeyCode();
+
+		if (action == KeyEvent.ACTION_DOWN) {
+			if (null != mOnItemKeyListener) {
+				if (mOnItemKeyListener.dispatchKeyEvent(event)) {
+					return true;
+				}
+			}
+		}
+
 		if (action == KeyEvent.ACTION_UP) {
 			if (!isHorizontalLayoutManger() && keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
 				// 垂直布局向下按键.
@@ -446,14 +455,6 @@ public class RecyclerViewTV extends RecyclerView implements PrvInterface {
 			} else if (isHorizontalLayoutManger() && keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
 				// 横向布局向右按键.
 				exeuteKeyEvent();
-			}
-		}
-
-		if (action == KeyEvent.ACTION_DOWN) {
-			if (null != mOnItemKeyListener) {
-				if (mOnItemKeyListener.dispatchKeyEvent(event)) {
-					return true;
-				}
 			}
 		}
 

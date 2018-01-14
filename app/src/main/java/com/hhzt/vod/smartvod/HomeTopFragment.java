@@ -144,17 +144,11 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (null != intent) {
-                switch (intent.getAction()) {
-                    case KeyFactoryConst.KEY_LISTEN_ACTION:
-                        String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
-                        if (KeyFactoryConst.KEY_CODE_UP.equalsIgnoreCase(keyType)) {
-                            mLlSearch.requestLayout();
-                            mLlSearch.requestFocus();
-                        }
-                        break;
-                    default:
-                        break;
+            if (KeyFactoryConst.KEY_LISTEN_ACTION.equals(intent.getAction())) {
+                String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
+                if (KeyFactoryConst.KEY_CODE_UP.equalsIgnoreCase(keyType)) {
+                    mLlSearch.requestLayout();
+                    mLlSearch.requestFocus();
                 }
             }
         }
