@@ -18,6 +18,7 @@ import com.hhzt.vod.media.Clarity;
 import com.hhzt.vod.smartvod.R;
 import com.hhzt.vod.smartvod.VideoPlayerActivity;
 import com.hhzt.vod.smartvod.callback.MovieDetailCallBack;
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.dialog.PayDialogFragment;
 import com.hhzt.vod.smartvod.mvp.link.MovieDetailContract;
 import com.hhzt.vod.smartvod.mvp.model.IMovieDetail;
@@ -82,7 +83,9 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 				for (int i = 1; i <= number; i++) {
 					EpisodeBean episodeBean = new EpisodeBean();
 					episodeBean.setEpisode(i + "");
-					episodeBean.setTable(0);          //todo 判断是否付费,需要付费改成其他的   0：表示免费     1:表示付费
+					if (mProgramDetailBo.getVipFlag() == ConfigX.NEED_VIP) episodeBean.setTable((i < ConfigX.FREE_SERIES_NUMBER) ? ConfigX.FREE : ConfigX.NEED_VIP);
+					else episodeBean.setTable(ConfigX.FREE);
+
 					mEpisodeList.add(episodeBean);
 				}
 

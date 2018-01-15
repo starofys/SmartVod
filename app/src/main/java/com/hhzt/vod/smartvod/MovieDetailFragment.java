@@ -77,6 +77,8 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	private ReflectItemView mRivMovieFullScreen;
 	@ViewInject(R.id.riv_movie_pay)
 	private ReflectItemView mRivMoviePay;
+	@ViewInject(R.id.tv_movie_watch_for_free_time)
+	private TextView mTtvMovieWatchForFreeTime;
 
 	//电视剧
 	@ViewInject(R.id.ll_tv_series)
@@ -344,6 +346,9 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 
 	@Override
 	public void showMovieDetail(List<EpisodeBean> episodeList, List<String> episodeRangeList, ProgrameDetailBo programDetailBo) {
+		mRivMoviePay.setVisibility(programDetailBo.getVipFlag() == ConfigX.NEED_VIP ? View.VISIBLE : View.GONE);
+		mTtvMovieWatchForFreeTime.setVisibility((programDetailBo.getVipFlag() == ConfigX.NEED_VIP && programDetailBo.getMediaList().size() <= 1) ? View.VISIBLE : View.GONE);
+
 		//电影详情(名字、时间、导演、主演、类型、简介)
 		String writers = String.format(getResources().getString(R.string.movie_detail_director), programDetailBo.getName());
 		String actors = String.format(getResources().getString(R.string.movie_detail_starring), programDetailBo.getYear());

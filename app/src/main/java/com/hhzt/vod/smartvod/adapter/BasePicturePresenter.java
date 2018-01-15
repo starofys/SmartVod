@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.smartvod.R;
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
 
@@ -62,7 +63,7 @@ public abstract class BasePicturePresenter extends OpenPresenter {
 		MovieInfoData movieInfoBean = mMovieInfoList.get(position);
 		movieGridViewHolder.ivMovieName.setText(movieInfoBean.getName());
 
-		movieGridViewHolder.ivPayLable.setVisibility(movieInfoBean.getVipFlag() == 1 ? View.VISIBLE : View.GONE);
+		movieGridViewHolder.ivPayLable.setVisibility(movieInfoBean.getVipFlag() == ConfigX.NEED_VIP ? View.VISIBLE : View.GONE);
 
 		Glide.with(mContext)
 				.load(movieInfoBean.getSmallPoster())
