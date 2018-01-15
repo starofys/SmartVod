@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * Created by zengxiaoping on 2018/1/11.
  *
- * @description TODO
  * @Author zengxiaoping
  */
 
@@ -63,8 +62,7 @@ public abstract class BasePicturePresenter extends OpenPresenter {
 		MovieInfoData movieInfoBean = mMovieInfoList.get(position);
 		movieGridViewHolder.ivMovieName.setText(movieInfoBean.getName());
 
-		//满足有付费的标签
-//        movieGridViewHolder.ivPayLable.setVisibility(true ? View.VISIBLE : View.GONE);
+		movieGridViewHolder.ivPayLable.setVisibility(movieInfoBean.getVipFlag() == 1 ? View.VISIBLE : View.GONE);
 
 		Glide.with(mContext)
 				.load(movieInfoBean.getSmallPoster())

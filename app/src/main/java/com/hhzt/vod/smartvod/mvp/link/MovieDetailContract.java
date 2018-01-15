@@ -30,6 +30,8 @@ public class MovieDetailContract {
         void showMovieRelate(ArrayList<MovieInfoData> relevantList);
 
         void showMovieHot(ArrayList<MovieInfoData> hotList);
+
+        void isTvSeries(boolean isTvSeries);
     }
 
     public interface MovieDetailPresenter extends BasePresenter {

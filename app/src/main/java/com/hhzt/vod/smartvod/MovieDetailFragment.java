@@ -400,4 +400,9 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 			mRcvRecommendMovie.setAdapter(generalAdapter);
 		}
 	}
+
+	@Override
+	public void isTvSeries(boolean isTvSeries) {
+		mLlTvSeries.setVisibility(isTvSeries ? View.VISIBLE : View.GONE);
+	}
 }
