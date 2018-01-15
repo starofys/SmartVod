@@ -120,7 +120,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 				view.requestLayout();
 				view.requestFocus();
 			}
-		}, 100);
+		}, 500);
 	}
 
 	private void initView() {
