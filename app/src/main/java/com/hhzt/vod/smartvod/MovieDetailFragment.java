@@ -2,11 +2,9 @@ package com.hhzt.vod.smartvod;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -138,7 +136,6 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		mMovieDetailCallBack = (MovieDetailCallBack) activity;
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.O)
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);

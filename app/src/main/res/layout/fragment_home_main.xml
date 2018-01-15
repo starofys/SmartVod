@@ -16,7 +16,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="@dimen/layx65"
 			android:layout_gravity="center_horizontal|top"
-			android:src="@drawable/ic_enter_up"/>
+			android:src="@mipmap/ic_enter_up"/>
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -36,14 +36,14 @@
 				android:id="@+id/fragment_movie_container"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:layout_marginStart="@dimen/layx24"/>
+				android:layout_marginLeft="@dimen/layx24"/>
 		</LinearLayout>
 
 		<ImageView
 			android:layout_width="wrap_content"
 			android:layout_height="@dimen/layy65"
 			android:layout_gravity="center_horizontal|bottom"
-			android:src="@drawable/ic_enter_down"/>
+			android:src="@mipmap/ic_enter_down"/>
 
 	</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 </com.hhzt.vod.viewlayer.androidtvwidget.view.RelativeMainLayout>

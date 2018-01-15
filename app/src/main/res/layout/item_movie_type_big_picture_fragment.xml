@@ -17,10 +17,10 @@
 		android:id="@+id/iv_movie_label_item"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentStart="true"
+		android:layout_alignParentLeft="true"
 		android:layout_alignParentTop="true"
 		android:focusable="false"
-		android:src="@drawable/ic_pay_lable"
+		android:src="@mipmap/ic_pay_lable"
 		android:visibility="gone" />
 
 	<TextView
@@ -28,7 +28,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/layy70"
 		android:layout_alignParentBottom="true"
-		android:background="@drawable/ic_movie_name_bacgroud"
+		android:background="@mipmap/ic_movie_name_bacgroud"
 		android:ellipsize="end"
 		android:gravity="center"
 		android:singleLine="true"

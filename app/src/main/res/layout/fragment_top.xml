@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/content11"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:clipChildren="false"
@@ -13,20 +11,20 @@
 		android:layout_height="@dimen/layy64"
 		android:layout_marginBottom="@dimen/layy37"
 		android:layout_marginTop="@dimen/layy86"
-		android:orientation="horizontal"
 		android:gravity="center_vertical"
-		android:paddingEnd="@dimen/layx85">
+		android:orientation="horizontal"
+		android:paddingRight="@dimen/layx85">
 
 		<ImageView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/layx108"
-			android:src="@drawable/ic_cibn"/>
+			android:layout_marginLeft="@dimen/layx108"
+			android:src="@mipmap/ic_cibn" />
 
 		<View
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_weight="1"/>
+			android:layout_weight="1" />
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
 			android:id="@+id/lml_movie_search"
@@ -48,17 +46,17 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_vertical"
-					android:layout_marginStart="@dimen/layx20"
-					android:src="@drawable/ic_search"/>
+					android:layout_marginLeft="@dimen/layx20"
+					android:src="@mipmap/ic_search" />
 
 				<TextView
 					android:id="@+id/tv_search"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_vertical"
-					android:layout_marginStart="@dimen/layx60"
+					android:layout_marginLeft="@dimen/layx60"
 					android:text="@string/search"
-					android:textColor="@color/tv_white"/>
+					android:textColor="@color/tv_white" />
 
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
@@ -67,17 +65,17 @@
 			android:id="@+id/tv_current_time"
 			android:layout_width="wrap_content"
 			android:layout_height="@dimen/layx72"
-			android:layout_marginStart="@dimen/layx50"
+			android:layout_marginLeft="@dimen/layx50"
 			android:gravity="center_vertical"
 			android:textColor="@color/tv_white"
-			android:textSize="@dimen/layx50"/>
+			android:textSize="@dimen/layx50" />
 
 		<View
 			android:layout_width="@dimen/layx1"
 			android:layout_height="@dimen/layy64"
 			android:layout_marginEnd="@dimen/layx20"
 			android:layout_marginStart="@dimen/layx20"
-			android:background="@color/tv_white"/>
+			android:background="@color/tv_white" />
 
 		<LinearLayout
 			android:layout_width="wrap_content"
@@ -91,14 +89,14 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="right"
 				android:textColor="@color/tv_white"
-				android:textSize="@dimen/layx24"/>
+				android:textSize="@dimen/layx24" />
 
 			<TextView
 				android:id="@+id/tv_week"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textColor="@color/tv_white"
-				android:textSize="@dimen/layx24"/>
+				android:textSize="@dimen/layx24" />
 		</LinearLayout>
 
 		<View
@@ -106,15 +104,15 @@
 			android:layout_height="@dimen/layy64"
 			android:layout_marginEnd="@dimen/layx20"
 			android:layout_marginStart="@dimen/layx20"
-			android:background="@color/tv_white"/>
+			android:background="@color/tv_white" />
 
 		<ImageView
 			android:id="@+id/iv_climate_icon"
 			android:layout_width="@dimen/layx50"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="@dimen/layx20"
-			android:src="@drawable/ic_climate_icon"
-			android:textColor="@color/tv_white"/>
+			android:layout_marginRight="@dimen/layx20"
+			android:src="@mipmap/ic_climate_icon"
+			android:textColor="@color/tv_white" />
 
 		<LinearLayout
 			android:layout_width="wrap_content"
@@ -128,14 +126,14 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="right"
 				android:textColor="@color/tv_white"
-				android:textSize="@dimen/layx24"/>
+				android:textSize="@dimen/layx24" />
 
 			<TextView
 				android:id="@+id/tv_city"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textColor="@color/tv_white"
-				android:textSize="@dimen/layx24"/>
+				android:textSize="@dimen/layx24" />
 		</LinearLayout>
 
 	</LinearLayout>

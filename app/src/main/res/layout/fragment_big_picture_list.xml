@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:upImageRes="@drawable/ic_select_border" />
+            app:upImageRes="@mipmap/ic_select_border" />
     </RelativeLayout>
 
 </com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView>

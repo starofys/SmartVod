@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="@dimen/layx414"
 	android:layout_height="@dimen/layy64"
-	android:layout_marginEnd="@dimen/layx21"
+	android:layout_marginRight="@dimen/layx21"
 	android:layout_marginBottom="@dimen/layx10"
 	android:background="@drawable/ic_search_backgroud"
 	android:focusable="true"
