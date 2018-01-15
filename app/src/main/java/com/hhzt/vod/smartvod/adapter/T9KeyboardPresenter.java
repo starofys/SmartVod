@@ -1,6 +1,7 @@
 package com.hhzt.vod.smartvod.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,11 @@ import android.view.ViewGroup;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.smartvod.R;
 import com.hhzt.vod.smartvod.callback.T9ClickCallBack;
+import com.hhzt.vod.smartvod.constant.ConfigX;
+import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
+import com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView;
 
 import java.util.ArrayList;
 
@@ -22,13 +26,17 @@ public class T9KeyboardPresenter extends OpenPresenter {
 	private ArrayList<KeyBean> mKeyList;
 	private GeneralAdapter mAdapter;
 	private Context mContext;
+	private Handler mHandler;
+	private RecyclerViewBridge mRecyclerViewBridge;
 	private T9ClickCallBack mT9ClickCallBack;
 	private int mClickPosition = 0;
 	private boolean mEditState = false;
 
-	public T9KeyboardPresenter(Context context, ArrayList<KeyBean> mEpisodeList) {
+	public T9KeyboardPresenter(Context context, ArrayList<KeyBean> mEpisodeList, Handler handler, RecyclerViewBridge recyclerViewBridge) {
 		this.mKeyList = mEpisodeList;
 		this.mContext = context;
+		this.mHandler = handler;
+		this.mRecyclerViewBridge = recyclerViewBridge;
 	}
 
 	public void setT9ClickCallBack(T9ClickCallBack t9ClickCallBack) {
@@ -69,8 +77,8 @@ public class T9KeyboardPresenter extends OpenPresenter {
 			@Override
 			public void onClick(View v) {
 				mEditState = true;
-				showExpanding(t9KeyboardViewHolder, position);
 				mClickPosition = position;
+				showExpanding(t9KeyboardViewHolder, position);
 			}
 		});
 		t9KeyboardViewHolder.mRivT9.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -106,45 +114,53 @@ public class T9KeyboardPresenter extends OpenPresenter {
 		viewHolder.mRivT9ExpandingUp.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mT9ClickCallBack != null) {
-					mT9ClickCallBack.t9KeyBoardClickPosition(position, 0, numberKeyBoard, numberKeyBoard);
-					mEditState = false;
-					showT9Expanding(viewHolder, false);
-				}
+				clickPositionByShowT9(position, 0, numberKeyBoard, numberKeyBoard, viewHolder);
 			}
 		});
 		viewHolder.mRivT9ExpandingLeft.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mT9ClickCallBack != null) {
-					mT9ClickCallBack.t9KeyBoardClickPosition(position, 1, letterKeyBoard, keyLetter[0]);
-					mEditState = false;
-					showT9Expanding(viewHolder, false);
-				}
+				clickPositionByShowT9(position, 1, letterKeyBoard, keyLetter[0], viewHolder);
 			}
 		});
 		viewHolder.mRivT9ExpandingDown.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mT9ClickCallBack != null) {
-					mT9ClickCallBack.t9KeyBoardClickPosition(position, 2, letterKeyBoard, keyLetter[1]);
-					mEditState = false;
-					showT9Expanding(viewHolder, false);
-				}
+				clickPositionByShowT9(position, 2, letterKeyBoard, keyLetter[1], viewHolder);
 			}
 		});
 		viewHolder.mRivT9ExpandingRight.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mT9ClickCallBack != null) {
-					mT9ClickCallBack.t9KeyBoardClickPosition(position, 3, letterKeyBoard, keyLetter[2]);
-					mEditState = false;
-					showT9Expanding(viewHolder, false);
-				}
+				clickPositionByShowT9(position, 3, letterKeyBoard, keyLetter[2], viewHolder);
 			}
 		});
 
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				ReflectItemView rivT9ExpandingUp = viewHolder.mRivT9ExpandingUp;
+				mRecyclerViewBridge.setFocusView(rivT9ExpandingUp, ConfigX.SCALE);
+				rivT9ExpandingUp.requestLayout();
+				rivT9ExpandingUp.requestFocus();
+			}
+		}, 10);
+	}
 
+	private void clickPositionByShowT9(int position, int childPosition, String parentKeyName, String childKeyName, final T9KeyboardViewHolder viewHolder) {
+		if (mT9ClickCallBack != null) {
+			mT9ClickCallBack.t9KeyBoardClickPosition(position, childPosition, parentKeyName, childKeyName);
+			mEditState = false;
+			showT9Expanding(viewHolder, false);
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mRecyclerViewBridge.setFocusView(viewHolder.mRivT9, ConfigX.SCALE);
+					viewHolder.mRivT9.requestLayout();
+					viewHolder.mRivT9.requestFocus();
+				}
+			}, 10);
+		}
 	}
 
 	public void showT9Expanding(T9KeyboardViewHolder viewHolder, boolean show) {

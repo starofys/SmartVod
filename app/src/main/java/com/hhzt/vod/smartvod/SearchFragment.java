@@ -89,6 +89,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	private int mKeyBoardType = TYPE_KEY_BOARD_FULL;
 	private RecyclerViewBridge mRecyclerViewBridge;
 	private SearchMovieContract.SearchMoviePresenter mSearchMoviePresenter;
+	private Handler mHandler = new Handler();
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,8 +112,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mSearchMoviePresenter.showFullKeyboardData();
 		mSearchMoviePresenter.showHotMovieData();
 
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
+		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				View view = mRcvKeyboard.getChildAt(0);
@@ -134,7 +134,15 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mRivT9Keyboard.setOnClickListener(this);
 		mRivClear.setOnClickListener(this);
 		mRivDelete.setOnClickListener(this);
-		mLmlKeyboard.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
+		mLmlKeyboard.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+			@Override
+			public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+				if (newFocus != null)
+					newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
+				float scale = ConfigX.SCALE;
+				mMainUpView.setFocusView(newFocus, scale);
+			}
+		});
 		mLmlDeleteOrClear.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 
 		//全键盘(T9键盘特殊：走adpter里面的监听)
@@ -227,10 +235,10 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 
 		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
 		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-		mRcvHotSearchDown.setLayoutManager(gridlayoutManager);
-		mRcvHotSearchDown.setFocusable(false);
+		mRcvSearchResult.setLayoutManager(gridlayoutManager);
+		mRcvSearchResult.setFocusable(false);
 		GeneralAdapter generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(movieList));
-		mRcvHotSearchDown.setAdapter(generalAdapter);
+		mRcvSearchResult.setAdapter(generalAdapter);
 	}
 
 	@Override
@@ -249,7 +257,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 		mRcvKeyboard.setLayoutManager(gridlayoutManager);
 		mRcvKeyboard.setFocusable(false);
-		T9KeyboardPresenter t9KeyboardPresenter = new T9KeyboardPresenter(getContext(), keyBeanList);
+		T9KeyboardPresenter t9KeyboardPresenter = new T9KeyboardPresenter(getContext(), keyBeanList, mHandler, mRecyclerViewBridge);
 		GeneralAdapter generalAdapter = new GeneralAdapter(t9KeyboardPresenter);
 		mRcvKeyboard.setAdapter(generalAdapter);
 		t9KeyboardPresenter.setT9ClickCallBack(new T9ClickCallBack() {
@@ -269,6 +277,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	public void onDestroy() {
 		super.onDestroy();
 		mSearchMoviePresenter.destoryInit();
+		mHandler.removeCallbacks(null);
 	}
 
 	@Override

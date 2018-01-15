@@ -108,6 +108,7 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 		mISearchMovie.requestSearchMovieReult(pageNum, pageSize, searchKeyWord, new IHttpRetCallBack<VodSearchDataRep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, VodSearchDataRep vodSearchDataRep) {
+				mSearchMovieReultList.clear();
 				mSearchMovieReultList.addAll(vodSearchDataRep.getProgramSimpleBoList());
 				mSearchMovieView.showSearchMovieReultData(mSearchMovieReultList);
 			}
