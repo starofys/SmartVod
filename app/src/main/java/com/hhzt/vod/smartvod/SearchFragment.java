@@ -119,6 +119,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 				mRecyclerViewBridge.setFocusView(view, ConfigX.SCALE);
 				view.requestLayout();
 				view.requestFocus();
+				mMainUpView.setVisibility(View.GONE);
 			}
 		}, 500);
 	}
@@ -134,15 +135,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mRivT9Keyboard.setOnClickListener(this);
 		mRivClear.setOnClickListener(this);
 		mRivDelete.setOnClickListener(this);
-		mLmlKeyboard.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
-			@Override
-			public void onGlobalFocusChanged(View oldFocus, View newFocus) {
-				if (newFocus != null)
-					newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-				float scale = ConfigX.SCALE;
-				mMainUpView.setFocusView(newFocus, scale);
-			}
-		});
+		mLmlKeyboard.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 		mLmlDeleteOrClear.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 
 		//全键盘(T9键盘特殊：走adpter里面的监听)
