@@ -6,10 +6,10 @@ import android.content.Intent;
 import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.repBean.MovieInfoData;
-import com.hhzt.vod.api.repData.VodGroupDetailDataRep;
+import com.hhzt.vod.api.repData.ProgramDatasRep;
 import com.hhzt.vod.smartvod.MovieDetailActivity;
-import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
-import com.hhzt.vod.smartvod.mvp.model.IHomeTypeList;
+import com.hhzt.vod.smartvod.mvp.link.HomeMovieRecommodListContract;
+import com.hhzt.vod.smartvod.mvp.model.IHomeMovieRecommondList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +20,19 @@ import java.util.List;
  * @Author zengxiaoping
  */
 
-public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMovieListPresenter {
+public class HomeMovieRecommondListLinkPresenter implements HomeMovieRecommodListContract.HomeMovieListPresenter {
 	private Context mContext;
-	private IHomeTypeList mIHomeTypeList;
-	private HomeMovieListContract.HomeMovieListView mHomeMovieListView;
+	private IHomeMovieRecommondList mIHomeMovieRecommondList;
+	private HomeMovieRecommodListContract.HomeMovieListView mHomeMovieListView;
 
 	private List<MovieInfoData> mMovieInfoData = new ArrayList<>();
 
-	public HomeMovieListLinkPresenter(
+	public HomeMovieRecommondListLinkPresenter(
 			Context context,
-			IHomeTypeList IHomeTypeList,
-			HomeMovieListContract.HomeMovieListView homeMovieListView) {
+			IHomeMovieRecommondList iHomeMovieRecommondList,
+			HomeMovieRecommodListContract.HomeMovieListView homeMovieListView) {
 		mContext = context;
-		mIHomeTypeList = IHomeTypeList;
+		mIHomeMovieRecommondList = iHomeMovieRecommondList;
 		mHomeMovieListView = homeMovieListView;
 
 		mHomeMovieListView.setPresenter(this);
@@ -49,12 +49,12 @@ public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMov
 	}
 
 	@Override
-	public void showData(int programGroupId, int pageNum, int pageSize, int categoryId) {
-		mIHomeTypeList.showData(programGroupId, pageNum, pageSize, categoryId, new IHttpRetCallBack<VodGroupDetailDataRep>() {
+	public void showData() {
+		mIHomeMovieRecommondList.showData(new IHttpRetCallBack<ProgramDatasRep>() {
 			@Override
-			public void onResponseSuccess(CommonRspRetBean bean, VodGroupDetailDataRep vodGroupDetailDataRep) {
+			public void onResponseSuccess(CommonRspRetBean bean, ProgramDatasRep programDatasRep) {
 				mMovieInfoData.clear();
-				mMovieInfoData.addAll(vodGroupDetailDataRep.getProgramSimpleBoList());
+				mMovieInfoData.addAll(programDatasRep.getProgramSimpleBoList());
 				mHomeMovieListView.showData(mMovieInfoData);
 			}
 
@@ -93,7 +93,7 @@ public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMov
 	@Override
 	public void toMovieDetail(Context packageContext, Class<?> cls, int position, int categoryId) {
 		Intent intent = new Intent(packageContext, cls);
-		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, categoryId);
+		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, mMovieInfoData.get(position).getProgramId());
 		intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieInfoData.get(position).getId());
 		packageContext.startActivity(intent);
 	}

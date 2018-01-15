@@ -1,14 +1,13 @@
 package com.hhzt.vod.smartvod;
 
 /**
- * Created by duanyitao on 2017/12/29.
+ * Created by zengxiaoping on 2017/12/29.
  *
- * @description TODO
- * @Author duanyitao
+ * @Author zengxiaoping
  */
 
 public class MovieFactory {
-    public static final int MOVIE_SHOW_TYPE_BIG_PICTURE = 0;  //大图
+    public static final int MOVIE_SHOW_TYPE_BIG_PICTURE = 0;  //大图(推荐)
     public static final int MOVIE_SHOW_TYPE_MIX_PICTURE = 1;  //混合图（大图 and 小图）
     public static final int MOVIE_SHOW_TYPE_SMALL_PICTURE = 2;//小图
 

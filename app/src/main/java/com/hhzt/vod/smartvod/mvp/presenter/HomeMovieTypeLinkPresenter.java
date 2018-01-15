@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * Created by zengxiaoping on 2018/1/9.
  *
- * @description TODO
  * @Author zengxiaoping
  */
 
@@ -59,6 +58,10 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 			public void onResponseSuccess(CommonRspRetBean bean, CategoryBoDatasRep categoryBoDatasRep) {
 				mMovieTypeNames.addAll(categoryBoDatasRep.getCategoryBoList());
 				mIHomeMovieTypeView.showData(mMovieTypeNames);
+
+				SimpleRepBean simpleRepBean = new SimpleRepBean();
+				simpleRepBean.setName(mContext.getResources().getString(R.string.recommond));
+				mMovieTypeNames.add(0, simpleRepBean);
 			}
 
 			@Override

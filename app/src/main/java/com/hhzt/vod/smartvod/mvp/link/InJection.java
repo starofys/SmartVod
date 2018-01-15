@@ -1,6 +1,7 @@
 package com.hhzt.vod.smartvod.mvp.link;
 
 import com.hhzt.vod.smartvod.mvp.model.DataModel;
+import com.hhzt.vod.smartvod.mvp.model.HomeMovieRecommondModel;
 import com.hhzt.vod.smartvod.mvp.model.HomeTypeListModelModel;
 import com.hhzt.vod.smartvod.mvp.model.HomeTypeModel;
 import com.hhzt.vod.smartvod.mvp.model.IDataTime;
@@ -24,6 +25,10 @@ public class InJection {
 
 	public static IHomeTypeList initHomeTypeList() {
 		return new HomeTypeListModelModel();
+	}
+
+	public static HomeMovieRecommondModel initMovieRecommond() {
+		return new HomeMovieRecommondModel();
 	}
 
 	public static IMovieDetail initMovieDetail() {

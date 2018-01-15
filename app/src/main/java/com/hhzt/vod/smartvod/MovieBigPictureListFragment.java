@@ -15,9 +15,9 @@ import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
 import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.adapter.HomeBigPicturePresenter;
 import com.hhzt.vod.smartvod.constant.ConfigX;
-import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
+import com.hhzt.vod.smartvod.mvp.link.HomeMovieRecommodListContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
-import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieListLinkPresenter;
+import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieRecommondListLinkPresenter;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 
 @ContentView(R.layout.fragment_big_picture_list)
-public class MovieBigPictureListFragment extends MovieListFragment implements HomeMovieListContract.HomeMovieListView {
+public class MovieBigPictureListFragment extends MovieListFragment implements HomeMovieRecommodListContract.HomeMovieListView {
 
     @ViewInject(R.id.rcv_movie_item_container)
     private RecyclerViewTV mRcvMovieItemContainer;
@@ -46,7 +46,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     private int mMovieTypeId;
     private RecyclerViewBridge mRecyclerViewBridge;
 
-    private HomeMovieListContract.HomeMovieListPresenter mHomeMovieListLinkPresenter;
+    private HomeMovieRecommodListContract.HomeMovieListPresenter mHomeMovieListLinkPresenter;
 
     private MovieBroadCastReceiver mMovieBroadCastReceiver;
 
@@ -67,7 +67,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mHomeMovieListLinkPresenter = new HomeMovieListLinkPresenter(context, InJection.initHomeTypeList(), this);
+        mHomeMovieListLinkPresenter = new HomeMovieRecommondListLinkPresenter(context, InJection.initMovieRecommond(), this);
         mHomeMovieListLinkPresenter.init();
         mHomeMovieListLinkPresenter.start();
     }
@@ -82,7 +82,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        mHomeMovieListLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, 1, 30, mMovieTypeId);
+        mHomeMovieListLinkPresenter.showData();
 
         mMovieBroadCastReceiver = new MovieBroadCastReceiver();
         IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
@@ -163,7 +163,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     }
 
     @Override
-    public void setPresenter(HomeMovieListContract.HomeMovieListPresenter presenter) {
+    public void setPresenter(HomeMovieRecommodListContract.HomeMovieListPresenter presenter) {
         mHomeMovieListLinkPresenter = presenter;
     }
 
@@ -171,6 +171,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     public void showData(List<MovieInfoData> movieInfoData) {
         bindAdater(movieInfoData);
         initEvent();
+        mMainUpView.setVisibility(View.GONE);
     }
 
     private final class MovieBroadCastReceiver extends BroadcastReceiver {
