@@ -2,6 +2,7 @@ package com.hhzt.vod.smartvod;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -109,6 +110,17 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		initEvent();
 		mSearchMoviePresenter.showFullKeyboardData();
 		mSearchMoviePresenter.showHotMovieData();
+
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				View view = mRcvKeyboard.getChildAt(0);
+				mRecyclerViewBridge.setFocusView(view, ConfigX.SCALE);
+				view.requestLayout();
+				view.requestFocus();
+			}
+		}, 100);
 	}
 
 	private void initView() {
@@ -126,7 +138,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mLmlDeleteOrClear.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 
 		//全键盘(T9键盘特殊：走adpter里面的监听)
-		mRcvKeyboard.setItemSelected(0);
+//		mRcvKeyboard.setItemSelected(0);
 		mRcvKeyboard.setOnItemListener(this);
 		mRcvKeyboard.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
