@@ -12,7 +12,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.hhzt.vod.api.HttpUrlCreator;
+import com.hhzt.vod.media.NiceVideoPlayerManager;
 import com.hhzt.vod.smartvod.R;
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.constant.ConstTag;
 
 /**
@@ -24,21 +26,30 @@ public class PayDialogFragment extends DialogFragment {
 	private WebView mWebView;
 
 	private String mUserName;
-	private String mContentId;
-	private String mMediaType;
+	private int mContentId;
+	private int mMediaType;
+	private int mPayPath;
 
 	private Handler mUIHandler = new Handler();
 
-	public static PayDialogFragment getInstance(String userName, String contentId, String type) {
+	public static PayDialogFragment getInstance(String userName, int contentId, int type, int payPath) {
 		PayDialogFragment fragment = new PayDialogFragment();
 		Bundle bundle = new Bundle();
 		bundle.putString(ConstTag.TAG_USERNAME, userName);
-		bundle.putString(ConstTag.TAG_CONTENT, contentId);
-		bundle.putString(ConstTag.TAG_MEDIA_TYPE, type);
+		bundle.putInt(ConstTag.TAG_CONTENT, contentId);
+		bundle.putInt(ConstTag.TAG_MEDIA_TYPE, type);
+		bundle.putInt(ConstTag.TAG_PAY_PATH, payPath);
 		fragment.setArguments(bundle);
 		return fragment;
 	}
 
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		int style = DialogFragment.STYLE_NO_TITLE;
+		setStyle(style, 0);
+	}
 
 	@Nullable
 	@Override
@@ -46,8 +57,9 @@ public class PayDialogFragment extends DialogFragment {
 		View view = inflater.inflate(R.layout.dialog_pay_tip, null);
 
 		mUserName = getArguments().getString(ConstTag.TAG_USERNAME);
-		mContentId = getArguments().getString(ConstTag.TAG_CONTENT);
-		mMediaType = getArguments().getString(ConstTag.TAG_MEDIA_TYPE);
+		mContentId = getArguments().getInt(ConstTag.TAG_CONTENT);
+		mMediaType = getArguments().getInt(ConstTag.TAG_MEDIA_TYPE);
+		mPayPath = getArguments().getInt(ConstTag.TAG_PAY_PATH);
 
 		initView(view);
 		return view;
@@ -58,8 +70,18 @@ public class PayDialogFragment extends DialogFragment {
 
 		WebSettings webSettings = mWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
+		webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+		webSettings.setUseWideViewPort(true);
+		webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+		webSettings.setLoadWithOverviewMode(true);
+
+		mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 		mWebView.addJavascriptInterface(this, "hhzt");
-		mWebView.loadUrl(HttpUrlCreator.getVodPayActionTipsUrl(mUserName, mContentId, mMediaType));
+		if (mPayPath == ConfigX.MEDIA_PAY_PATH_DIRECT) {
+			mWebView.loadUrl(HttpUrlCreator.getVodPayActionTipsUrl(mUserName, mContentId, mMediaType));
+		} else {
+			mWebView.loadUrl(HttpUrlCreator.getVodPayLookActionTipsUrl(mUserName, mContentId, mMediaType));
+		}
 	}
 
 	@JavascriptInterface
@@ -67,6 +89,7 @@ public class PayDialogFragment extends DialogFragment {
 		mUIHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				NiceVideoPlayerManager.instance().resumeNiceVideoPlayer();
 				dismiss();
 			}
 		}, 1000);

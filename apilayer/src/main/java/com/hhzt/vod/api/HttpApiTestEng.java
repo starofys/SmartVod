@@ -454,7 +454,7 @@ public class HttpApiTestEng {
 		 * 3---套餐
 		 * 4---音乐
 		 */
-		HttpVod.getVodPayResultDatas(11 + "", 1 + "", "", PayResultRep.class, new IHttpRetCallBack<PayResultRep>() {
+		HttpVod.getVodPayResultDatas(11, 2, "", PayResultRep.class, new IHttpRetCallBack<PayResultRep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, PayResultRep payResultRep) {
 				System.out.print("onResponseSuccess:" + payResultRep.getMsg());
@@ -483,7 +483,7 @@ public class HttpApiTestEng {
 	}
 
 	public static void testHttpVod12() {
-		HttpVod.getVodPayWebTips(11 + "", 1 + "", "", String.class, new IHttpRetCallBack<String>() {
+		HttpVod.getVodPayWebTips(11, 1, "", String.class, new IHttpRetCallBack<String>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, String s) {
 				System.out.print("onResponseSuccess:" + s);
@@ -512,6 +512,35 @@ public class HttpApiTestEng {
 	}
 
 	public static void testHttpVod13() {
+		HttpVod.getVodLookPayWebTips(11, 1, "", String.class, new IHttpRetCallBack<String>() {
+			@Override
+			public void onResponseSuccess(CommonRspRetBean bean, String s) {
+				System.out.print("onResponseSuccess:" + s);
+			}
+
+			@Override
+			public void onResponseFailed(CommonRspRetBean bean) {
+				System.out.print("onResponseFailed:" + bean.msg);
+			}
+
+			@Override
+			public void onError(String result) {
+				System.out.print("onError:" + result);
+			}
+
+			@Override
+			public void onCancelled() {
+				System.out.print("onCancelled");
+			}
+
+			@Override
+			public void onFinish() {
+				System.out.print("onFinish");
+			}
+		});
+	}
+
+	public static void testHttpVod14() {
 		HttpVod.getWeather(HttpConst.VERSION,
 				HttpConst.METHOD_08,
 				HttpConst.APP_KEY,

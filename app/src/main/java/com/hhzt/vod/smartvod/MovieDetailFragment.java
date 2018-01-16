@@ -6,17 +6,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.ConfigMgr;
+import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.EpisodeBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.ProgrameDetailBo;
+import com.hhzt.vod.api.repData.PayResultRep;
 import com.hhzt.vod.media.Clarity;
+import com.hhzt.vod.media.IPayLogic;
 import com.hhzt.vod.media.NiceVideoPlayer;
 import com.hhzt.vod.media.TxVideoPlayerController;
 import com.hhzt.vod.smartvod.adapter.EpisodePresenter;
@@ -24,6 +29,7 @@ import com.hhzt.vod.smartvod.adapter.EpisodeRangePresenter;
 import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
 import com.hhzt.vod.smartvod.callback.MovieDetailCallBack;
 import com.hhzt.vod.smartvod.constant.ConfigX;
+import com.hhzt.vod.smartvod.dialog.PayDialogFragment;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.link.MovieDetailContract;
 import com.hhzt.vod.smartvod.mvp.presenter.MovieDetailLinkPresenter;
@@ -103,15 +109,17 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	private RecyclerViewBridge mRecyclerViewBridge;
 
 	private int mPlayLocation;
+	private boolean mNeedPayTag;
 	private int mMovieCategoryId;
 	private int mMovieProgramId;
 
 	private MovieDetailContract.MovieDetailPresenter mMovieDetailLinkPresenter;
 	private MovieDetailCallBack mMovieDetailCallBack;
 
-	public static MovieDetailFragment getInstance(int categoryId, int movieProgramId) {
+	public static MovieDetailFragment getInstance(int categoryId, int movieProgramId, boolean mNeedPayTag) {
 		MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
 		Bundle bundle = new Bundle();
+		bundle.putBoolean(MovieDetailActivity.MOVIE_NEED_PAY_TAG, mNeedPayTag);
 		bundle.putInt(MovieDetailActivity.MOVIE_CATEGORY_ID, categoryId);
 		bundle.putInt(MovieDetailActivity.MOVIE_PROGRAM_ID, movieProgramId);
 		movieDetailFragment.setArguments(bundle);
@@ -140,12 +148,17 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mNeedPayTag = getArguments().getBoolean(MovieDetailActivity.MOVIE_NEED_PAY_TAG, false);
 		mMovieCategoryId = getArguments().getInt(MovieDetailActivity.MOVIE_CATEGORY_ID, 0);
 		mMovieProgramId = getArguments().getInt(MovieDetailActivity.MOVIE_PROGRAM_ID, 0);
 
 		initView();
+
 		mMovieDetailLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mMovieCategoryId, mMovieProgramId);
 		initEvent();
+		initDefaultFouces();
+		updatePayUILogic();
+		delayPlayVideo();
 	}
 
 	@Override
@@ -277,15 +290,26 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 					mMovieDetailLinkPresenter.clickOtherMovieDetail(mMovieDetailCallBack, MovieDetailLinkPresenter.TYPE_HOT, position);
 			}
 		});
+	}
 
-
+	private void initDefaultFouces() {
 		Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				mRecyclerViewBridge.setFocusView(mVideoItemView, ConfigX.SCALE);
-				mVideoItemView.requestLayout();
-				mVideoItemView.requestFocus();
+				mRecyclerViewBridge.setFocusView(mRivMovieFullScreen, ConfigX.SCALE);
+				mRivMovieFullScreen.requestLayout();
+				mRivMovieFullScreen.requestFocus();
+			}
+		}, 500);
+	}
+
+	private void delayPlayVideo() {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mNiceVideoPlayer.start();
 			}
 		}, 500);
 	}
@@ -331,8 +355,26 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_NATIVE); // IjkPlayer or MediaPlayer
 		TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
 		controller.setTitle(movieName);
-		controller.setLenght(4 * 60 * 60 * 1000);
+		controller.setPreViewLimit(NiceVideoPlayer.PREVIEW_LIMIT_TIME);
 		controller.setClarity(clarities, 0);
+
+		/**
+		 * 需要支付的影片才需要设置视频预览时间到达逻辑
+		 */
+		if (mNeedPayTag) {
+			controller.setPreviewPayLogic(new IPayLogic() {
+				@Override
+				public void showPayTips() {
+					PayDialogFragment payDialogFragment = PayDialogFragment.getInstance(
+							ConfigMgr.getInstance().getUserName(),
+							mMovieProgramId,
+							ConfigX.MEDIA_TYPE_VOD,
+							ConfigX.MEDIA_PAY_PATH_LIMIT);
+					payDialogFragment.show(getChildFragmentManager(), "showPayTips");
+				}
+			});
+		}
+
 		Glide.with(getActivity())
 				.load(urlIcon)
 				.placeholder(R.drawable.img_default)
@@ -406,5 +448,50 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	@Override
 	public void isTvSeries(boolean isTvSeries) {
 		mLlTvSeries.setVisibility(isTvSeries ? View.VISIBLE : View.GONE);
+	}
+
+	private void updatePayUILogic() {
+		if (mNeedPayTag) {
+			mMovieDetailLinkPresenter.checkPayResult(mMovieProgramId, ConfigX.MEDIA_TYPE_VOD, new IHttpRetCallBack<PayResultRep>() {
+
+				@Override
+				public void onResponseSuccess(CommonRspRetBean bean, PayResultRep payResultRep) {
+					Log.d(ConfigX.HHZT_SMART_LOG, "checkPayResult:" + payResultRep.getMsg());
+					updatePayUI(!ConfigX.PAY_SUCCESSED.equals(payResultRep.getCode()));
+				}
+
+				@Override
+				public void onResponseFailed(CommonRspRetBean bean) {
+					Log.d(ConfigX.HHZT_SMART_LOG, "checkPayResult:" + bean.msg);
+				}
+
+				@Override
+				public void onError(String result) {
+					Log.d(ConfigX.HHZT_SMART_LOG, "checkPayResult:" + result);
+				}
+
+				@Override
+				public void onCancelled() {
+					Log.d(ConfigX.HHZT_SMART_LOG, "checkPayResult:onCancelled");
+				}
+
+				@Override
+				public void onFinish() {
+					Log.d(ConfigX.HHZT_SMART_LOG, "checkPayResult:onFinish");
+				}
+			});
+		} else {
+			updatePayUI(false);
+		}
+	}
+
+	private void updatePayUI(boolean show) {
+		if (show) {
+			mRivMoviePay.setVisibility(View.VISIBLE);
+			mTtvMovieWatchForFreeTime.setVisibility(View.VISIBLE);
+		} else {
+			mRivMoviePay.setVisibility(View.GONE);
+			mTtvMovieWatchForFreeTime.setVisibility(View.GONE);
+		}
 	}
 }

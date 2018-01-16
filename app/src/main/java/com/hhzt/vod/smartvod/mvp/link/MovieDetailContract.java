@@ -3,9 +3,11 @@ package com.hhzt.vod.smartvod.mvp.link;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
+import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.EpisodeBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.ProgrameDetailBo;
+import com.hhzt.vod.api.repData.PayResultRep;
 import com.hhzt.vod.media.Clarity;
 import com.hhzt.vod.smartvod.callback.MovieDetailCallBack;
 import com.hhzt.vod.smartvod.mvp.iview.BaseView;
@@ -48,5 +50,7 @@ public class MovieDetailContract {
 		void toVideoPlayerActivity(Context packageContext, Class<?> cls, int position);
 
 		void showPayWeb(FragmentManager fragmentManager);
+
+		void checkPayResult(int contentId, int type, IHttpRetCallBack<PayResultRep> iHttpRetCallBack);
 	}
 }

@@ -11,6 +11,7 @@ import com.hhzt.vod.api.repBean.SimpleRepBean;
 import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 import com.hhzt.vod.smartvod.MovieDetailActivity;
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.SearchMovieContract;
 import com.hhzt.vod.smartvod.mvp.model.ISearchMovie;
 
@@ -150,20 +151,25 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 		Intent intent = new Intent(packageContext, MovieDetailActivity.class);
 		int categoryId = 0;
 		int programId = 0;
+		boolean vipFlag = false;
 		switch (type) {
 			case TYPE_HOT_SEARCH_LIST:
 				categoryId = mHotSearchList.get(position).getCategoryId();
 				programId = mHotSearchList.get(position).getId();
+				vipFlag = mHotSearchList.get(position).getVipFlag() == ConfigX.NEED_VIP;
 				break;
 			case TYPE_HOT_LIST:
 				categoryId = mHotList.get(position).getCategoryId();
 				programId = mHotList.get(position).getId();
+				vipFlag = mHotList.get(position).getVipFlag() == ConfigX.NEED_VIP;
 				break;
 			case TYPE_SEARCH_RESULT:
 				categoryId = mSearchMovieReultList.get(position).getCategoryId();
 				programId = mSearchMovieReultList.get(position).getId();
+				vipFlag = mSearchMovieReultList.get(position).getVipFlag() == ConfigX.NEED_VIP;
 				break;
 		}
+		intent.putExtra(MovieDetailActivity.MOVIE_NEED_PAY_TAG, vipFlag);
 		intent.putExtra(MovieDetailActivity.MOVIE_CATEGORY_ID, categoryId);
 		intent.putExtra(MovieDetailActivity.MOVIE_PROGRAM_ID, programId);
 		packageContext.startActivity(intent);

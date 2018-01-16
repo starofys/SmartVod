@@ -34,6 +34,8 @@ public abstract class NiceVideoPlayerController extends FrameLayout implements V
 	private int mGestureDownVolume;
 	private long mNewPosition;
 
+	protected IPayLogic mIPayLogic;
+
 	public NiceVideoPlayerController(Context context) {
 		super(context);
 		mContext = context;
@@ -42,6 +44,10 @@ public abstract class NiceVideoPlayerController extends FrameLayout implements V
 
 	public void setNiceVideoPlayer(INiceVideoPlayer niceVideoPlayer) {
 		mNiceVideoPlayer = niceVideoPlayer;
+	}
+
+	public void setPreviewPayLogic(IPayLogic iPayLogic) {
+		mIPayLogic = iPayLogic;
 	}
 
 	/**
@@ -66,9 +72,9 @@ public abstract class NiceVideoPlayerController extends FrameLayout implements V
 	public abstract ImageView imageView();
 
 	/**
-	 * 设置总时长.
+	 * 设置试看时长.
 	 */
-	public abstract void setLenght(long length);
+	public abstract void setPreViewLimit(long length);
 
 	/**
 	 * 当播放器的播放状态发生变化，在此方法中国你更新不同的播放状态的UI
@@ -293,4 +299,9 @@ public abstract class NiceVideoPlayerController extends FrameLayout implements V
 	 * 在手势ACTION_UP或ACTION_CANCEL时调用。
 	 */
 	protected abstract void hideChangeBrightness();
+
+	/**
+	 * 试看时间结束处理逻辑
+	 */
+	protected abstract void showPayActionTips();
 }

@@ -8,6 +8,7 @@ public class PayResultRep {
 
     private String code;
     private String msg;
+    private String solution;
     private String data;
 
     public String getCode() {
@@ -26,6 +27,14 @@ public class PayResultRep {
         this.msg = msg;
     }
 
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
     public String getData() {
         return data;
     }
@@ -39,6 +48,7 @@ public class PayResultRep {
         return "PayResultRep{" +
                 "code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
+                ", solution='" + solution + '\'' +
                 ", data='" + data + '\'' +
                 '}';
     }

@@ -1,9 +1,9 @@
 package com.hhzt.vod.smartvod.mvp.model;
 
-import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.HttpConst;
 import com.hhzt.vod.api.HttpVod;
 import com.hhzt.vod.api.IHttpRetCallBack;
+import com.hhzt.vod.api.repData.PayResultRep;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 
 /**
@@ -15,7 +15,7 @@ import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 
 public class MovieDetailModel implements IMovieDetail {
 	@Override
-	public void requestMovieDetail(int programGroupId, int categoryId, int programId,IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack) {
+	public void requestMovieDetail(int programGroupId, int categoryId, int programId, IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack) {
 		HttpVod.getVodItemDetailDatas(
 				HttpConst.APP_KEY,
 				HttpConst.FORMAT,
@@ -32,12 +32,12 @@ public class MovieDetailModel implements IMovieDetail {
 	}
 
 	@Override
-	public void requestVodPayResult(String contentId, String type, IHttpRetCallBack<CommonRspRetBean> iHttpRetCallBack) {
+	public void requestVodPayResult(int contentId, int type, IHttpRetCallBack<PayResultRep> iHttpRetCallBack) {
 		HttpVod.getVodPayResultDatas(
 				contentId,
 				type,
 				"",
-				CommonRspRetBean.class,
+				PayResultRep.class,
 				iHttpRetCallBack);
 	}
 }

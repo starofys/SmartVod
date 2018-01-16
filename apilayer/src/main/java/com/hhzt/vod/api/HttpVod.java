@@ -307,8 +307,8 @@ public class HttpVod {
 	 * @param iHttpRetCallBack
 	 * @param <T>
 	 */
-	public static <T> void getVodPayResultDatas(String contentId,
-	                                            String type,
+	public static <T> void getVodPayResultDatas(int contentId,
+	                                            int type,
 	                                            String tag,
 	                                            Class<T> tClass,
 	                                            IHttpRetCallBack<T> iHttpRetCallBack) {
@@ -317,7 +317,7 @@ public class HttpVod {
 	}
 
 	/**
-	 * 显示H5支付页面
+	 * 显示H5支付页面(直接点击支付)
 	 *
 	 * @param contentId
 	 * @param type
@@ -326,12 +326,31 @@ public class HttpVod {
 	 * @param iHttpRetCallBack
 	 * @param <T>
 	 */
-	public static <T> void getVodPayWebTips(String contentId,
-	                                        String type,
+	public static <T> void getVodPayWebTips(int contentId,
+	                                        int type,
 	                                        String tag,
 	                                        Class<T> tClass,
 	                                        IHttpRetCallBack<T> iHttpRetCallBack) {
 		String url = HttpUrlCreator.getVodPayActionTipsUrl(ConfigMgr.getInstance().getUserName(), contentId, type);
+		HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
+	}
+
+	/**
+	 * 显示H5支付页面（在播放器中完成试看时间后）
+	 *
+	 * @param contentId
+	 * @param type
+	 * @param tag
+	 * @param tClass
+	 * @param iHttpRetCallBack
+	 * @param <T>
+	 */
+	public static <T> void getVodLookPayWebTips(int contentId,
+	                                            int type,
+	                                            String tag,
+	                                            Class<T> tClass,
+	                                            IHttpRetCallBack<T> iHttpRetCallBack) {
+		String url = HttpUrlCreator.getVodPayLookActionTipsUrl(ConfigMgr.getInstance().getUserName(), contentId, type);
 		HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
 	}
 

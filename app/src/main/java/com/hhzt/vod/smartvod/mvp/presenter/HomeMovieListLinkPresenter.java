@@ -93,6 +93,7 @@ public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMov
 	@Override
 	public void toMovieDetail(Context packageContext, Class<?> cls, int position) {
 		Intent intent = new Intent(packageContext, cls);
+		intent.putExtra(MovieDetailActivity.MOVIE_NEED_PAY_TAG, mMovieInfoData.get(position).getVipFlag());
 		intent.putExtra(MovieDetailActivity.MOVIE_CATEGORY_ID, mMovieInfoData.get(position).getCategoryId());
 		intent.putExtra(MovieDetailActivity.MOVIE_PROGRAM_ID, mMovieInfoData.get(position).getId());
 		packageContext.startActivity(intent);

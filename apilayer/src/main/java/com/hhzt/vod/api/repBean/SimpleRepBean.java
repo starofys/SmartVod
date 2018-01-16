@@ -8,6 +8,7 @@ public class SimpleRepBean {
 	private int id;
 	private int categoryId;
 	private String name;
+	private int vipFlag;
 
 	public int getId() {
 		return id;
@@ -33,12 +34,21 @@ public class SimpleRepBean {
 		this.name = name;
 	}
 
+	public int getVipFlag() {
+		return vipFlag;
+	}
+
+	public void setVipFlag(int vipFlag) {
+		this.vipFlag = vipFlag;
+	}
+
 	@Override
 	public String toString() {
 		return "SimpleRepBean{" +
 				"id=" + id +
 				", categoryId=" + categoryId +
 				", name='" + name + '\'' +
+				", vipFlag=" + vipFlag +
 				'}';
 	}
 }

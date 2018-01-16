@@ -3,8 +3,6 @@ package com.hhzt.vod.smartvod.mvp.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.FragmentManager;
 
 import com.hhzt.vod.api.CommonRspRetBean;
@@ -13,6 +11,7 @@ import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.EpisodeBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.ProgrameDetailBo;
+import com.hhzt.vod.api.repData.PayResultRep;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 import com.hhzt.vod.media.Clarity;
 import com.hhzt.vod.smartvod.R;
@@ -48,8 +47,6 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 	private ArrayList<MovieInfoData> mReleteList = new ArrayList<>();
 	private ArrayList<MovieInfoData> mHotList = new ArrayList<>();
 
-	private Handler mUIHandler = new Handler(Looper.getMainLooper());
-
 	public MovieDetailLinkPresenter(Context context, IMovieDetail IMovieDetail, MovieDetailContract.MovieDetailView movieDetailView) {
 		mContext = context;
 		mIMovieDetail = IMovieDetail;
@@ -83,7 +80,8 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 				for (int i = 1; i <= number; i++) {
 					EpisodeBean episodeBean = new EpisodeBean();
 					episodeBean.setEpisode(i + "");
-					if (mProgramDetailBo.getVipFlag() == ConfigX.NEED_VIP) episodeBean.setTable((i < ConfigX.FREE_SERIES_NUMBER) ? ConfigX.FREE : ConfigX.NEED_VIP);
+					if (mProgramDetailBo.getVipFlag() == ConfigX.NEED_VIP)
+						episodeBean.setTable((i < ConfigX.FREE_SERIES_NUMBER) ? ConfigX.FREE : ConfigX.NEED_VIP);
 					else episodeBean.setTable(ConfigX.FREE);
 
 					mEpisodeList.add(episodeBean);
@@ -175,50 +173,58 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 
 	@Override
 	public void showPayWeb(FragmentManager fragmentManager) {
-		String contentId = mProgramDetaiContentDataRep.programDetailBo.getId() + "";
-		PayDialogFragment payDialogFragment = PayDialogFragment.getInstance(ConfigMgr.getInstance().getUserName(), contentId, 1 + "");
+		int contentId = mProgramDetaiContentDataRep.programDetailBo.getId();
+		PayDialogFragment payDialogFragment = PayDialogFragment.getInstance(
+				ConfigMgr.getInstance().getUserName(),
+				contentId,
+				ConfigX.MEDIA_TYPE_VOD,
+				ConfigX.MEDIA_PAY_PATH_DIRECT);
 		payDialogFragment.show(fragmentManager, "showPayWeb");
-
-//        checkPayResult(contentId, "1", payDialogFragment);
 	}
 
-	public void checkPayResult(final String contentId, final String type, final PayDialogFragment payDialogFragment) {
-		mUIHandler.postDelayed(new Runnable() {
+	@Override
+	public void checkPayResult(final int contentId, final int type, final IHttpRetCallBack<PayResultRep> iHttpRetCallBack) {
+		mIMovieDetail.requestVodPayResult(contentId, type, new IHttpRetCallBack<PayResultRep>() {
+
 			@Override
-			public void run() {
-				mIMovieDetail.requestVodPayResult(contentId, type, new IHttpRetCallBack<CommonRspRetBean>() {
-
-					@Override
-					public void onResponseSuccess(CommonRspRetBean bean, CommonRspRetBean commonRspRetBean) {
-						System.out.print("onResponseSuccess:" + bean.msg);
-						if (bean.isSuccess()) {
-							payDialogFragment.dismiss();
-						}
-					}
-
-					@Override
-					public void onResponseFailed(CommonRspRetBean bean) {
-						System.out.print("onResponseFailed:" + bean.msg);
-						checkPayResult(contentId, type, payDialogFragment);
-					}
-
-					@Override
-					public void onError(String result) {
-						System.out.print("onError:" + result);
-						checkPayResult(contentId, type, payDialogFragment);
-					}
-
-					@Override
-					public void onCancelled() {
-						System.out.print("onCancelled");
-					}
-
-					@Override
-					public void onFinish() {
-						System.out.print("onFinish");
-					}
-				});
+			public void onResponseSuccess(CommonRspRetBean bean, PayResultRep payResultRep) {
+				System.out.print("onResponseSuccess:" + bean.msg);
+				if (null != iHttpRetCallBack) {
+					iHttpRetCallBack.onResponseSuccess(bean, payResultRep);
+				}
 			}
-		}, 1000);
+
+			@Override
+			public void onResponseFailed(CommonRspRetBean bean) {
+				System.out.print("onResponseFailed:" + bean.msg);
+				if (null != iHttpRetCallBack) {
+					iHttpRetCallBack.onResponseFailed(bean);
+				}
+			}
+
+			@Override
+			public void onError(String result) {
+				System.out.print("onError:" + result);
+				if (null != iHttpRetCallBack) {
+					iHttpRetCallBack.onError(result);
+				}
+			}
+
+			@Override
+			public void onCancelled() {
+				System.out.print("onCancelled");
+				if (null != iHttpRetCallBack) {
+					iHttpRetCallBack.onCancelled();
+				}
+			}
+
+			@Override
+			public void onFinish() {
+				System.out.print("onFinish");
+				if (null != iHttpRetCallBack) {
+					iHttpRetCallBack.onFinish();
+				}
+			}
+		});
 	}
 }

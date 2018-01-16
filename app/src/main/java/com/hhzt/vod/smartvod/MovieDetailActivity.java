@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.hhzt.vod.media.NiceVideoPlayerManager;
 import com.hhzt.vod.smartvod.callback.MovieDetailCallBack;
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.utils.FragmentUtil;
 
 import org.xutils.view.annotation.ContentView;
@@ -16,10 +17,12 @@ import org.xutils.view.annotation.ContentView;
 @ContentView(R.layout.activity_movie_detail)
 public class MovieDetailActivity extends BaseActivity implements MovieDetailCallBack {
 
+	public static final String MOVIE_NEED_PAY_TAG = "movie_need_pay_tag";
 	public static final String MOVIE_CATEGORY_ID = "movie_category_id";
 	public static final String MOVIE_PROGRAM_ID = "movie_program_id";
 
 	//电影类型id、具体电影id
+	private boolean mMovieVipFlag;
 	private int mMovieCategoryId;
 	private int mMovieProgramId;
 
@@ -28,6 +31,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCall
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
+		mMovieVipFlag = intent.getIntExtra(MOVIE_NEED_PAY_TAG, 0) == ConfigX.NEED_VIP;
 		mMovieCategoryId = intent.getIntExtra(MOVIE_CATEGORY_ID, 0);
 		mMovieProgramId = intent.getIntExtra(MOVIE_PROGRAM_ID, 0);
 
@@ -35,7 +39,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCall
 	}
 
 	private void showFragment() {
-		MovieDetailFragment movieDetailFragment = MovieDetailFragment.getInstance(mMovieCategoryId, mMovieProgramId);
+		MovieDetailFragment movieDetailFragment = MovieDetailFragment.getInstance(mMovieCategoryId, mMovieProgramId, mMovieVipFlag);
 		FragmentUtil.replace(this, false, R.id.movie_detail_fragment_container, movieDetailFragment);
 	}
 

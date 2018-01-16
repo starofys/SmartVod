@@ -331,7 +331,7 @@ public class HttpUrlCreator {
 	 * @param type
 	 * @return
 	 */
-	public static String getVodPayResultUrl(String userName, String contentId, String type) {
+	public static String getVodPayResultUrl(String userName, int contentId, int type) {
 		return ConfigMgr.getInstance().getPayUrlHost()
 				+ "authentication?"
 				+ "username=" + userName
@@ -342,14 +342,30 @@ public class HttpUrlCreator {
 	/**
 	 * 支付提示页面展示接口
 	 *
-	 * @param userName
-	 * @param contentId
-	 * @param type
+	 * @param userName  用户名
+	 * @param contentId 媒体id
+	 * @param type      媒体类型
 	 * @return
 	 */
-	public static String getVodPayActionTipsUrl(String userName, String contentId, String type) {
+	public static String getVodPayActionTipsUrl(String userName, int contentId, int type) {
 		return ConfigMgr.getInstance().getPayUrlHost()
 				+ "productInfo?"
+				+ "username=" + userName
+				+ "&contentId=" + contentId
+				+ "&type=" + type;
+	}
+
+	/**
+	 * 试看结束提示付款界面访问地址
+	 *
+	 * @param userName  用户名
+	 * @param contentId 媒体id
+	 * @param type      媒体类型
+	 * @return
+	 */
+	public static String getVodPayLookActionTipsUrl(String userName, int contentId, int type) {
+		return ConfigMgr.getInstance().getPayUrlHost()
+				+ "productInfoLook?"
 				+ "username=" + userName
 				+ "&contentId=" + contentId
 				+ "&type=" + type;

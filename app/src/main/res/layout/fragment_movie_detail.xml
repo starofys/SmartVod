@@ -147,7 +147,8 @@
 						android:layout_height="wrap_content"
 						android:clickable="true"
 						android:focusable="true"
-						android:focusableInTouchMode="true">
+						android:focusableInTouchMode="true"
+						android:visibility="gone">
 
 						<TextView
 							android:id="@+id/btn_movie_pay"
@@ -168,7 +169,8 @@
 						android:gravity="center_vertical"
 						android:text="@string/movie_detail_movie_watch_for_free_time"
 						android:textColor="@color/blue"
-						android:textSize="@dimen/layx30" />
+						android:textSize="@dimen/layx30"
+						android:visibility="gone" />
 
 				</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 			</RelativeLayout>
