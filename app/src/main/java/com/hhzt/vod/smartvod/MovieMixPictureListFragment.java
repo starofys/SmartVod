@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
 import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
@@ -41,235 +42,235 @@ import java.util.List;
  */
 @ContentView(R.layout.fragment_mix_picture_list)
 public class MovieMixPictureListFragment extends MovieListFragment implements HomeMovieListContract.HomeMovieListView {
-    @ViewInject(R.id.rcv_movie_big_picture)
-    private RecyclerViewTV mRcvMovieBigPicture;
-    @ViewInject(R.id.rcv_movie_small_picture)
-    private RecyclerViewTV mRcvMovieSmallPicture;
-    @ViewInject(R.id.mainUpView)
-    private MainUpView mMainUpView;
+	@ViewInject(R.id.rcv_movie_big_picture)
+	private RecyclerViewTV mRcvMovieBigPicture;
+	@ViewInject(R.id.rcv_movie_small_picture)
+	private RecyclerViewTV mRcvMovieSmallPicture;
+	@ViewInject(R.id.mainUpView)
+	private MainUpView mMainUpView;
 
-    private int mCategoryId;
-    private RecyclerViewBridge mRecyclerViewBridge;
+	private int mCategoryId;
+	private RecyclerViewBridge mRecyclerViewBridge;
 
-    private List<MovieInfoData> mMovieBigPictureList = new ArrayList<>();
-    private List<MovieInfoData> mMovieSmallPictureList = new ArrayList<>();
+	private List<MovieInfoData> mMovieBigPictureList = new ArrayList<>();
+	private List<MovieInfoData> mMovieSmallPictureList = new ArrayList<>();
 
-    private HomeMovieListContract.HomeMovieListPresenter mHomeMovieListLinkPresenter;
+	private HomeMovieListContract.HomeMovieListPresenter mHomeMovieListLinkPresenter;
 
-    private int mSelectRecylerType;
-    private int mSelectSmallRecyclerIndex;
-    private int mSelectBigRecyclerIndex;
+	private int mSelectRecylerType;
+	private int mSelectSmallRecyclerIndex;
+	private int mSelectBigRecyclerIndex;
 
-    private MovieBroadCastReceiver mMovieBroadCastReceiver;
+	private MovieBroadCastReceiver mMovieBroadCastReceiver;
 
-    /**
-     * @param catagoryid
-     * @return
-     */
-    public static MovieMixPictureListFragment getIntance(int catagoryid) {
-        MovieMixPictureListFragment fragment = new MovieMixPictureListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailActivity.MOVIE_CATEGORY_ID, catagoryid);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+	/**
+	 * @param catagoryid
+	 * @return
+	 */
+	public static MovieMixPictureListFragment getIntance(int catagoryid) {
+		MovieMixPictureListFragment fragment = new MovieMixPictureListFragment();
+		Bundle bundle = new Bundle();
+		bundle.putInt(MovieDetailActivity.MOVIE_CATEGORY_ID, catagoryid);
+		fragment.setArguments(bundle);
+		return fragment;
+	}
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mHomeMovieListLinkPresenter = new HomeMovieListLinkPresenter(context, InJection.initHomeTypeList(), this);
-        mHomeMovieListLinkPresenter.init();
-        mHomeMovieListLinkPresenter.start();
-    }
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		mHomeMovieListLinkPresenter = new HomeMovieListLinkPresenter(context, InJection.initHomeTypeList(), this);
+		mHomeMovieListLinkPresenter.init();
+		mHomeMovieListLinkPresenter.start();
+	}
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mCategoryId = getArguments().getInt(MovieDetailActivity.MOVIE_CATEGORY_ID);
-    }
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mCategoryId = getArguments().getInt(MovieDetailActivity.MOVIE_CATEGORY_ID);
+	}
 
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView();
-        mHomeMovieListLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, mCategoryId,1, 30);
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		initView();
+		mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, 1, 30);
 
-        mMovieBroadCastReceiver = new MovieBroadCastReceiver();
-        IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
-        getActivity().registerReceiver(mMovieBroadCastReceiver, intentFilter);
-    }
+		mMovieBroadCastReceiver = new MovieBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
+		getActivity().registerReceiver(mMovieBroadCastReceiver, intentFilter);
+	}
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
 
-        getActivity().unregisterReceiver(mMovieBroadCastReceiver);
-    }
+		getActivity().unregisterReceiver(mMovieBroadCastReceiver);
+	}
 
-    private void initView() {
-        if (null != mMainUpView) {
-            mMainUpView.setEffectBridge(new RecyclerViewBridge());
-            mRecyclerViewBridge = (RecyclerViewBridge) mMainUpView.getEffectBridge();
-            mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
-        }
-    }
+	private void initView() {
+		if (null != mMainUpView) {
+			mMainUpView.setEffectBridge(new RecyclerViewBridge());
+			mRecyclerViewBridge = (RecyclerViewBridge) mMainUpView.getEffectBridge();
+			mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
+		}
+	}
 
-    private void bindAdater() {
-        LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mRcvMovieBigPicture.setLayoutManager(layoutManager);
-        mRcvMovieBigPicture.setFocusable(false);
-        GeneralAdapter generalAdapter = new GeneralAdapter(new HomeBigPicturePresenter(getContext(), mMovieBigPictureList));
-        mRcvMovieBigPicture.setAdapter(generalAdapter);
+	private void bindAdater() {
+		LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+		mRcvMovieBigPicture.setLayoutManager(layoutManager);
+		mRcvMovieBigPicture.setFocusable(false);
+		GeneralAdapter generalAdapter = new GeneralAdapter(new HomeBigPicturePresenter(getContext(), mMovieBigPictureList));
+		mRcvMovieBigPicture.setAdapter(generalAdapter);
 
-        GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
-        gridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
-        mRcvMovieSmallPicture.setLayoutManager(gridlayoutManager);
-        mRcvMovieSmallPicture.setFocusable(false);
-        generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), mMovieSmallPictureList));
-        mRcvMovieSmallPicture.setAdapter(generalAdapter);
-    }
+		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
+		gridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+		mRcvMovieSmallPicture.setLayoutManager(gridlayoutManager);
+		mRcvMovieSmallPicture.setFocusable(false);
+		generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), mMovieSmallPictureList));
+		mRcvMovieSmallPicture.setAdapter(generalAdapter);
+	}
 
-    private void initEvent() {
-        mRcvMovieBigPicture.setOnItemListener(new RecyclerViewTV.OnItemListener() {
-            @Override
-            public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-                // 传入 itemView也可以, 自己保存的 oldView也可以.
-                mRecyclerViewBridge.setUnFocusView(itemView);
-            }
+	private void initEvent() {
+		mRcvMovieBigPicture.setOnItemListener(new RecyclerViewTV.OnItemListener() {
+			@Override
+			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
+				// 传入 itemView也可以, 自己保存的 oldView也可以.
+				mRecyclerViewBridge.setUnFocusView(itemView);
+			}
 
-            @Override
-            public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-                mSelectRecylerType = 0;
-                mSelectBigRecyclerIndex = position;
-                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
-            }
+			@Override
+			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
+				mSelectRecylerType = 0;
+				mSelectBigRecyclerIndex = position;
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
+			}
 
-            /**
-             * 这里是调整开头和结尾的移动边框.
-             */
-            @Override
-            public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
-            }
-        });
+			/**
+			 * 这里是调整开头和结尾的移动边框.
+			 */
+			@Override
+			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
+			}
+		});
 
-        mRcvMovieBigPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position);
-            }
-        });
+		mRcvMovieBigPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+			@Override
+			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+				mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position);
+			}
+		});
 
-        mRcvMovieSmallPicture.setOnItemListener(new RecyclerViewTV.OnItemListener() {
-            @Override
-            public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-                // 传入 itemView也可以, 自己保存的 oldView也可以.
-                mRecyclerViewBridge.setUnFocusView(itemView);
-            }
+		mRcvMovieSmallPicture.setOnItemListener(new RecyclerViewTV.OnItemListener() {
+			@Override
+			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
+				// 传入 itemView也可以, 自己保存的 oldView也可以.
+				mRecyclerViewBridge.setUnFocusView(itemView);
+			}
 
-            @Override
-            public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-                mSelectRecylerType = 1;
-                mSelectSmallRecyclerIndex = position;
-                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
-            }
+			@Override
+			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
+				mSelectRecylerType = 1;
+				mSelectSmallRecyclerIndex = position;
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
+			}
 
-            /**
-             * 这里是调整开头和结尾的移动边框.
-             */
-            @Override
-            public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-                mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
-            }
-        });
+			/**
+			 * 这里是调整开头和结尾的移动边框.
+			 */
+			@Override
+			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
+			}
+		});
 
-        mRcvMovieSmallPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position + mMovieBigPictureList.size());
-            }
-        });
-        mRcvMovieBigPicture.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent event) {
-                int keyCode = event.getKeyCode();
-                if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                    int index = mRcvMovieBigPicture.getSelectPostion();
-                    if (index == 0) {
-                        KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-                        return true;
-                    }
-                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                    int index = mRcvMovieBigPicture.getSelectPostion();
-                    if (index % 2 == 0) {
-                        KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-                        return true;
-                    }
-                } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                    if (mSelectRecylerType == 0 && mSelectBigRecyclerIndex == 1) {
-                        mSelectRecylerType = 1;
-                        mSelectSmallRecyclerIndex = 0;
-                        mRecyclerViewBridge.setUnFocusView(mRcvMovieBigPicture.getChildAt(1));
-                        mRecyclerViewBridge.setFocusView(mRcvMovieSmallPicture.getChildAt(0), ConfigX.SCALE);
-                        mRcvMovieSmallPicture.getChildAt(0).requestLayout();
-                        mRcvMovieSmallPicture.getChildAt(0).requestFocus();
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-    }
+		mRcvMovieSmallPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+			@Override
+			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+				mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position + mMovieBigPictureList.size());
+			}
+		});
+		mRcvMovieBigPicture.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				int keyCode = event.getKeyCode();
+				if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+					int index = mRcvMovieBigPicture.getSelectPostion();
+					if (index == 0) {
+						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						return true;
+					}
+				} else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+					int index = mRcvMovieBigPicture.getSelectPostion();
+					if (index % 2 == 0) {
+						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						return true;
+					}
+				} else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+					if (mSelectRecylerType == 0 && mSelectBigRecyclerIndex == 1) {
+						mSelectRecylerType = 1;
+						mSelectSmallRecyclerIndex = 0;
+						mRecyclerViewBridge.setUnFocusView(mRcvMovieBigPicture.getChildAt(1));
+						mRecyclerViewBridge.setFocusView(mRcvMovieSmallPicture.getChildAt(0), ConfigX.SCALE);
+						mRcvMovieSmallPicture.getChildAt(0).requestLayout();
+						mRcvMovieSmallPicture.getChildAt(0).requestFocus();
+						return true;
+					}
+				}
+				return false;
+			}
+		});
+	}
 
-    @Override
-    public void setPresenter(HomeMovieListContract.HomeMovieListPresenter presenter) {
-        mHomeMovieListLinkPresenter = presenter;
-    }
+	@Override
+	public void setPresenter(HomeMovieListContract.HomeMovieListPresenter presenter) {
+		mHomeMovieListLinkPresenter = presenter;
+	}
 
-    @Override
-    public void showData(List<MovieInfoData> movieInfoData) {
-        int size = movieInfoData.size();
-        for (int i = 0; i < size; i++) {
-            if (i <= 1) {
-                mMovieBigPictureList.add(movieInfoData.get(i));
-            } else {
-                mMovieSmallPictureList.add(movieInfoData.get(i));
-            }
-        }
-        bindAdater();
-        initEvent();
-    }
+	@Override
+	public void showData(List<MovieInfoData> movieInfoData) {
+		int size = movieInfoData.size();
+		for (int i = 0; i < size; i++) {
+			if (i <= 1) {
+				mMovieBigPictureList.add(movieInfoData.get(i));
+			} else {
+				mMovieSmallPictureList.add(movieInfoData.get(i));
+			}
+		}
+		bindAdater();
+		initEvent();
+	}
 
-    private final class MovieBroadCastReceiver extends BroadcastReceiver {
+	private final class MovieBroadCastReceiver extends BroadcastReceiver {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (KeyFactoryConst.KEY_LISTEN_ACTION.equals(intent.getAction())) {
-                String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
-                switch (keyType) {
-                    case KeyFactoryConst.KEY_CODE_DOWN: {
-                        View view;
-                        if (mSelectRecylerType == 0) {
-                            view = mRcvMovieBigPicture.getChildAt(mSelectBigRecyclerIndex);
-                        } else {
-                            view = mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex);
-                        }
-                        view.requestLayout();
-                        view.requestFocus();
-                    }
-                    break;
-                    case KeyFactoryConst.KEY_CODE_RIGHT: {
-                        View view = mRcvMovieBigPicture.getChildAt(0);
-                        if (null != view) {
-                            view.requestLayout();
-                            view.requestFocus();
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-    }
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (KeyFactoryConst.KEY_LISTEN_ACTION.equals(intent.getAction())) {
+				String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
+				switch (keyType) {
+					case KeyFactoryConst.KEY_CODE_DOWN: {
+						View view;
+						if (mSelectRecylerType == 0) {
+							view = mRcvMovieBigPicture.getChildAt(mSelectBigRecyclerIndex);
+						} else {
+							view = mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex);
+						}
+						view.requestLayout();
+						view.requestFocus();
+					}
+					break;
+					case KeyFactoryConst.KEY_CODE_RIGHT: {
+						View view = mRcvMovieBigPicture.getChildAt(0);
+						if (null != view) {
+							view.requestLayout();
+							view.requestFocus();
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
 }

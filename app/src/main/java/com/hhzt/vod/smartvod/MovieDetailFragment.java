@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.otherBean.EpisodeBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.ProgrameDetailBo;
@@ -143,7 +144,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		mMovieProgramId = getArguments().getInt(MovieDetailActivity.MOVIE_PROGRAM_ID, 0);
 
 		initView();
-		mMovieDetailLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, mMovieCategoryId, mMovieProgramId);
+		mMovieDetailLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mMovieCategoryId, mMovieProgramId);
 		initEvent();
 	}
 

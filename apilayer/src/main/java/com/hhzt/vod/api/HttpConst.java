@@ -7,9 +7,16 @@ package com.hhzt.vod.api;
 public class HttpConst {
 
 	public static final String DEFAULT_NAME = "10001";
+
 	private static final String DEFAULT_BASE_HOST = "http://szhhzt.cn:8001";
-	public static final String DEFAULT_HOST = DEFAULT_BASE_HOST + "/epg/router?";
-	public static final String DEFAULT_PAY_HOST = DEFAULT_BASE_HOST + "/epg/auth/order/";
+
+	public static final String EPG_PATH = "/epg/router?";
+	public static final String PAY_PATH = "/epg/auth/order/";
+
+	public static final String DEFAULT_HOST = DEFAULT_BASE_HOST + EPG_PATH;
+	public static final String DEFAULT_PAY_HOST = DEFAULT_BASE_HOST + PAY_PATH;
+
+	public static final int DEFAULT_GROUP_ID = 1;
 
 	public static final String APP_KEY = "hhzt";
 	public static final String FORMAT = "json";

@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
 import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
@@ -82,7 +83,7 @@ public class MovieSmallPictureListFragment extends MovieListFragment implements 
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		initView();
-		mHomeMovieListLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, mCategoryId, 1, 30);
+		mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, 1, 30);
 
 		mMovieBroadCastReceiver = new MovieBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);

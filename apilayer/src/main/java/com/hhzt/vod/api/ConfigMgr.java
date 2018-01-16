@@ -8,50 +8,53 @@ import android.text.TextUtils;
 
 public class ConfigMgr {
 
-    private static ConfigMgr mConfigMgr;
+	private static ConfigMgr mConfigMgr;
 
-    private String mUrlHost;
-    private String mUserName;
+	private String mEpgUrlHost;
+	private String mUserName;
+	private int mGroupID;
 
-    private String mPayUrlHost;
+	private ConfigMgr() {
 
-    private ConfigMgr() {
+	}
 
-    }
+	public static ConfigMgr getInstance() {
+		if (null == mConfigMgr) {
+			synchronized (ConfigMgr.class) {
+				if (null == mConfigMgr) {
+					mConfigMgr = new ConfigMgr();
+				}
+			}
+		}
 
-    public static ConfigMgr getInstance() {
-        if (null == mConfigMgr) {
-            synchronized (ConfigMgr.class) {
-                if (null == mConfigMgr) {
-                    mConfigMgr = new ConfigMgr();
-                }
-            }
-        }
+		return mConfigMgr;
+	}
 
-        return mConfigMgr;
-    }
+	public void initEpgUrl(String url) {
+		mEpgUrlHost = url;
+	}
 
-    public void initUrl(String url) {
-        mUrlHost = url;
-    }
+	public void initUserName(String name) {
+		mUserName = name;
+	}
 
-    public void initUserName(String name) {
-        mUserName = name;
-    }
+	public void initGroupID(int groupID) {
+		this.mGroupID = groupID;
+	}
 
-    public void initPayUrl(String url) {
-        mPayUrlHost = url;
-    }
+	public String getUserName() {
+		return TextUtils.isEmpty(mUserName) ? HttpConst.DEFAULT_NAME : mUserName;
+	}
 
-    public String getUserName() {
-        return TextUtils.isEmpty(mUserName) ? HttpConst.DEFAULT_NAME : mUserName;
-    }
+	public String getEpgUrlHost() {
+		return TextUtils.isEmpty(mEpgUrlHost) ? HttpConst.DEFAULT_HOST : mEpgUrlHost + HttpConst.EPG_PATH;
+	}
 
-    public String getUrlHost() {
-        return TextUtils.isEmpty(mUrlHost) ? HttpConst.DEFAULT_HOST : mUrlHost;
-    }
+	public String getPayUrlHost() {
+		return TextUtils.isEmpty(mEpgUrlHost) ? HttpConst.DEFAULT_PAY_HOST : mEpgUrlHost + HttpConst.PAY_PATH;
+	}
 
-    public String getPayUrlHost() {
-        return TextUtils.isEmpty(mPayUrlHost) ? HttpConst.DEFAULT_PAY_HOST : mPayUrlHost;
-    }
+	public int getGroupID() {
+		return this.mGroupID == 0 ? HttpConst.DEFAULT_GROUP_ID : this.mGroupID;
+	}
 }
