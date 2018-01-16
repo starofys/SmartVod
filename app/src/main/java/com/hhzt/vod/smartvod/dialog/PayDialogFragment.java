@@ -1,12 +1,17 @@
 package com.hhzt.vod.smartvod.dialog;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -54,7 +59,15 @@ public class PayDialogFragment extends DialogFragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.dialog_pay_tip, null);
+		View view = inflater.inflate(R.layout.dialog_pay_tip, container, false);
+
+		WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
+		params.gravity = Gravity.CENTER;
+		params.windowAnimations = R.style.bottomSheet_animation;
+		getDialog().getWindow().setAttributes(params);
+		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		getDialog().setCanceledOnTouchOutside(false);
+		getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 		mUserName = getArguments().getString(ConstTag.TAG_USERNAME);
 		mContentId = getArguments().getInt(ConstTag.TAG_CONTENT);
@@ -70,10 +83,10 @@ public class PayDialogFragment extends DialogFragment {
 
 		WebSettings webSettings = mWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
-		webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+//		webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 		webSettings.setUseWideViewPort(true);
-		webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-		webSettings.setLoadWithOverviewMode(true);
+//		webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+//		webSettings.setLoadWithOverviewMode(true);
 
 		mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 		mWebView.addJavascriptInterface(this, "hhzt");
@@ -82,6 +95,13 @@ public class PayDialogFragment extends DialogFragment {
 		} else {
 			mWebView.loadUrl(HttpUrlCreator.getVodPayLookActionTipsUrl(mUserName, mContentId, mMediaType));
 		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		getDialog().getWindow().setLayout(1024, 560);
 	}
 
 	@JavascriptInterface
