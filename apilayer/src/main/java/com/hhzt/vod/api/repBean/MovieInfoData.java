@@ -6,7 +6,7 @@ package com.hhzt.vod.api.repBean;
 
 public class MovieInfoData {
 	private int id;
-	private int programId;
+	private int categoryId;
 	private String name;
 	private int recommend;
 	private int vipFlag;
@@ -21,12 +21,12 @@ public class MovieInfoData {
 		this.id = id;
 	}
 
-	public int getProgramId() {
-		return programId;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setProgramId(int programId) {
-		this.programId = programId;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getName() {
@@ -73,7 +73,7 @@ public class MovieInfoData {
 	public String toString() {
 		return "MovieInfoData{" +
 				"id=" + id +
-				", programId=" + programId +
+				", categoryId=" + categoryId +
 				", name='" + name + '\'' +
 				", recommend=" + recommend +
 				", vipFlag=" + vipFlag +

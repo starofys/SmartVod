@@ -15,7 +15,7 @@ import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 
 public class MovieDetailModel implements IMovieDetail {
 	@Override
-	public void requestMovieDetail(int programGroupId, int programId, int categoryId, IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack) {
+	public void requestMovieDetail(int programGroupId, int categoryId, int programId,IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack) {
 		HttpVod.getVodItemDetailDatas(
 				HttpConst.APP_KEY,
 				HttpConst.FORMAT,

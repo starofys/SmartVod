@@ -2,7 +2,7 @@ package com.hhzt.vod.smartvod.mvp.link;
 
 import android.support.v4.app.FragmentActivity;
 
-import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.api.repBean.CategoryRepBean;
 import com.hhzt.vod.smartvod.mvp.iview.BaseView;
 import com.hhzt.vod.smartvod.mvp.presenter.BasePresenter;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HomeMovieTypeContract {
 	public interface IHomeMovieTypeView extends BaseView<HomeMovieTypePresenter> {
-		void showData(List<SimpleRepBean> movieTypeNames);
+		void showData(List<CategoryRepBean> movieTypeNames);
 	}
 
 	public interface HomeMovieTypePresenter extends BasePresenter {

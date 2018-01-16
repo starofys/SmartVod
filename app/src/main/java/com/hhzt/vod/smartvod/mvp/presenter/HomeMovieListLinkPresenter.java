@@ -49,8 +49,8 @@ public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMov
 	}
 
 	@Override
-	public void showData(int programGroupId, int pageNum, int pageSize, int categoryId) {
-		mIHomeTypeList.showData(programGroupId, pageNum, pageSize, categoryId, new IHttpRetCallBack<VodGroupDetailDataRep>() {
+	public void showData(int programGroupId, int categoryId, int pageNum, int pageSize) {
+		mIHomeTypeList.showData(programGroupId, categoryId, pageNum, pageSize, new IHttpRetCallBack<VodGroupDetailDataRep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, VodGroupDetailDataRep vodGroupDetailDataRep) {
 				mMovieInfoData.clear();
@@ -91,10 +91,10 @@ public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMov
 	}
 
 	@Override
-	public void toMovieDetail(Context packageContext, Class<?> cls, int position, int categoryId) {
+	public void toMovieDetail(Context packageContext, Class<?> cls, int position) {
 		Intent intent = new Intent(packageContext, cls);
-		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, categoryId);
-		intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieInfoData.get(position).getId());
+		intent.putExtra(MovieDetailActivity.MOVIE_CATEGORY_ID, mMovieInfoData.get(position).getCategoryId());
+		intent.putExtra(MovieDetailActivity.MOVIE_PROGRAM_ID, mMovieInfoData.get(position).getId());
 		packageContext.startActivity(intent);
 	}
 }

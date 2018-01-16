@@ -48,7 +48,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
     @ViewInject(R.id.mainUpView)
     private MainUpView mMainUpView;
 
-    private int mMovieTypeId;
+    private int mCategoryId;
     private RecyclerViewBridge mRecyclerViewBridge;
 
     private List<MovieInfoData> mMovieBigPictureList = new ArrayList<>();
@@ -63,13 +63,13 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
     private MovieBroadCastReceiver mMovieBroadCastReceiver;
 
     /**
-     * @param movieTypeid 电影类型
+     * @param catagoryid
      * @return
      */
-    public static MovieMixPictureListFragment getIntance(int movieTypeid) {
+    public static MovieMixPictureListFragment getIntance(int catagoryid) {
         MovieMixPictureListFragment fragment = new MovieMixPictureListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailActivity.MOVIE_TYPE_ID, movieTypeid);
+        bundle.putInt(MovieDetailActivity.MOVIE_CATEGORY_ID, catagoryid);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -85,7 +85,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMovieTypeId = getArguments().getInt(MovieDetailActivity.MOVIE_TYPE_ID);
+        mCategoryId = getArguments().getInt(MovieDetailActivity.MOVIE_CATEGORY_ID);
     }
 
 
@@ -93,7 +93,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        mHomeMovieListLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, 1, 30, mMovieTypeId);
+        mHomeMovieListLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, mCategoryId,1, 30);
 
         mMovieBroadCastReceiver = new MovieBroadCastReceiver();
         IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
@@ -158,7 +158,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
         mRcvMovieBigPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position, mMovieTypeId);
+                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position);
             }
         });
 
@@ -188,7 +188,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
         mRcvMovieSmallPicture.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position + mMovieBigPictureList.size(), mMovieTypeId);
+                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position + mMovieBigPictureList.size());
             }
         });
         mRcvMovieBigPicture.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {

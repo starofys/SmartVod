@@ -15,7 +15,7 @@ public class MovieFactory {
         BaseFragment fragment;
         switch (movieShowType) {
             case MOVIE_SHOW_TYPE_BIG_PICTURE:
-                fragment = MovieBigPictureListFragment.getIntance(categroyId);
+                fragment = MovieBigPictureListFragment.getIntance();
                 break;
             case MOVIE_SHOW_TYPE_MIX_PICTURE:
                 fragment = MovieMixPictureListFragment.getIntance(categroyId);

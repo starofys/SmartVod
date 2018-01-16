@@ -16,28 +16,26 @@ import org.xutils.view.annotation.ContentView;
 @ContentView(R.layout.activity_movie_detail)
 public class MovieDetailActivity extends BaseActivity implements MovieDetailCallBack {
 
-	public static final String MOVIE_TYPE_ID = "movie_type_id";
-	public static final String MOVIE_DETAIL_ID = "movie_Detail_id";
+	public static final String MOVIE_CATEGORY_ID = "movie_category_id";
+	public static final String MOVIE_PROGRAM_ID = "movie_program_id";
 
 	//电影类型id、具体电影id
-	//mMovieTypeId<==>programId
-	//mMovieDetailId<==>categoryId
-	private int mMovieTypeId;
-	private int mMovieDetailId;
+	private int mMovieCategoryId;
+	private int mMovieProgramId;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		mMovieTypeId = intent.getIntExtra(MOVIE_TYPE_ID, 0);
-		mMovieDetailId = intent.getIntExtra(MOVIE_DETAIL_ID, 0);
+		mMovieCategoryId = intent.getIntExtra(MOVIE_CATEGORY_ID, 0);
+		mMovieProgramId = intent.getIntExtra(MOVIE_PROGRAM_ID, 0);
 
 		showFragment();
 	}
 
 	private void showFragment() {
-		MovieDetailFragment movieDetailFragment = MovieDetailFragment.getInstance(mMovieTypeId, mMovieDetailId);
+		MovieDetailFragment movieDetailFragment = MovieDetailFragment.getInstance(mMovieCategoryId, mMovieProgramId);
 		FragmentUtil.replace(this, false, R.id.movie_detail_fragment_container, movieDetailFragment);
 	}
 
@@ -56,9 +54,9 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCall
 	}
 
 	@Override
-	public void showMovieDetailCallBack(int code, int programId, int categoryId) {
-		mMovieTypeId = programId;
-		mMovieDetailId = categoryId;
+	public void showMovieDetailCallBack(int code, int categoryId, int programId) {
+		mMovieCategoryId = categoryId;
+		mMovieProgramId = programId;
 		showFragment();
 	}
 }

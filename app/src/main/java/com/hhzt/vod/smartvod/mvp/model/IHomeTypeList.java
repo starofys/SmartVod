@@ -11,5 +11,5 @@ import com.hhzt.vod.api.repData.VodGroupDetailDataRep;
  */
 
 public interface IHomeTypeList {
-	void showData(int programGroupId, int pageNum, int pageSize, int categoryId, IHttpRetCallBack<VodGroupDetailDataRep> iHttpRetCallBack);
+	void showData(int programGroupId, int categoryId, int pageNum, int pageSize, IHttpRetCallBack<VodGroupDetailDataRep> iHttpRetCallBack);
 }

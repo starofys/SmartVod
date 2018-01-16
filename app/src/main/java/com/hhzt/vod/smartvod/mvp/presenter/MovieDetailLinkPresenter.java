@@ -69,8 +69,8 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 	}
 
 	@Override
-	public void showData(int programGroupId, int programId, int categoryId) {
-		mIMovieDetail.requestMovieDetail(programGroupId, programId, categoryId, new IHttpRetCallBack<ProgramDetaiContentDataRep>() {
+	public void showData(int programGroupId, int categoryId, int programId) {
+		mIMovieDetail.requestMovieDetail(programGroupId, categoryId, programId, new IHttpRetCallBack<ProgramDetaiContentDataRep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, ProgramDetaiContentDataRep programDetaiContentDataRep) {
 				mProgramDetaiContentDataRep = programDetaiContentDataRep;
@@ -138,21 +138,21 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 
 	@Override
 	public void clickOtherMovieDetail(MovieDetailCallBack movieDetailCallBack, int type, int position) {
-		int programId = 0;
 		int categoryId = 0;
+		int programId = 0;
 		switch (type) {
 			case TYPE_RELATE:
-				categoryId = mReleteList.get(position).getId();
-				programId = mReleteList.get(position).getProgramId();
+				categoryId = mReleteList.get(position).getCategoryId();
+				programId = mReleteList.get(position).getId();
 				break;
 			case TYPE_HOT:
-				categoryId = mHotList.get(position).getId();
-				programId = mHotList.get(position).getProgramId();
+				categoryId = mHotList.get(position).getCategoryId();
+				programId = mHotList.get(position).getId();
 				break;
 			default:
 				break;
 		}
-		movieDetailCallBack.showMovieDetailCallBack(0, programId, categoryId);
+		movieDetailCallBack.showMovieDetailCallBack(0, categoryId, programId);
 	}
 
 	@Override

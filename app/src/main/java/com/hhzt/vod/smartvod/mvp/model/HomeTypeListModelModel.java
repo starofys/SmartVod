@@ -14,7 +14,7 @@ import com.hhzt.vod.api.repData.VodGroupDetailDataRep;
 
 public class HomeTypeListModelModel implements IHomeTypeList {
 	@Override
-	public void showData(int programGroupId, int pageNum, int pageSize, int categoryId, IHttpRetCallBack<VodGroupDetailDataRep> iHttpRetCallBack) {
+	public void showData(int programGroupId, int categoryId, int pageNum, int pageSize, IHttpRetCallBack<VodGroupDetailDataRep> iHttpRetCallBack) {
 		HttpVod.getVodCategoryDetailByGroupDatas(
 				HttpConst.APP_KEY,
 				HttpConst.FORMAT,

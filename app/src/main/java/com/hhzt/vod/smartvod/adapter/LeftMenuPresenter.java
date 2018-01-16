@@ -3,10 +3,9 @@ package com.hhzt.vod.smartvod.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 
-import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.api.repBean.CategoryRepBean;
 import com.hhzt.vod.smartvod.R;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
 
@@ -19,15 +18,15 @@ import java.util.List;
  */
 public class LeftMenuPresenter extends OpenPresenter {
 
-    private List<SimpleRepBean> mMovieTypeName = new ArrayList<>();
+    private List<CategoryRepBean> mCategoryName = new ArrayList<>();
 
-    public LeftMenuPresenter(List<SimpleRepBean> mMovieTypeName) {
-        this.mMovieTypeName = mMovieTypeName;
+    public LeftMenuPresenter(List<CategoryRepBean> mCategoryName) {
+        this.mCategoryName = mCategoryName;
     }
 
     @Override
     public int getItemCount() {
-        return mMovieTypeName.size();
+        return mCategoryName.size();
     }
 
     @Override
@@ -39,7 +38,7 @@ public class LeftMenuPresenter extends OpenPresenter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         MovieTypeViewHolder movieTypeViewHolder = (MovieTypeViewHolder) viewHolder;
-        movieTypeViewHolder.ivMovieTypeName.setText(mMovieTypeName.get(position).getName());
+        movieTypeViewHolder.ivMovieTypeName.setText(mCategoryName.get(position).getName());
         movieTypeViewHolder.ivMovieTypeName.setFocusableInTouchMode(true);
         movieTypeViewHolder.ivMovieTypeName.setFocusable(true);
     }

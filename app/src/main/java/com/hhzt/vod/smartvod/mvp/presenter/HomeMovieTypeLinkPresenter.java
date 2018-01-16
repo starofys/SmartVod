@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.IHttpRetCallBack;
-import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.api.repBean.CategoryRepBean;
 import com.hhzt.vod.api.repData.CategoryBoDatasRep;
 import com.hhzt.vod.smartvod.BaseFragment;
 import com.hhzt.vod.smartvod.MovieFactory;
@@ -28,7 +28,7 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 	private IHomeType mIHomeType;
 	private HomeMovieTypeContract.IHomeMovieTypeView mIHomeMovieTypeView;
 
-	private List<SimpleRepBean> mMovieTypeNames = new ArrayList<>();
+	private List<CategoryRepBean> mCategoryNames = new ArrayList<>();
 
 	public HomeMovieTypeLinkPresenter(
 			Context context,
@@ -56,12 +56,12 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 		mIHomeType.requestMovieType(programGroupId, new IHttpRetCallBack<CategoryBoDatasRep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, CategoryBoDatasRep categoryBoDatasRep) {
-				mMovieTypeNames.addAll(categoryBoDatasRep.getCategoryBoList());
-				mIHomeMovieTypeView.showData(mMovieTypeNames);
+				mCategoryNames.addAll(categoryBoDatasRep.getCategoryBoList());
+				mIHomeMovieTypeView.showData(mCategoryNames);
 
-				SimpleRepBean simpleRepBean = new SimpleRepBean();
-				simpleRepBean.setName(mContext.getResources().getString(R.string.recommond));
-				mMovieTypeNames.add(0, simpleRepBean);
+				CategoryRepBean categoryRepBean = new CategoryRepBean();
+				categoryRepBean.setName(mContext.getResources().getString(R.string.recommond));
+				mCategoryNames.add(0, categoryRepBean);
 			}
 
 			@Override
@@ -88,7 +88,7 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 
 	@Override
 	public void clearData() {
-		mMovieTypeNames.clear();
+		mCategoryNames.clear();
 	}
 
 	@Override
@@ -112,11 +112,11 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 				movieShowType = MovieFactory.MOVIE_SHOW_TYPE_SMALL_PICTURE;
 				break;
 		}
-		moviePictureListFragment = MovieFactory.getFragment(movieShowType, mMovieTypeNames.get(position).getId());
+		moviePictureListFragment = MovieFactory.getFragment(movieShowType, mCategoryNames.get(position).getId());
 		FragmentUtil.replace(activity, false, R.id.fragment_movie_container, moviePictureListFragment);
 	}
 
-	public List<SimpleRepBean> getMovieTypeNames() {
-		return mMovieTypeNames;
+	public List<CategoryRepBean> getCategoryNames() {
+		return mCategoryNames;
 	}
 }

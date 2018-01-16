@@ -10,8 +10,8 @@ package com.hhzt.vod.smartvod.callback;
 public interface MovieDetailCallBack {
 	/**
 	 * @param code
-	 * @param programId  电影类型id==>mMovieTypeId
-	 * @param categoryId 具体电影id==>mMovieDetailId
+	 * @param categoryId
+	 * @param programId
 	 */
-	void showMovieDetailCallBack(int code, int programId, int categoryId);
+	void showMovieDetailCallBack(int code, int categoryId, int programId);
 }

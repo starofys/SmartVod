@@ -12,7 +12,7 @@ import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
  */
 
 public interface IMovieDetail {
-	void requestMovieDetail(int programGroupId, int programId, int categoryId, IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack);
+	void requestMovieDetail(int programGroupId,int categoryId, int programId, IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack);
 
 	void requestVodPayResult(String contentId, String type, IHttpRetCallBack<CommonRspRetBean> iHttpRetCallBack);
 }

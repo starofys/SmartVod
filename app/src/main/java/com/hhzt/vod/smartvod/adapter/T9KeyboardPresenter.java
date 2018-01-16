@@ -2,6 +2,7 @@ package com.hhzt.vod.smartvod.adapter;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +88,6 @@ public class T9KeyboardPresenter extends OpenPresenter {
 				if (mEditState && hasFocus) {
 					mEditState = false;
 					mAdapter.notifyItemChanged(mClickPosition);
-//					Toast.makeText(mContext,"mClickPosition:"+mClickPosition+"  position:"+position,Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -111,6 +111,10 @@ public class T9KeyboardPresenter extends OpenPresenter {
 		viewHolder.mRivT9ExpandingUp.requestLayout();
 		viewHolder.mRivT9ExpandingUp.requestFocus();
 
+//		viewHolder.mRivT9ExpandingUp.setOnKeyListener(new OnKeyListener(position, mAdapter, mEditState));
+//		viewHolder.mRivT9ExpandingLeft.setOnKeyListener(new OnKeyListener(position, mAdapter, mEditState));
+//		viewHolder.mRivT9ExpandingDown.setOnKeyListener(new OnKeyListener(position, mAdapter, mEditState));
+//		viewHolder.mRivT9ExpandingRight.setOnKeyListener(new OnKeyListener(position, mAdapter, mEditState));
 		viewHolder.mRivT9ExpandingUp.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -168,4 +172,37 @@ public class T9KeyboardPresenter extends OpenPresenter {
 		viewHolder.mLlT9Expanding.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
+	private class OnKeyListener implements View.OnKeyListener {
+
+		private int position;
+		private GeneralAdapter adapter;
+		private boolean editState;
+
+		public OnKeyListener(int position, GeneralAdapter adapter, boolean editState) {
+			this.position = position;
+			this.adapter = adapter;
+			this.editState = editState;
+		}
+
+		@Override
+		public boolean onKey(View v, int keyCode, KeyEvent event) {
+			if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+				if (position <= 2 && editState) {
+					editState = false;
+					adapter.notifyItemChanged(position);
+				}
+			} else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+				if (position % 3 == 0 && position <= 2 && editState) {
+					editState = false;
+					adapter.notifyItemChanged(position);
+				}
+			} else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+				if (position >= 6 && position <= 2 && editState) {
+					editState = false;
+					adapter.notifyItemChanged(position);
+				}
+			}
+			return false;
+		}
+	}
 }

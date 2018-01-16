@@ -219,11 +219,11 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 
 		ArrayList<SimpleRepBean> movieList = new ArrayList<>();
 		for (MovieInfoData movieInfoData : searchMovieResultData) {
-			SimpleRepBean simpleRepBean = new SimpleRepBean();
-			simpleRepBean.setId(movieInfoData.getId());
-			simpleRepBean.setProgramId(movieInfoData.getProgramId());
-			simpleRepBean.setName(movieInfoData.getName());
-			movieList.add(simpleRepBean);
+			SimpleRepBean simplebean = new SimpleRepBean();
+			simplebean.setId(movieInfoData.getId());
+			simplebean.setCategoryId(movieInfoData.getCategoryId());
+			simplebean.setName(movieInfoData.getName());
+			movieList.add(simplebean);
 		}
 
 		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);

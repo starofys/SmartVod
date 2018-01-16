@@ -148,24 +148,24 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 	@Override
 	public void clickOtherMovieDetail(Context packageContext, int type, int position) {
 		Intent intent = new Intent(packageContext, MovieDetailActivity.class);
-		int movieTypeId = 0;
-		int movieDetailId = 0;
+		int categoryId = 0;
+		int programId = 0;
 		switch (type) {
 			case TYPE_HOT_SEARCH_LIST:
-				movieTypeId = mHotSearchList.get(position).getProgramId();
-				movieDetailId = mHotSearchList.get(position).getId();
+				categoryId = mHotSearchList.get(position).getCategoryId();
+				programId = mHotSearchList.get(position).getId();
 				break;
 			case TYPE_HOT_LIST:
-				movieTypeId = mHotList.get(position).getProgramId();
-				movieDetailId = mHotList.get(position).getId();
+				categoryId = mHotList.get(position).getCategoryId();
+				programId = mHotList.get(position).getId();
 				break;
 			case TYPE_SEARCH_RESULT:
-				movieTypeId = mSearchMovieReultList.get(position).getProgramId();
-				movieDetailId = mSearchMovieReultList.get(position).getId();
+				categoryId = mSearchMovieReultList.get(position).getCategoryId();
+				programId = mSearchMovieReultList.get(position).getId();
 				break;
 		}
-		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, movieTypeId);
-		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, movieDetailId);
+		intent.putExtra(MovieDetailActivity.MOVIE_CATEGORY_ID, categoryId);
+		intent.putExtra(MovieDetailActivity.MOVIE_PROGRAM_ID, programId);
 		packageContext.startActivity(intent);
 	}
 

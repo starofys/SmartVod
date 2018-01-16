@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.api.repBean.CategoryRepBean;
 import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
 import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.adapter.LeftMenuPresenter;
@@ -63,7 +63,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
         getActivity().registerReceiver(mListSelectFoucsBroadCastReceiver, intentFilter);
     }
 
-    private void bindAdater(List<SimpleRepBean> movieTypeNames) {
+    private void bindAdater(List<CategoryRepBean> movieTypeNames) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRcvMovieTypeList.setLayoutManager(layoutManager);
@@ -105,7 +105,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
             @Override
             public boolean dispatchKeyEvent(KeyEvent event) {
                 int keyCode = event.getKeyCode();
-                int size = ((HomeMovieTypeLinkPresenter) mHomeMovieTypeLinkPresenter).getMovieTypeNames().size();
+                int size = ((HomeMovieTypeLinkPresenter) mHomeMovieTypeLinkPresenter).getCategoryNames().size();
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                     if (mVodListItemSelectedIndex == 0) {
                         mRcvMovieTypeList.setItemSelected(size - 1);
@@ -132,7 +132,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
     }
 
     @Override
-    public void showData(List<SimpleRepBean> movieTypeNames) {
+    public void showData(List<CategoryRepBean> movieTypeNames) {
         mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, 0);
         bindAdater(movieTypeNames);
         initEvent();

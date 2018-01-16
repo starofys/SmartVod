@@ -43,7 +43,6 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     @ViewInject(R.id.mainUpView)
     private MainUpView mMainUpView;
 
-    private int mMovieTypeId;
     private RecyclerViewBridge mRecyclerViewBridge;
 
     private HomeMovieRecommodListContract.HomeMovieListPresenter mHomeMovieListLinkPresenter;
@@ -53,13 +52,11 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     private int mSelectRecyclerIndex;
 
     /**
-     * @param movieTypeId 电影类型
      * @return
      */
-    public static MovieBigPictureListFragment getIntance(int movieTypeId) {
+    public static MovieBigPictureListFragment getIntance() {
         MovieBigPictureListFragment fragment = new MovieBigPictureListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailActivity.MOVIE_TYPE_ID, movieTypeId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -75,7 +72,6 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMovieTypeId = getArguments().getInt(MovieDetailActivity.MOVIE_TYPE_ID);
     }
 
     @Override
@@ -136,7 +132,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
         mRcvMovieItemContainer.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position, mMovieTypeId);
+                mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position);
             }
         });
         mRcvMovieItemContainer.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {

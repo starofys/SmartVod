@@ -91,10 +91,10 @@ public class HomeMovieRecommondListLinkPresenter implements HomeMovieRecommodLis
 	}
 
 	@Override
-	public void toMovieDetail(Context packageContext, Class<?> cls, int position, int categoryId) {
+	public void toMovieDetail(Context packageContext, Class<?> cls, int position) {
 		Intent intent = new Intent(packageContext, cls);
-		intent.putExtra(MovieDetailActivity.MOVIE_TYPE_ID, mMovieInfoData.get(position).getProgramId());
-		intent.putExtra(MovieDetailActivity.MOVIE_DETAIL_ID, mMovieInfoData.get(position).getId());
+		intent.putExtra(MovieDetailActivity.MOVIE_CATEGORY_ID, mMovieInfoData.get(position).getCategoryId());
+		intent.putExtra(MovieDetailActivity.MOVIE_PROGRAM_ID, mMovieInfoData.get(position).getId());
 		packageContext.startActivity(intent);
 	}
 }

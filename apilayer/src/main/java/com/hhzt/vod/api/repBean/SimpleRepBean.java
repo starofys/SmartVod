@@ -5,40 +5,40 @@ package com.hhzt.vod.api.repBean;
  */
 
 public class SimpleRepBean {
-    private int id;
-    private int programId;
-    private String name;
+	private int id;
+	private int categoryId;
+	private String name;
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getProgramId() {
-        return programId;
-    }
+	public int getCategoryId() {
+		return categoryId;
+	}
 
-    public void setProgramId(int programId) {
-        this.programId = programId;
-    }
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public String toString() {
-        return "SimpleRepBean{" +
-                "id=" + id +
-                ", programId=" + programId +
-                ", name='" + name + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "SimpleRepBean{" +
+				"id=" + id +
+				", categoryId=" + categoryId +
+				", name='" + name + '\'' +
+				'}';
+	}
 }

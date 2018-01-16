@@ -1,6 +1,6 @@
 package com.hhzt.vod.api.repData;
 
-import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.api.repBean.CategoryRepBean;
 
 import java.util.ArrayList;
 
@@ -9,13 +9,13 @@ import java.util.ArrayList;
  */
 
 public class CategoryBoDatasRep {
-    private ArrayList<SimpleRepBean> categoryBoList = new ArrayList<>();
+    private ArrayList<CategoryRepBean> categoryBoList = new ArrayList<>();
 
-    public ArrayList<SimpleRepBean> getCategoryBoList() {
+    public ArrayList<CategoryRepBean> getCategoryBoList() {
         return categoryBoList;
     }
 
-    public void setCategoryBoList(ArrayList<SimpleRepBean> categoryBoList) {
+    public void setCategoryBoList(ArrayList<CategoryRepBean> categoryBoList) {
         this.categoryBoList = categoryBoList;
     }
 

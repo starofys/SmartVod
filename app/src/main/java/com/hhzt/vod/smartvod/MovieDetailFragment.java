@@ -102,17 +102,17 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	private RecyclerViewBridge mRecyclerViewBridge;
 
 	private int mPlayLocation;
-	private int mMovieTypeId;
-	private int mMovieDetailId;
+	private int mMovieCategoryId;
+	private int mMovieProgramId;
 
 	private MovieDetailContract.MovieDetailPresenter mMovieDetailLinkPresenter;
 	private MovieDetailCallBack mMovieDetailCallBack;
 
-	public static MovieDetailFragment getInstance(int movieTypeId, int movieDetailId) {
+	public static MovieDetailFragment getInstance(int categoryId, int movieProgramId) {
 		MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
 		Bundle bundle = new Bundle();
-		bundle.putInt(MovieDetailActivity.MOVIE_TYPE_ID, movieTypeId);
-		bundle.putInt(MovieDetailActivity.MOVIE_DETAIL_ID, movieDetailId);
+		bundle.putInt(MovieDetailActivity.MOVIE_CATEGORY_ID, categoryId);
+		bundle.putInt(MovieDetailActivity.MOVIE_PROGRAM_ID, movieProgramId);
 		movieDetailFragment.setArguments(bundle);
 		return movieDetailFragment;
 	}
@@ -139,12 +139,11 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mMovieTypeId = getArguments().getInt(MovieDetailActivity.MOVIE_TYPE_ID, 0);
-		mMovieDetailId = getArguments().getInt(MovieDetailActivity.MOVIE_DETAIL_ID, 0);
+		mMovieCategoryId = getArguments().getInt(MovieDetailActivity.MOVIE_CATEGORY_ID, 0);
+		mMovieProgramId = getArguments().getInt(MovieDetailActivity.MOVIE_PROGRAM_ID, 0);
 
 		initView();
-		mMovieDetailLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, 29, 99999);
-//		mMovieDetailLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, mMovieTypeId, mMovieDetailId);
+		mMovieDetailLinkPresenter.showData(ConfigX.PROGRAM_GROUP_ID, mMovieCategoryId, mMovieProgramId);
 		initEvent();
 	}
 

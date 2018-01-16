@@ -22,12 +22,12 @@ public class HomeMovieListContract {
 	public interface HomeMovieListPresenter extends BasePresenter {
 		void init();
 
-		void showData(int programGroupId, int pageNum, int pageSize, int categoryId);
+		void showData(int programGroupId,int categoryId, int pageNum, int pageSize);
 
 		void clearData();
 
 		void destoryInit();
 
-		void toMovieDetail(Context packageContext, Class<?> cls, int position, int categoryId);
+		void toMovieDetail(Context packageContext, Class<?> cls, int position);
 	}
 }

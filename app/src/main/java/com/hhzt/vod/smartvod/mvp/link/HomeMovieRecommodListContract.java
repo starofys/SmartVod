@@ -29,6 +29,6 @@ public class HomeMovieRecommodListContract {
 
 		void destoryInit();
 
-		void toMovieDetail(Context packageContext, Class<?> cls, int position, int categoryId);
+		void toMovieDetail(Context packageContext, Class<?> cls, int position);
 	}
 }

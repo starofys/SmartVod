@@ -1,6 +1,6 @@
 package com.hhzt.vod.api.repData;
 
-import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.api.repBean.CategoryRepBean;
 
 import java.util.ArrayList;
 
@@ -9,13 +9,13 @@ import java.util.ArrayList;
  */
 
 public class ProgramSuperDataRep {
-    private ArrayList<SimpleRepBean> programSuperSimpleBoList = new ArrayList<>();
+    private ArrayList<CategoryRepBean> programSuperSimpleBoList = new ArrayList<>();
 
-    public ArrayList<SimpleRepBean> getProgramSuperSimpleBoList() {
+    public ArrayList<CategoryRepBean> getProgramSuperSimpleBoList() {
         return programSuperSimpleBoList;
     }
 
-    public void setProgramSuperSimpleBoList(ArrayList<SimpleRepBean> programSuperSimpleBoList) {
+    public void setProgramSuperSimpleBoList(ArrayList<CategoryRepBean> programSuperSimpleBoList) {
         this.programSuperSimpleBoList = programSuperSimpleBoList;
     }
 
