@@ -18,11 +18,11 @@ public class MovieFactory {
                 fragment = MovieBigPictureListFragment.getIntance();
                 break;
             case MOVIE_SHOW_TYPE_MIX_PICTURE:
-                fragment = MovieMixPictureListFragment.getIntance(categroyId);
-                break;
-            case MOVIE_SHOW_TYPE_SMALL_PICTURE:
+//                break;
+//            case MOVIE_SHOW_TYPE_SMALL_PICTURE:
             default:
-                fragment = MovieSmallPictureListFragment.getIntance(categroyId);
+                fragment = MovieMixPictureListFragment.getIntance(categroyId);
+//                fragment = MovieSmallPictureListFragment.getIntance(categroyId);
                 break;
         }
         return fragment;

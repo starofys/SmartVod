@@ -26,7 +26,7 @@ import com.hhzt.vod.media.NiceVideoPlayer;
 import com.hhzt.vod.media.TxVideoPlayerController;
 import com.hhzt.vod.smartvod.adapter.EpisodePresenter;
 import com.hhzt.vod.smartvod.adapter.EpisodeRangePresenter;
-import com.hhzt.vod.smartvod.adapter.HomeSmallPicturePresenter;
+import com.hhzt.vod.smartvod.adapter.MovieSmallPicturePresenter;
 import com.hhzt.vod.smartvod.callback.MovieDetailCallBack;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.dialog.PayDialogFragment;
@@ -80,6 +80,8 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	private LinearMainLayout mLmlFullscreenOrPay;
 	@ViewInject(R.id.riv_movie_full_screen)
 	private ReflectItemView mRivMovieFullScreen;
+	@ViewInject(R.id.btn_movie_full_screen)
+	private TextView mTtnMovieFullScreen;
 	@ViewInject(R.id.riv_movie_pay)
 	private ReflectItemView mRivMoviePay;
 	@ViewInject(R.id.tv_movie_watch_for_free_time)
@@ -301,7 +303,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 				mRivMovieFullScreen.requestLayout();
 				mRivMovieFullScreen.requestFocus();
 			}
-		}, 500);
+		}, 10);
 	}
 
 	private void delayPlayVideo() {
@@ -387,10 +389,13 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	public void showMovieDetail(List<EpisodeBean> episodeList, List<String> episodeRangeList, ProgrameDetailBo programDetailBo) {
 		mRivMoviePay.setVisibility(programDetailBo.getVipFlag() == ConfigX.NEED_VIP ? View.VISIBLE : View.GONE);
 		mTtvMovieWatchForFreeTime.setVisibility((programDetailBo.getVipFlag() == ConfigX.NEED_VIP && programDetailBo.getMediaList().size() <= 1) ? View.VISIBLE : View.GONE);
+		if (programDetailBo.getMediaList().size() > 1) {
+			mTtnMovieFullScreen.setText(getActivity().getResources().getString(R.string.first_episode));
+		}
 
 		//电影详情(名字、时间、导演、主演、类型、简介)
-		String writers = String.format(getResources().getString(R.string.movie_detail_director), programDetailBo.getName());
-		String actors = String.format(getResources().getString(R.string.movie_detail_starring), programDetailBo.getYear());
+		String writers = String.format(getResources().getString(R.string.movie_detail_director), programDetailBo.getWriters());
+		String actors = String.format(getResources().getString(R.string.movie_detail_starring), programDetailBo.getActors());
 		String areaname = String.format(getResources().getString(R.string.movie_detail_type), programDetailBo.getAreaname());
 		String description = String.format(getResources().getString(R.string.movie_detail_description), programDetailBo.getDescription());
 		mTvMovieName.setText(programDetailBo.getName());
@@ -425,7 +430,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 			mRcvRelateMovie.setLayoutManager(layoutManager);
 			mRcvRelateMovie.setFocusable(false);
-			GeneralAdapter generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), relevantList));
+			GeneralAdapter generalAdapter = new GeneralAdapter(new MovieSmallPicturePresenter(getContext(), relevantList));
 			mRcvRelateMovie.setAdapter(generalAdapter);
 		}
 	}
@@ -440,7 +445,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 			layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 			mRcvRecommendMovie.setLayoutManager(layoutManager);
 			mRcvRecommendMovie.setFocusable(false);
-			GeneralAdapter generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), hotList));
+			GeneralAdapter generalAdapter = new GeneralAdapter(new MovieSmallPicturePresenter(getContext(), hotList));
 			mRcvRecommendMovie.setAdapter(generalAdapter);
 		}
 	}

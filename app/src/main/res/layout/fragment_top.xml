@@ -16,8 +16,8 @@
 		android:paddingRight="@dimen/layx85">
 
 		<ImageView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="@dimen/layx205"
+			android:layout_height="@dimen/layx64"
 			android:layout_marginLeft="@dimen/layx108"
 			android:src="@mipmap/ic_cibn" />
 
@@ -54,7 +54,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_vertical"
-					android:layout_marginLeft="@dimen/layx60"
+					android:layout_marginLeft="@dimen/layx70"
 					android:text="@string/search"
 					android:textColor="@color/tv_white" />
 
@@ -71,7 +71,7 @@
 			android:textSize="@dimen/layx50" />
 
 		<View
-			android:layout_width="@dimen/layx1"
+			android:layout_width="@dimen/layx2"
 			android:layout_height="@dimen/layy64"
 			android:layout_marginEnd="@dimen/layx20"
 			android:layout_marginStart="@dimen/layx20"
@@ -96,11 +96,11 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textColor="@color/tv_white"
-				android:textSize="@dimen/layx24" />
+				android:textSize="@dimen/layx28" />
 		</LinearLayout>
 
 		<View
-			android:layout_width="@dimen/layx1"
+			android:layout_width="@dimen/layx2"
 			android:layout_height="@dimen/layy64"
 			android:layout_marginEnd="@dimen/layx20"
 			android:layout_marginStart="@dimen/layx20"
@@ -108,8 +108,8 @@
 
 		<ImageView
 			android:id="@+id/iv_climate_icon"
-			android:layout_width="@dimen/layx50"
-			android:layout_height="wrap_content"
+			android:layout_width="@dimen/layx70"
+			android:layout_height="match_parent"
 			android:layout_marginRight="@dimen/layx20"
 			android:src="@mipmap/ic_climate_icon"
 			android:textColor="@color/tv_white" />
@@ -131,9 +131,10 @@
 			<TextView
 				android:id="@+id/tv_city"
 				android:layout_width="wrap_content"
+				android:layout_marginLeft="@dimen/layx20"
 				android:layout_height="wrap_content"
 				android:textColor="@color/tv_white"
-				android:textSize="@dimen/layx24" />
+				android:textSize="@dimen/layx28" />
 		</LinearLayout>
 
 	</LinearLayout>

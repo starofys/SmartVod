@@ -191,7 +191,7 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 
 	@Override
 	public void clickDelete(String currentName) {
-		if (currentName.length() == 1) {
+		if (currentName.length() <= 1) {
 			mSearchMovieView.showSearchMovieName("");
 			showHotMovieData();
 		} else {

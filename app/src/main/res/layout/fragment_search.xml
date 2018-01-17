@@ -37,6 +37,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:background="@drawable/ic_search_backgroud"
+					android:textSize="@dimen/layx37"
 					android:gravity="center"
 					android:text="@string/search_full_keyboard"
 					android:textColor="@color/blue" />
@@ -55,6 +56,7 @@
 				<TextView
 					android:id="@+id/tv_t9_keyboard"
 					android:layout_width="match_parent"
+					android:textSize="@dimen/layx37"
 					android:layout_height="match_parent"
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
@@ -128,6 +130,7 @@
 					android:layout_height="match_parent"
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
+					android:textSize="@dimen/layx37"
 					android:text="@string/delete"
 					android:textColor="@color/tv_white" />
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
@@ -149,6 +152,7 @@
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/clear"
+					android:textSize="@dimen/layx37"
 					android:textColor="@color/tv_white" />
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>

@@ -6,8 +6,9 @@
 
     <color name="tv_white">#ffffff</color>
     <color name="tv_yellow">#ffaf03</color>
-    <color name="tv_white_translate">#66ffffff</color>
+    <color name="tv_white_translate">#99ffffff</color>
     <color name="tv_gray_translate">#33000000</color>
+    <color name="bg_gray_translate2">#99666666</color>
     <color name="tv_gray">#666666</color>
     <color name="translate">#00000000</color>
     <color name="blue">#2fa6f7</color>

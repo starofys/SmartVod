@@ -13,6 +13,7 @@
 	<string name="delete">删除</string>
 	<string name="clear">清空</string>
 	<string name="recommond">推荐</string>
+	<string name="first_episode">第一集</string>
 
 	<string name="media_clarities_270p">270p</string>
 	<string name="media_clarities_480p">480p</string>
@@ -43,7 +44,7 @@
 	<!--搜索-->
 	<string name="search_t9_keyboard">T9键盘</string>
 	<string name="search_full_keyboard">全键盘</string>
-	<string name="search_movie_tip">输入片名/人名的首字母或全拼</string>
+	<string name="search_movie_tip">输入片名的首字母</string>
 	<string name="search_hot_search">热门搜索</string>
 	<string name="search_search_history">搜索历史</string>
 	<string name="search_relate_search">相关搜索</string>

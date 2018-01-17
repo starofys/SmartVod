@@ -55,6 +55,8 @@
 
 				<TextView
 					android:id="@+id/tv_movie_name"
+					android:singleLine="true"
+					android:ellipsize="end"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:textColor="@color/tv_white"
@@ -62,6 +64,8 @@
 
 				<TextView
 					android:id="@+id/tv_movie_time"
+					android:singleLine="true"
+					android:ellipsize="end"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_below="@id/tv_movie_name"
@@ -75,18 +79,24 @@
 					android:layout_height="wrap_content"
 					android:layout_below="@id/tv_movie_time"
 					android:textColor="@color/tv_white_translate"
+					android:singleLine="true"
+					android:ellipsize="end"
 					android:textSize="@dimen/layx30" />
 
 				<TextView
 					android:id="@+id/tv_movie_starring"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:maxLines="3"
+					android:ellipsize="end"
 					android:layout_below="@id/tv_movie_director"
 					android:textColor="@color/tv_white_translate"
 					android:textSize="@dimen/layx30" />
 
 				<TextView
 					android:id="@+id/tv_movie_type"
+					android:singleLine="true"
+					android:ellipsize="end"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_below="@id/tv_movie_starring"

@@ -105,11 +105,11 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 				movieShowType = MovieFactory.MOVIE_SHOW_TYPE_BIG_PICTURE;
 				break;
 			case 1:
-				movieShowType = MovieFactory.MOVIE_SHOW_TYPE_MIX_PICTURE;
-				break;
-			case 2:
+//				break;
+//			case 2:
 			default:
-				movieShowType = MovieFactory.MOVIE_SHOW_TYPE_SMALL_PICTURE;
+				movieShowType = MovieFactory.MOVIE_SHOW_TYPE_MIX_PICTURE;
+//				movieShowType = MovieFactory.MOVIE_SHOW_TYPE_SMALL_PICTURE;
 				break;
 		}
 		moviePictureListFragment = MovieFactory.getFragment(movieShowType, mCategoryNames.get(position).getId());

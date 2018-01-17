@@ -3,5 +3,5 @@
 	<item android:drawable="@color/blue" android:state_selected="true"/>
 	<item android:drawable="@color/blue" android:state_focused="true"/>
 	<item android:drawable="@color/blue" android:state_pressed="true"/>
-	<item android:drawable="@color/tv_gray"/>
+	<item android:drawable="@drawable/ic_search_backgroud"/>
 </selector>

@@ -80,7 +80,7 @@ public class HomeTopLinkPresenter implements HomeTopConstract.HomeTopPresenter {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, WeatherCityBean weatherCityBean) {
 				WeatherCityBean.WeatherBean weather = weatherCityBean.getWeather();
-				mIHomeTopView.showWeather(weather.getLogourl(), weather.getTemp(), weather.getCityname() + weather.getWeather());
+				mIHomeTopView.showWeather(weather.getLogourl(), weather.getTemp(), weather.getCityname() + "  " + weather.getWeather());
 			}
 
 			@Override

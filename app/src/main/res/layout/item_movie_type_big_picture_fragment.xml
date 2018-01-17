@@ -28,7 +28,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/layy70"
 		android:layout_alignParentBottom="true"
-		android:background="@mipmap/ic_movie_name_bacgroud"
+		android:background="@mipmap/ic_movie_name_backgroud"
 		android:ellipsize="end"
 		android:gravity="center"
 		android:singleLine="true"
