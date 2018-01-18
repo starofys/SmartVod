@@ -6,6 +6,8 @@
 	android:layout_marginRight="@dimen/layx81"
 	android:focusable="true"
 	android:focusableInTouchMode="true"
+	android:clipChildren="false"
+	android:clipToPadding="false"
 	android:orientation="vertical">
 
 	<ImageView

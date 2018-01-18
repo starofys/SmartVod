@@ -144,12 +144,14 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
                     if (index == 0) {
                         mRecyclerViewBridge.setUnFocusView(itemView);
                         KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+                        mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
                         return true;
                     }
                 } else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
                     if (index % 2 == 0) {
                         mRecyclerViewBridge.setUnFocusView(itemView);
                         KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+                        mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
                         return true;
                     }
                 }
@@ -182,6 +184,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
                         View view = mRcvMovieItemContainer.getChildAt(mSelectRecyclerIndex);
                         view.requestLayout();
                         view.requestFocus();
+                        mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
                     }
                     break;
                     case KeyFactoryConst.KEY_CODE_RIGHT: {
@@ -190,6 +193,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
                             view.requestLayout();
                             view.requestFocus();
                         }
+                        mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
                     }
                     break;
                     default:

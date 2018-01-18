@@ -3,6 +3,8 @@
 <com.hhzt.vod.viewlayer.androidtvwidget.view.RelativeMainLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
+	android:clipChildren="false"
+	android:clipToPadding="false"
 	android:layout_height="wrap_content">
 
 	<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
@@ -21,6 +23,8 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/layy694"
+			android:clipChildren="false"
+			android:clipToPadding="false"
 			android:orientation="horizontal">
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
@@ -36,6 +40,8 @@
 				android:id="@+id/fragment_movie_container"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
+				android:clipChildren="false"
+				android:clipToPadding="false"
 				android:layout_marginLeft="@dimen/layx24"/>
 		</LinearLayout>
 
