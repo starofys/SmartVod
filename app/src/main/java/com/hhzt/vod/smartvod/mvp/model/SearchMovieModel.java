@@ -4,6 +4,7 @@ import com.hhzt.vod.api.HttpConst;
 import com.hhzt.vod.api.HttpVod;
 import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
+import com.hhzt.vod.api.repData.ProgramSuperDataRep;
 import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 import com.hhzt.vod.smartvod.R;
@@ -20,6 +21,20 @@ import java.util.Arrays;
  */
 
 public class SearchMovieModel implements ISearchMovie {
+
+	@Override
+	public void requestSearchHistory(IHttpRetCallBack<ProgramSuperDataRep> iHttpRetCallBack) {
+		HttpVod.getVodSearchHistorListDatas(
+				HttpConst.APP_KEY,
+				HttpConst.FORMAT,
+				HttpConst.METHOD_10,
+				HttpConst.VERSION,
+				"",
+				"getVodSearchHistorListDatas",
+				ProgramSuperDataRep.class,
+				iHttpRetCallBack
+		);
+	}
 
 	@Override
 	public void requestSearchMovieReult(int pageNum, int pageSize, String searchKeyWord, IHttpRetCallBack<VodSearchDataRep> iHttpRetCallBack) {

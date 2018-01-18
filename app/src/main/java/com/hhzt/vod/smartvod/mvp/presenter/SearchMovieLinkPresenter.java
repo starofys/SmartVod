@@ -40,7 +40,7 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 	//热门搜索 and  历史搜索
 	private ArrayList<SimpleRepBean> mHotSearchList = new ArrayList<>();
 	private ArrayList<MovieInfoData> mHotList = new ArrayList<>();
-	private ArrayList<String> mSearchHistoryList = new ArrayList<>();
+	private ArrayList<SimpleRepBean> mSearchHistoryList = new ArrayList<>();
 
 	//相关搜索==》即：搜索结果
 	private ArrayList<MovieInfoData> mSearchMovieReultList = new ArrayList<>();
@@ -144,6 +144,42 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 	@Override
 	public void showT9KeyboardData() {
 		mSearchMovieView.showT9KeyBoardData(mT9BoardList);
+	}
+
+	@Override
+	public void showSearchHistoryMovie() {
+//		mISearchMovie.requestSearchHistory(new IHttpRetCallBack<ProgramSuperDataRep>() {
+//			@Override
+//			public void onResponseSuccess(CommonRspRetBean bean, ProgramSuperDataRep programSuperDataRep) {
+//				mSearchHistoryList.clear();
+//				ArrayList<SimpleRepBean> programSuperSimpleBoList = programSuperDataRep.getProgramSuperSimpleBoList();
+//				for (int i = 0; i < programSuperSimpleBoList.size(); i++) {
+//					if (i < 4) {
+//						mSearchHistoryList.add(programSuperSimpleBoList.get(i));
+//					}
+//				}
+//			}
+//
+//			@Override
+//			public void onResponseFailed(CommonRspRetBean bean) {
+//
+//			}
+//
+//			@Override
+//			public void onError(String result) {
+//
+//			}
+//
+//			@Override
+//			public void onCancelled() {
+//
+//			}
+//
+//			@Override
+//			public void onFinish() {
+//
+//			}
+//		});
 	}
 
 	@Override

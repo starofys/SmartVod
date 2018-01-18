@@ -43,6 +43,8 @@ public class SearchMovieContract {
 
 		void showT9KeyboardData();
 
+		void showSearchHistoryMovie();
+
 		void clickOtherMovieDetail(Context packageContext, int type, int position);
 
 		void clickFullKey(int position, String currentName);

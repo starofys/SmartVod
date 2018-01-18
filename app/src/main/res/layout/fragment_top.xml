@@ -108,7 +108,7 @@
 
 		<ImageView
 			android:id="@+id/iv_climate_icon"
-			android:layout_width="@dimen/layx70"
+			android:layout_width="@dimen/layx100"
 			android:layout_height="match_parent"
 			android:layout_marginRight="@dimen/layx20"
 			android:src="@mipmap/ic_climate_icon"

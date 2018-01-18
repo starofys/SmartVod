@@ -77,6 +77,8 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	private RecyclerViewTV mRcvHotSearchDown;
 	@ViewInject(R.id.rcv_search_history)
 	private RecyclerViewTV mRcvSearchHistory;
+	@ViewInject(R.id.ll_search_history)
+	private LinearLayout mLlSearchHistory;
 
 	@ViewInject(R.id.ll_search_result)
 	private LinearLayout mLlSearchResult;
@@ -209,7 +211,17 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	public void showSearchHistoryData(ArrayList<String> keyList) {
 		mLlHotSearch.setVisibility(View.VISIBLE);
 		mLlSearchResult.setVisibility(View.GONE);
-		//todo 数据暂定不做.目前还不确定是后台返回还是本地存储
+
+//		if (keyList.size() == 0) {
+//			mLlSearchHistory.setVisibility(View.GONE);
+//			mRcvSearchHistory.setVisibility(View.GONE);
+//		}
+//		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
+//		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//		mRcvHotSearchDown.setLayoutManager(gridlayoutManager);
+//		mRcvHotSearchDown.setFocusable(false);
+//		GeneralAdapter generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(keyList));
+//		mRcvHotSearchDown.setAdapter(generalAdapter);
 	}
 
 	@Override

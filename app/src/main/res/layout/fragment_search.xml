@@ -214,11 +214,11 @@
 				android:layout_marginTop="@dimen/layy21"/>
 
 			<LinearLayout
+				android:id="@+id/ll_search_history"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center_vertical"
-				android:layout_marginTop="@dimen/layy54"
-				android:visibility="gone">
+				android:layout_marginTop="@dimen/layy54">
 
 				<ImageView
 					android:layout_width="wrap_content"

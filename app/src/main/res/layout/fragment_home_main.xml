@@ -14,14 +14,13 @@
 
 		<ImageView
 			android:layout_width="wrap_content"
-			android:layout_height="@dimen/layx65"
+			android:layout_height="@dimen/layx45"
 			android:layout_gravity="center_horizontal|top"
 			android:src="@mipmap/ic_enter_up"/>
 
 		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/layy694"
-			android:clipChildren="false"
+			android:layout_height="@dimen/layy734"
 			android:orientation="horizontal">
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
@@ -37,13 +36,16 @@
 				android:id="@+id/fragment_movie_container"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
+				android:paddingBottom="@dimen/layy20"
+				android:paddingTop="@dimen/layy20"
+				android:clipToPadding="false"
 				android:clipChildren="false"
 				android:layout_marginLeft="@dimen/layx24"/>
 		</LinearLayout>
 
 		<ImageView
 			android:layout_width="wrap_content"
-			android:layout_height="@dimen/layy65"
+			android:layout_height="@dimen/layy45"
 			android:layout_gravity="center_horizontal|bottom"
 			android:src="@mipmap/ic_enter_down"/>
 
