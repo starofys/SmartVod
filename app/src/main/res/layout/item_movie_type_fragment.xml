@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="@dimen/layx100"
-	android:background="@drawable/movie_type_backgroud"
+	android:layout_height="@dimen/layx120"
 	android:descendantFocusability="blocksDescendants"
 	android:focusable="true"
 	android:focusableInTouchMode="true"
@@ -17,4 +16,8 @@
 		android:textColor="@color/tv_white"
 		android:textSize="@dimen/layx50" />
 
-</LinearLayout>
+	<View android:layout_width="match_parent"
+	      android:background="@drawable/movie_type_backgroud"
+	      android:layout_alignParentBottom="true"
+	      android:layout_height="@dimen/layy30"/>
+</RelativeLayout>
