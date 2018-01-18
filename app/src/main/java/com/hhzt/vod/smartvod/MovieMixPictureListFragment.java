@@ -202,8 +202,13 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 					View itemView = mRcvMovieSmallPicture.getFocusedChild();
 					if (index % 2 == 0) {
 						mRecyclerViewBridge.setUnFocusView(itemView);
-						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
 						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						return true;
+					}
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+					int index = mRcvMovieSmallPicture.getSelectPostion();
+					if (index % 2 != 0) {
 						return true;
 					}
 				}
@@ -242,6 +247,8 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						mRcvMovieSmallPicture.getChildAt(0).requestFocus();
 						return true;
 					}
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+					return true;
 				}
 				return false;
 			}

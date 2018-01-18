@@ -152,6 +152,8 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 					KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
 					mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 					return true;
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+					return true;
 				}
 				return false;
 			}
