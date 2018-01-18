@@ -2,6 +2,7 @@ package com.hhzt.vod.smartvod;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.HttpConst;
@@ -35,9 +36,15 @@ public class HomeActivity extends BaseActivity {
 	private void initConfig() {
 		Intent intent = getIntent();
 		if (null != intent) {
-			ConfigMgr.getInstance().initEpgUrl(intent.getStringExtra(ConfigX.HOST));
-			ConfigMgr.getInstance().initUserName(intent.getStringExtra(ConfigX.USERNAME));
-			ConfigMgr.getInstance().initGroupID(intent.getIntExtra(ConfigX.GROUPID, HttpConst.DEFAULT_GROUP_ID));
+			String host = intent.getStringExtra(ConfigX.HOST);
+			String userName = intent.getStringExtra(ConfigX.USERNAME);
+			int programProupID = intent.getIntExtra(ConfigX.GROUPID, HttpConst.DEFAULT_GROUP_ID);
+
+			ConfigMgr.getInstance().initEpgUrl(host);
+			ConfigMgr.getInstance().initUserName(userName);
+			ConfigMgr.getInstance().initGroupID(programProupID);
+
+			Log.d(ConfigX.HHZT_SMART_LOG, "host=" + host + ";userName=" + userName + ";programProupID=" + programProupID);
 		}
 	}
 }

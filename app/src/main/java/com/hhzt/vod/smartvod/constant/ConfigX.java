@@ -12,7 +12,7 @@ public class ConfigX {
 
 	public static final String USERNAME = "userName";
 
-	public static final String GROUPID = "groupID";
+	public static final String GROUPID = "programGroupID";
 
 	//图片选中缩放大小
 	public static final float SCALE = 1.1f;
