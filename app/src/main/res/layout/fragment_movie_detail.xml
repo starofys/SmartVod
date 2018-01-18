@@ -143,13 +143,13 @@
 
 						<TextView
 							android:id="@+id/btn_movie_full_screen"
-							android:layout_width="@dimen/layx200"
-							android:layout_height="@dimen/layx80"
+							android:layout_width="@dimen/layx159"
+							android:layout_height="@dimen/layx66"
 							android:background="@drawable/ic_search_backgroud"
 							android:gravity="center"
 							android:text="@string/movie_detail_full_screen"
 							android:textColor="@color/tv_white"
-							android:textSize="@dimen/layx40" />
+							android:textSize="@dimen/layx33" />
 					</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 					<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
@@ -163,13 +163,13 @@
 
 						<TextView
 							android:id="@+id/btn_movie_pay"
-							android:layout_width="@dimen/layx200"
-							android:layout_height="@dimen/layx80"
+							android:layout_width="@dimen/layx159"
+							android:layout_height="@dimen/layx66"
 							android:background="@drawable/ic_search_backgroud"
 							android:gravity="center"
 							android:text="@string/movie_detail_pay"
 							android:textColor="@color/tv_white"
-							android:textSize="@dimen/layx40" />
+							android:textSize="@dimen/layx33" />
 					</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 					<TextView
@@ -180,7 +180,7 @@
 						android:gravity="center_vertical"
 						android:text="@string/movie_detail_movie_watch_for_free_time"
 						android:textColor="@color/blue"
-						android:textSize="@dimen/layx30"
+						android:textSize="@dimen/layx33"
 						android:visibility="gone" />
 
 				</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
@@ -195,7 +195,7 @@
 			android:clipChildren="false"
 			android:orientation="vertical"
 			android:paddingLeft="@dimen/layx110"
-			android:paddingRight="@dimen/layx80">
+			android:paddingRight="@dimen/layx100">
 
 			<!--剧情列表:根据类型可以隐藏-->
 			<LinearLayout
@@ -238,7 +238,7 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginTop="@dimen/layy20"
+						android:layout_marginTop="@dimen/layy23"
 						android:orientation="vertical">
 
 						<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="@dimen/layx171"
-	android:layout_height="@dimen/layy248"
-	android:layout_marginRight="@dimen/layx10"
+	android:layout_width="@dimen/layx163"
+	android:layout_height="@dimen/layy246"
+	android:layout_marginRight="@dimen/layx12"
 	android:focusable="true"
 	android:focusableInTouchMode="true"
 	android:orientation="vertical">
@@ -23,7 +23,7 @@
 	<TextView
 		android:id="@+id/tv_movie_name_item"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/layy36"
+		android:layout_height="@dimen/layy40"
 		android:layout_alignParentBottom="true"
 		android:background="@mipmap/ic_movie_name_backgroud"
 		android:ellipsize="end"

@@ -26,7 +26,7 @@
 	<TextView
 		android:id="@+id/tv_movie_name_item"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/layy48"
+		android:layout_height="@dimen/layy45"
 		android:layout_alignParentBottom="true"
 		android:background="@mipmap/ic_movie_name_backgroud"
 		android:ellipsize="end"
