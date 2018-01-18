@@ -126,7 +126,6 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
     public void showWeather(String weatherLogUrl, String temp, String city) {
         Glide.with(getActivity())
                 .load(weatherLogUrl)
-                .placeholder(R.drawable.img_default)
                 .crossFade()
                 .into(mIvClimateIcon);
         mTvTemperature.setText(temp);

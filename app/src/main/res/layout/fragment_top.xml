@@ -106,13 +106,19 @@
 			android:layout_marginStart="@dimen/layx20"
 			android:background="@color/tv_white" />
 
-		<ImageView
-			android:id="@+id/iv_climate_icon"
+		<LinearLayout
 			android:layout_width="@dimen/layx100"
-			android:layout_height="match_parent"
-			android:layout_marginRight="@dimen/layx20"
-			android:src="@mipmap/ic_climate_icon"
-			android:textColor="@color/tv_white" />
+			android:layout_height="wrap_content">
+			<ImageView
+				android:id="@+id/iv_climate_icon"
+				android:scaleType="fitXY"
+				android:layout_marginRight="@dimen/layx20"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@mipmap/ic_climate_icon"
+				android:textColor="@color/tv_white" />
+		</LinearLayout>
+
 
 		<LinearLayout
 			android:layout_width="wrap_content"
