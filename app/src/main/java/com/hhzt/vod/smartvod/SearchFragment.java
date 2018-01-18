@@ -161,7 +161,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		});
 
 		//热门电影down
-		mRcvHotSearchDown.setOnItemListener(this);
+//		mRcvHotSearchDown.setOnItemListener(this);
 		mRcvHotSearchDown.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
@@ -170,7 +170,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		});
 
 		//搜索结果
-		mRcvSearchResult.setOnItemListener(this);
+//		mRcvSearchResult.setOnItemListener(this);
 		mRcvSearchResult.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
@@ -301,7 +301,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	public void onGlobalFocusChanged(View oldFocus, View newFocus) {
 		if (newFocus != null)
 			newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-		float scale = ConfigX.SCALE;
+		float scale = 1.0f;
 		mMainUpView.setFocusView(newFocus, scale);
 	}
 

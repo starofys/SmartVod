@@ -35,6 +35,7 @@ import java.util.List;
 public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetailPresenter {
 	public static final int TYPE_RELATE = 1;
 	public static final int TYPE_HOT = 2;
+	public static final int RAGNGE_SIZE = 10;
 
 	private Context mContext;
 	private IMovieDetail mIMovieDetail;
@@ -87,14 +88,14 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 					mEpisodeList.add(episodeBean);
 				}
 
-				boolean divided = number % 10 == 0;
+				boolean divided = number % RAGNGE_SIZE == 0;
 				if (divided) {
-					number = number / 10;
+					number = number / RAGNGE_SIZE;
 				} else {
-					number = number / 10 + 1;
+					number = number / RAGNGE_SIZE + 1;
 				}
 				for (int i = 0; i < number; i++) {
-					mEpisodeRangeList.add("" + (i * 10 + 1) + "-" + (i * 10 + 10));
+					mEpisodeRangeList.add("" + (i * RAGNGE_SIZE + 1) + "-" + (i * RAGNGE_SIZE + RAGNGE_SIZE));
 				}
 				if (number > 1) mMovieDetailView.isTvSeries(true);
 				else mMovieDetailView.isTvSeries(false);

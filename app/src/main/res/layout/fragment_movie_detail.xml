@@ -5,14 +5,13 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@mipmap/bg_movie_detail"
-	android:clipChildren="false"
-	android:clipToPadding="false">
+	android:clipChildren="false">
 
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:clipChildren="false"
-		android:clipToPadding="false"
+		android:clipToPadding="true"
 		android:orientation="vertical"
 		android:paddingBottom="@dimen/layy54"
 		android:paddingTop="@dimen/layy67">
@@ -194,7 +193,6 @@
 			android:layout_below="@+id/ll_movie_detail"
 			android:background="@color/tv_gray_translate"
 			android:clipChildren="false"
-			android:clipToPadding="false"
 			android:orientation="vertical"
 			android:paddingLeft="@dimen/layx110"
 			android:paddingRight="@dimen/layx80">
@@ -266,8 +264,6 @@
 			<LinearLayout
 				android:id="@+id/ll_relate_movie"
 				android:layout_width="match_parent"
-				android:clipChildren="false"
-				android:clipToPadding="false"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/layy31"
 				android:orientation="vertical">
@@ -296,14 +292,12 @@
 				<com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:clipChildren="false"
-					android:clipToPadding="false">
+					android:clipChildren="false">
 
 					<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 						android:id="@+id/rev_relate_movie"
 						android:layout_width="match_parent"
 						android:clipChildren="false"
-						android:clipToPadding="false"
 						android:layout_height="@dimen/layy332" />
 				</com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView>
 
@@ -316,7 +310,6 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:clipChildren="false"
-				android:clipToPadding="false"
 				android:layout_marginTop="@dimen/layy31"
 				android:orientation="vertical">
 
@@ -324,7 +317,6 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:clipChildren="false"
-					android:clipToPadding="false"
 					android:layout_marginBottom="@dimen/layy20"
 					android:gravity="center_vertical">
 
@@ -348,14 +340,12 @@
 				<com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:clipChildren="false"
-					android:clipToPadding="false">
+					android:clipChildren="false">
 
 					<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 						android:id="@+id/rev_recommend_movie"
 						android:layout_width="match_parent"
 						android:clipChildren="false"
-						android:clipToPadding="false"
 						android:layout_height="@dimen/layy332" />
 				</com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView>
 

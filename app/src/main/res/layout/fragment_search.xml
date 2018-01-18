@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@mipmap/bg_main"
+	android:clipChildren="false"
 	android:orientation="horizontal"
-	            android:clipChildren="false"
-	            android:clipToPadding="false"
 	android:paddingEnd="@dimen/layx106"
 	android:paddingStart="@dimen/layx106"
 	android:paddingTop="@dimen/layx80">
@@ -39,10 +39,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:background="@drawable/ic_search_backgroud"
-					android:textSize="@dimen/layx37"
 					android:gravity="center"
 					android:text="@string/search_full_keyboard"
-					android:textColor="@color/blue" />
+					android:textColor="@color/blue"
+					android:textSize="@dimen/layx37"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
@@ -58,12 +58,12 @@
 				<TextView
 					android:id="@+id/tv_t9_keyboard"
 					android:layout_width="match_parent"
-					android:textSize="@dimen/layx37"
 					android:layout_height="match_parent"
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/search_t9_keyboard"
-					android:textColor="@color/tv_white" />
+					android:textColor="@color/tv_white"
+					android:textSize="@dimen/layx37"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 
@@ -78,14 +78,14 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="@dimen/layx50"
-				android:src="@mipmap/ic_search2" />
+				android:src="@mipmap/ic_search2"/>
 
 			<ImageView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="@dimen/layx30"
 				android:layout_marginRight="@dimen/layx32"
-				android:src="@mipmap/ic_vertical_line" />
+				android:src="@mipmap/ic_vertical_line"/>
 
 			<TextView
 				android:id="@+id/tv_search_movie_name"
@@ -94,20 +94,20 @@
 				android:hint="@string/search_movie_tip"
 				android:textColor="@color/tv_white_translate"
 				android:textColorHint="@color/tv_white_translate"
-				android:textSize="@dimen/layx32" />
+				android:textSize="@dimen/layx32"/>
 		</LinearLayout>
 
 		<View
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/layy1"
-			android:background="@color/tv_white_translate" />
+			android:background="@color/tv_white_translate"/>
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 			android:id="@+id/rcv_keyboard"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/layy15"
-			android:layout_marginTop="@dimen/layy25" />
+			android:layout_marginTop="@dimen/layy25"/>
 
 
 		<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
@@ -132,9 +132,9 @@
 					android:layout_height="match_parent"
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
-					android:textSize="@dimen/layx37"
 					android:text="@string/delete"
-					android:textColor="@color/tv_white" />
+					android:textColor="@color/tv_white"
+					android:textSize="@dimen/layx37"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView
@@ -154,8 +154,8 @@
 					android:background="@drawable/ic_search_backgroud"
 					android:gravity="center"
 					android:text="@string/clear"
-					android:textSize="@dimen/layx37"
-					android:textColor="@color/tv_white" />
+					android:textColor="@color/tv_white"
+					android:textSize="@dimen/layx37"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 		</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 	</LinearLayout>
@@ -165,22 +165,17 @@
 		android:layout_height="match_parent"
 		android:layout_marginLeft="@dimen/layx229"
 		android:layout_marginTop="@dimen/layy105"
-		android:clipChildren="false"
-		android:clipToPadding="false"
 		android:layout_toRightOf="@+id/ll_search_keyboard">
 
 		<LinearLayout
 			android:id="@+id/ll_hot_search"
 			android:layout_width="match_parent"
-			android:clipChildren="false"
-			android:clipToPadding="false"
 			android:layout_height="match_parent"
+			android:clipChildren="false"
 			android:orientation="vertical">
 
 			<LinearLayout
 				android:layout_width="match_parent"
-				android:clipChildren="false"
-				android:clipToPadding="false"
 				android:layout_height="wrap_content"
 				android:gravity="center_vertical">
 
@@ -188,7 +183,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginRight="@dimen/layx10"
-					android:src="@mipmap/ic_relate" />
+					android:src="@mipmap/ic_relate"/>
 
 				<TextView
 					android:id="@+id/tv_hot_search"
@@ -196,29 +191,27 @@
 					android:layout_height="wrap_content"
 					android:text="@string/search_hot_search"
 					android:textColor="@color/tv_white_translate"
-					android:textSize="@dimen/layx30" />
+					android:textSize="@dimen/layx30"/>
 			</LinearLayout>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:clipChildren="false"
-				android:clipToPadding="false">
+				android:clipChildren="false">
 
 				<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 					android:id="@+id/rcv_hot_search_up"
 					android:layout_width="match_parent"
-					android:clipChildren="false"
-					android:clipToPadding="false"
 					android:layout_height="@dimen/layy248"
-					android:layout_marginTop="@dimen/layy10" />
+					android:layout_marginTop="@dimen/layy10"
+					android:clipChildren="false"/>
 			</com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_hot_search_down"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/layy21" />
+				android:layout_marginTop="@dimen/layy21"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -230,7 +223,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginRight="@dimen/layx10"
-					android:src="@mipmap/ic_relate" />
+					android:src="@mipmap/ic_relate"/>
 
 				<TextView
 					android:id="@+id/tv_tv_search_history"
@@ -238,7 +231,7 @@
 					android:layout_height="wrap_content"
 					android:text="@string/search_search_history"
 					android:textColor="@color/tv_white_translate"
-					android:textSize="@dimen/layx30" />
+					android:textSize="@dimen/layx30"/>
 			</LinearLayout>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
@@ -246,7 +239,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/layy248"
 				android:layout_marginTop="@dimen/layy18"
-				android:visibility="gone" />
+				android:visibility="gone"/>
 
 		</LinearLayout>
 
@@ -266,7 +259,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginRight="@dimen/layx10"
-					android:src="@mipmap/ic_relate" />
+					android:src="@mipmap/ic_relate"/>
 
 				<TextView
 					android:id="@+id/tv_relate_search"
@@ -274,14 +267,14 @@
 					android:layout_height="wrap_content"
 					android:text="@string/search_relate_search"
 					android:textColor="@color/tv_white_translate"
-					android:textSize="@dimen/layx30" />
+					android:textSize="@dimen/layx30"/>
 			</LinearLayout>
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_search_result"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:layout_marginTop="@dimen/layy20" />
+				android:layout_marginTop="@dimen/layy20"/>
 
 		</LinearLayout>
 	</RelativeLayout>
@@ -291,5 +284,5 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:visibility="gone"
-		app:upImageRes="@mipmap/ic_select_border" />
+		app:upImageRes="@mipmap/ic_select_border"/>
 </RelativeLayout>
