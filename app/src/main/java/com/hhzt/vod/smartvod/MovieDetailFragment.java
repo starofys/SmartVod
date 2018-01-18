@@ -177,6 +177,9 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	}
 
 	private void initEvent() {
+		mRivMovieFullScreen.setNextFocusLeftId(R.id.riv_movie_pay);
+		mRivMovieFullScreen.setNextFocusLeftId(R.id.riv_movie_full_screen);
+
 		mVideoItemView.setOnClickListener(this);
 		mRivMovieFullScreen.setOnClickListener(this);
 		mRivMoviePay.setOnClickListener(this);

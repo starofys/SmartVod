@@ -192,6 +192,24 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				mHomeMovieListLinkPresenter.toMovieDetail(getActivity(), MovieDetailActivity.class, position + mMovieBigPictureList.size());
 			}
 		});
+
+		mRcvMovieSmallPicture.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				int keyCode = event.getKeyCode();
+				if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+					int index = mRcvMovieSmallPicture.getSelectPostion();
+					View itemView = mRcvMovieSmallPicture.getFocusedChild();
+					if (index % 2 == 0) {
+						mRecyclerViewBridge.setUnFocusView(itemView);
+						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						return true;
+					}
+				}
+				return false;
+			}
+		});
 		mRcvMovieBigPicture.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent event) {
@@ -200,13 +218,19 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 					int index = mRcvMovieBigPicture.getSelectPostion();
 					if (index == 0) {
 						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 						return true;
 					}
 				} else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
 					int index = mRcvMovieBigPicture.getSelectPostion();
 					if (index % 2 == 0) {
+						if (index <= 1) {
+							mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						}
 						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
 						return true;
+					} else {
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 					}
 				} else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
 					if (mSelectRecylerType == 0 && mSelectBigRecyclerIndex == 1) {
@@ -259,6 +283,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						}
 						view.requestLayout();
 						view.requestFocus();
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 					}
 					break;
 					case KeyFactoryConst.KEY_CODE_RIGHT: {
@@ -267,6 +292,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 							view.requestLayout();
 							view.requestFocus();
 						}
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 					}
 					break;
 				}
