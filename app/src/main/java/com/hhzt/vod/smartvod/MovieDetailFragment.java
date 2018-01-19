@@ -118,6 +118,10 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	private MovieDetailContract.MovieDetailPresenter mMovieDetailLinkPresenter;
 	private MovieDetailCallBack mMovieDetailCallBack;
 
+	private EpisodePresenter mEpisodePresenter;
+	private EpisodeRangePresenter mEpisodeRangePresenter;
+	private Handler mHandler = new Handler();
+
 	public static MovieDetailFragment getInstance(int categoryId, int movieProgramId, boolean mNeedPayTag) {
 		MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
 		Bundle bundle = new Bundle();
@@ -208,8 +212,19 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		});
 		mRcvEpisode.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
-			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-				mPlayLocation = position;
+			public void onItemClick(RecyclerViewTV parent, View itemView, final int position) {
+				if (mPlayLocation != position) {
+					mPlayLocation = position;
+					mEpisodePresenter.setSelectPosition(position);
+					mEpisodeRangePresenter.setSelectPosition(position / MovieDetailLinkPresenter.RAGNGE_SIZE);
+
+					mHandler.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							focusView(mRecyclerViewBridge, mRcvEpisode.getChildAt(position), 1.0f);
+						}
+					}, 10);
+				}
 			}
 		});
 
@@ -235,10 +250,15 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		});
 		mRcvEpisodeRange.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
-			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-//				mRcvEpisode.getSelectPostion()
-//				mRcvEpisode.setItemSelected(position * MovieDetailLinkPresenter.RAGNGE_SIZE);
-//				mRcvEpisode.scrollToPosition(position * MovieDetailLinkPresenter.RAGNGE_SIZE);
+			public void onItemClick(RecyclerViewTV parent, View itemView, final int position) {
+				mRcvEpisode.scrollToPosition(position * MovieDetailLinkPresenter.RAGNGE_SIZE);
+				mEpisodeRangePresenter.setSelectPosition(position);
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						focusView(mRecyclerViewBridge, mRcvEpisodeRange.getChildAt(position), 1.0f);
+					}
+				}, 10);
 			}
 		});
 
@@ -299,21 +319,27 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		});
 	}
 
+	private void focusView(RecyclerViewBridge recyclerViewBridge, View view, float scale) {
+		recyclerViewBridge.setFocusView(view, scale);
+		if (view != null) {
+			view.requestLayout();
+			view.requestFocus();
+		}
+	}
+
 	private void initDefaultFouces() {
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
+		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				mRecyclerViewBridge.setFocusView(mRivMovieFullScreen, ConfigX.SCALE);
 				mRivMovieFullScreen.requestLayout();
 				mRivMovieFullScreen.requestFocus();
 			}
-		}, 10);
+		}, 50);
 	}
 
 	private void delayPlayVideo() {
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
+		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				mNiceVideoPlayer.start();
@@ -414,14 +440,16 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 		mRcvEpisode.setLayoutManager(layoutManager);
 		mRcvEpisode.setFocusable(false);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new EpisodePresenter(episodeList));
+		mEpisodePresenter = new EpisodePresenter(episodeList);
+		GeneralAdapter generalAdapter = new GeneralAdapter(mEpisodePresenter);
 		mRcvEpisode.setAdapter(generalAdapter);
 
 		LinearLayoutManagerTV layoutManagerRange = new LinearLayoutManagerTV(getActivity().getApplicationContext());
 		layoutManagerRange.setOrientation(LinearLayoutManager.HORIZONTAL);
 		mRcvEpisodeRange.setLayoutManager(layoutManagerRange);
 		mRcvEpisodeRange.setFocusable(false);
-		GeneralAdapter generalAdapterRange = new GeneralAdapter(new EpisodeRangePresenter(episodeRangeList));
+		mEpisodeRangePresenter = new EpisodeRangePresenter(episodeRangeList);
+		GeneralAdapter generalAdapterRange = new GeneralAdapter(mEpisodeRangePresenter);
 		mRcvEpisodeRange.setAdapter(generalAdapterRange);
 	}
 
@@ -503,5 +531,11 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 			mRivMoviePay.setVisibility(View.GONE);
 			mTtvMovieWatchForFreeTime.setVisibility(View.GONE);
 		}
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		mHandler.removeCallbacks(null);
 	}
 }

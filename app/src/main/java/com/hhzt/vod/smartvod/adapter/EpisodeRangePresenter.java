@@ -1,9 +1,11 @@
 package com.hhzt.vod.smartvod.adapter;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hhzt.vod.logiclayer.App;
 import com.hhzt.vod.smartvod.R;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
@@ -18,9 +20,12 @@ public class EpisodeRangePresenter extends OpenPresenter {
 
 	private List<String> mEpisodeList;
 	private GeneralAdapter mAdapter;
+	private int mSelectPosition = 0;
+	private Resources mResource;
 
 	public EpisodeRangePresenter(List<String> mEpisodeList) {
 		this.mEpisodeList = mEpisodeList;
+		mResource = App.mContext.getResources();
 	}
 
 	@Override
@@ -28,12 +33,9 @@ public class EpisodeRangePresenter extends OpenPresenter {
 		this.mAdapter = adapter;
 	}
 
-	/**
-	 * 用于数据加载更多测试.
-	 */
-	public void addDatas(List<String> episodeList) {
-		this.mEpisodeList = episodeList;
-		this.mAdapter.notifyDataSetChanged();
+	public void setSelectPosition(int selectPosition) {
+		this.mSelectPosition = selectPosition;
+		mAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -56,6 +58,7 @@ public class EpisodeRangePresenter extends OpenPresenter {
 	public void onBindViewHolder(ViewHolder viewHolder, int position) {
 		EpisodeViewHolder episodeViewHolder = (EpisodeViewHolder) viewHolder;
 		episodeViewHolder.tvEpisode.setText(mEpisodeList.get(position));
+		episodeViewHolder.tvEpisode.setTextColor(position == mSelectPosition ? mResource.getColor(R.color.blue) : mResource.getColor(R.color.tv_white));
 	}
 
 }

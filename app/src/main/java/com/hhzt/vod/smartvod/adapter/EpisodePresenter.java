@@ -1,10 +1,12 @@
 package com.hhzt.vod.smartvod.adapter;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.hhzt.vod.api.otherBean.EpisodeBean;
+import com.hhzt.vod.logiclayer.App;
 import com.hhzt.vod.smartvod.R;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
@@ -19,9 +21,12 @@ public class EpisodePresenter extends OpenPresenter {
 
 	private List<EpisodeBean> mEpisodeList;
 	private GeneralAdapter mAdapter;
+	private int mSelectPosition = 0;
+	private Resources mResource;
 
 	public EpisodePresenter(List<EpisodeBean> mEpisodeList) {
 		this.mEpisodeList = mEpisodeList;
+		mResource = App.mContext.getResources();
 	}
 
 	@Override
@@ -29,12 +34,9 @@ public class EpisodePresenter extends OpenPresenter {
 		this.mAdapter = adapter;
 	}
 
-	/**
-	 * 用于数据加载更多测试.
-	 */
-	public void addDatas(List<EpisodeBean> episodeList) {
-		this.mEpisodeList = episodeList;
-		this.mAdapter.notifyDataSetChanged();
+	public void setSelectPosition(int selectPosition) {
+		this.mSelectPosition = selectPosition;
+		mAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -58,6 +60,7 @@ public class EpisodePresenter extends OpenPresenter {
 		EpisodeViewHolder episodeViewHolder = (EpisodeViewHolder) viewHolder;
 		episodeViewHolder.tvEpisode.setText(mEpisodeList.get(position).getEpisode());
 		episodeViewHolder.ivPayLable.setVisibility(mEpisodeList.get(position).getTable() != 0 ? View.VISIBLE : View.GONE);
+		episodeViewHolder.tvEpisode.setTextColor(position == mSelectPosition ? mResource.getColor(R.color.blue) : mResource.getColor(R.color.tv_white));
 	}
 
 }
