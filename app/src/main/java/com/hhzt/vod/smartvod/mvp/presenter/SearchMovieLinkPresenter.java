@@ -8,6 +8,7 @@ import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
+import com.hhzt.vod.api.repData.ProgramSuperDataRep;
 import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 import com.hhzt.vod.smartvod.MovieDetailActivity;
@@ -148,38 +149,39 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 
 	@Override
 	public void showSearchHistoryMovie() {
-//		mISearchMovie.requestSearchHistory(new IHttpRetCallBack<ProgramSuperDataRep>() {
-//			@Override
-//			public void onResponseSuccess(CommonRspRetBean bean, ProgramSuperDataRep programSuperDataRep) {
-//				mSearchHistoryList.clear();
-//				ArrayList<SimpleRepBean> programSuperSimpleBoList = programSuperDataRep.getProgramSuperSimpleBoList();
-//				for (int i = 0; i < programSuperSimpleBoList.size(); i++) {
-//					if (i < 4) {
-//						mSearchHistoryList.add(programSuperSimpleBoList.get(i));
-//					}
-//				}
-//			}
-//
-//			@Override
-//			public void onResponseFailed(CommonRspRetBean bean) {
-//
-//			}
-//
-//			@Override
-//			public void onError(String result) {
-//
-//			}
-//
-//			@Override
-//			public void onCancelled() {
-//
-//			}
-//
-//			@Override
-//			public void onFinish() {
-//
-//			}
-//		});
+		mISearchMovie.requestSearchHistory(new IHttpRetCallBack<ProgramSuperDataRep>() {
+			@Override
+			public void onResponseSuccess(CommonRspRetBean bean, ProgramSuperDataRep programSuperDataRep) {
+				mSearchHistoryList.clear();
+				ArrayList<SimpleRepBean> programSuperSimpleBoList = programSuperDataRep.getProgramSuperSimpleBoList();
+				for (int i = 0; i < programSuperSimpleBoList.size(); i++) {
+					if (i < 4) {
+						mSearchHistoryList.add(programSuperSimpleBoList.get(i));
+					}
+				}
+				mSearchMovieView.showSearchHistoryData(mSearchHistoryList);
+			}
+
+			@Override
+			public void onResponseFailed(CommonRspRetBean bean) {
+
+			}
+
+			@Override
+			public void onError(String result) {
+
+			}
+
+			@Override
+			public void onCancelled() {
+
+			}
+
+			@Override
+			public void onFinish() {
+
+			}
+		});
 	}
 
 	@Override

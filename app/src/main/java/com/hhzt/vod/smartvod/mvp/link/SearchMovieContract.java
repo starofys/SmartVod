@@ -21,7 +21,7 @@ public class SearchMovieContract {
 	public interface SearchMovieView extends BaseView<SearchMoviePresenter> {
 		void showHotMovieData(ArrayList<SimpleRepBean> hotSearchList, ArrayList<MovieInfoData> hotList);
 
-		void showSearchHistoryData(ArrayList<String> keyList);
+		void showSearchHistoryData(ArrayList<SimpleRepBean> keyList);
 
 		void showSearchMovieReultData(ArrayList<MovieInfoData> searchMovieResultData);
 

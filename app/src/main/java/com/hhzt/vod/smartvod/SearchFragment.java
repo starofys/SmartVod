@@ -113,14 +113,17 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		initEvent();
 		mSearchMoviePresenter.showFullKeyboardData();
 		mSearchMoviePresenter.showHotMovieData();
+		mSearchMoviePresenter.showSearchHistoryMovie();
 
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				View view = mRcvKeyboard.getChildAt(0);
 				mRecyclerViewBridge.setFocusView(view, ConfigX.SCALE);
-				view.requestLayout();
-				view.requestFocus();
+				if (view != null) {
+					view.requestLayout();
+					view.requestFocus();
+				}
 				mMainUpView.setVisibility(View.GONE);
 			}
 		}, 50);
@@ -171,6 +174,15 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 			}
 		});
 
+		//历史搜索电影
+//		mRcvSearchHistory.setOnItemKeyListener(this);
+		mRcvSearchHistory.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+			@Override
+			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+				mSearchMoviePresenter.clickOtherMovieDetail(getActivity(), SearchMovieLinkPresenter.TYPE_HOT_SEARCH_LIST, position);
+			}
+		});
+
 		//搜索结果
 //		mRcvSearchResult.setOnItemListener(this);
 		mRcvSearchResult.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
@@ -208,20 +220,20 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	}
 
 	@Override
-	public void showSearchHistoryData(ArrayList<String> keyList) {
+	public void showSearchHistoryData(ArrayList<SimpleRepBean> historySearchMovieList) {
 		mLlHotSearch.setVisibility(View.VISIBLE);
 		mLlSearchResult.setVisibility(View.GONE);
 
-//		if (keyList.size() == 0) {
-//			mLlSearchHistory.setVisibility(View.GONE);
-//			mRcvSearchHistory.setVisibility(View.GONE);
-//		}
-//		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
-//		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-//		mRcvHotSearchDown.setLayoutManager(gridlayoutManager);
-//		mRcvHotSearchDown.setFocusable(false);
-//		GeneralAdapter generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(keyList));
-//		mRcvHotSearchDown.setAdapter(generalAdapter);
+		if (historySearchMovieList.size() == 0) {
+			mLlSearchHistory.setVisibility(View.GONE);
+			mRcvSearchHistory.setVisibility(View.GONE);
+		}
+		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
+		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+		mRcvSearchHistory.setLayoutManager(gridlayoutManager);
+		mRcvSearchHistory.setFocusable(false);
+		GeneralAdapter generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(historySearchMovieList));
+		mRcvSearchHistory.setAdapter(generalAdapter);
 	}
 
 	@Override
