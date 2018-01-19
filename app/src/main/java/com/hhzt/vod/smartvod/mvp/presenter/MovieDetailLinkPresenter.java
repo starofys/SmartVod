@@ -74,7 +74,7 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 				mProgramDetaiContentDataRep = programDetaiContentDataRep;
 
 				mProgramDetailBo = mProgramDetaiContentDataRep.programDetailBo;
-				mReleteList.addAll(new ArrayList<MovieInfoData>());
+				mReleteList.addAll(mProgramDetaiContentDataRep.relevantList);
 				mHotList.addAll(mProgramDetaiContentDataRep.hotList);
 
 				int number = mProgramDetailBo.getMediaList().size();

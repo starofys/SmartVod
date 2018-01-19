@@ -12,14 +12,14 @@ import java.util.ArrayList;
 public class ProgramDetaiContentDataRep {
 
     public ProgrameDetailBo programDetailBo;
-//    public ArrayList<MovieInfoData> relevantList = new ArrayList<>();
+    public ArrayList<MovieInfoData> relevantList = new ArrayList<>();
     public ArrayList<MovieInfoData> hotList = new ArrayList<>();
 
     @Override
     public String toString() {
         return "ProgramDetaiContentDataRep{" +
                 "programDetailBo=" + programDetailBo.toString() +
-//                ", relevantList=" + relevantList.toString() +
+                ", relevantList=" + relevantList.toString() +
                 ", hotList=" + hotList.toString() +
                 '}';
     }
