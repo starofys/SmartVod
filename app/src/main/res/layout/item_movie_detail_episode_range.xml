@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/layx337"
+    android:layout_width="@dimen/layx334"
     android:layout_height="@dimen/layy48"
     android:layout_marginEnd="@dimen/layx10"
     android:background="@drawable/ic_search_backgroud"

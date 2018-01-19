@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_movie_director"
                     android:ellipsize="end"
-                    android:maxLines="3"
+                    android:maxLines="2"
                     android:textColor="@color/tv_white_translate"
                     android:textSize="@dimen/layx30" />
 
