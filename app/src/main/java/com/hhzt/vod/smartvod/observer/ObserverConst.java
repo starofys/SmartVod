@@ -11,4 +11,5 @@ public class ObserverConst {
 	public static final int BASE_MOVIE_PAGE = 1000;
 	public static final int CODE_MOVIE_CURRENT_PAGE = BASE_MOVIE_PAGE + 1;      //当前页数
 	public static final int CODE_MOVIE_TOTAL_PAGE = BASE_MOVIE_PAGE + 2;        //总页数
+	public static final int CODE_MOVIE_SHOW_OR_HINT_PAGE = BASE_MOVIE_PAGE + 3; //显示隐藏当前处在页面
 }

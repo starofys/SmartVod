@@ -10,6 +10,8 @@ import com.hhzt.vod.api.repData.ProgramDatasRep;
 import com.hhzt.vod.smartvod.MovieDetailActivity;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieRecommodListContract;
 import com.hhzt.vod.smartvod.mvp.model.IHomeMovieRecommondList;
+import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
+import com.hhzt.vod.smartvod.observer.ObserverConst;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,7 @@ public class HomeMovieRecommondListLinkPresenter implements HomeMovieRecommodLis
 
 			}
 		});
+		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_SHOW_OR_HINT_PAGE, null);
 	}
 
 	@Override

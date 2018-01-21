@@ -45,6 +45,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	private int mVodListItemSelectedIndex;
 	private int mPageTotal = 1;
 	private int mPageCurrent = 1;
+	private boolean mShowCurrentPage = true;
 
 	private ListSelectFoucsBroadCastReceiver mListSelectFoucsBroadCastReceiver;
 
@@ -165,14 +166,20 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		switch (code) {
 			case ObserverConst.CODE_MOVIE_CURRENT_PAGE:
 				mPageCurrent = (int) var2;
+				mShowCurrentPage = true;
 				break;
 			case ObserverConst.CODE_MOVIE_TOTAL_PAGE:
 				mPageTotal = (int) var2;
+				mShowCurrentPage = true;
+				break;
+			case ObserverConst.CODE_MOVIE_SHOW_OR_HINT_PAGE:
+				mShowCurrentPage = false;
 				break;
 			default:
 				break;
 		}
 		mTvCurrentPage.setText(mPageCurrent + "/" + mPageTotal);
+		mTvCurrentPage.setVisibility(mShowCurrentPage ? View.VISIBLE : View.GONE);
 	}
 
 	private final class ListSelectFoucsBroadCastReceiver extends BroadcastReceiver {
