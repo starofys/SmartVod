@@ -35,7 +35,6 @@ import com.hhzt.vod.smartvod.mvp.link.MovieDetailContract;
 import com.hhzt.vod.smartvod.mvp.presenter.MovieDetailLinkPresenter;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
-import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.LinearLayoutManagerTV;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout;
 import com.hhzt.vod.viewlayer.androidtvwidget.view.MainUpView;
@@ -436,7 +435,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		mTvMovieType.setText(areaname);
 		mTvMovieDescription.setText(description);
 
-		LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+		LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 		mRcvEpisode.setLayoutManager(layoutManager);
 		mRcvEpisode.setFocusable(false);
@@ -444,7 +443,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		GeneralAdapter generalAdapter = new GeneralAdapter(mEpisodePresenter);
 		mRcvEpisode.setAdapter(generalAdapter);
 
-		LinearLayoutManagerTV layoutManagerRange = new LinearLayoutManagerTV(getActivity().getApplicationContext());
+		LinearLayoutManager layoutManagerRange = new LinearLayoutManager(getActivity().getApplicationContext());
 		layoutManagerRange.setOrientation(LinearLayoutManager.HORIZONTAL);
 		mRcvEpisodeRange.setLayoutManager(layoutManagerRange);
 		mRcvEpisodeRange.setFocusable(false);
