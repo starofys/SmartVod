@@ -145,7 +145,6 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 		mRcvMovieBigPicture.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-				// 传入 itemView也可以, 自己保存的 oldView也可以.
 				mRecyclerViewBridge.setUnFocusView(itemView);
 			}
 
@@ -154,11 +153,12 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				mSelectRecylerType = 0;
 				mSelectBigRecyclerIndex = position;
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
+				if (position == 0) {
+					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
+					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, true);
+				}
 			}
 
-			/**
-			 * 这里是调整开头和结尾的移动边框.
-			 */
 			@Override
 			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
@@ -175,7 +175,6 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 		mRcvMovieSmallPicture.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-				// 传入 itemView也可以, 自己保存的 oldView也可以.
 				mRecyclerViewBridge.setUnFocusView(itemView);
 			}
 
@@ -184,7 +183,8 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				mSelectRecylerType = 1;
 				mSelectSmallRecyclerIndex = position;
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
-				if ((position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2)
+				if ((position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2
+						|| position == mMovieSmallPictureList.size() - 3 || position == mMovieSmallPictureList.size() - 4)
 						&& (mMovieSmallPictureList.size() + mMovieBigPictureList.size()) % PAGE_SIZE == 0) {
 					mPageNumber++;
 					mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
@@ -193,11 +193,18 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				int currentPosition = position + 2;
 				int currentPage = currentPosition / PAGE_SIZE + 1;
 				AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_CURRENT_PAGE, currentPage);
+				if (currentPage > 1) {
+					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
+					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, false);
+					mHandler.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
+						}
+					}, 50);
+				}
 			}
 
-			/**
-			 * 这里是调整开头和结尾的移动边框.
-			 */
 			@Override
 			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);

@@ -9,6 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.hhzt.vod.api.ConfigMgr;
@@ -46,6 +49,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	private int mPageTotal = 1;
 	private int mPageCurrent = 1;
 	private boolean mShowCurrentPage = true;
+	private boolean mShowTranslate = false;
 
 	private ListSelectFoucsBroadCastReceiver mListSelectFoucsBroadCastReceiver;
 
@@ -174,6 +178,40 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 				break;
 			case ObserverConst.CODE_MOVIE_SHOW_OR_HINT_PAGE:
 				mShowCurrentPage = false;
+				break;
+			case ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT:
+				final boolean show = (boolean) var2;
+				int visibility = mRcvMovieTypeList.getVisibility();
+				int showVisible = show ? View.VISIBLE : View.GONE;
+				mRcvMovieTypeList.setVisibility(show ? View.VISIBLE : View.GONE);
+				if (mShowTranslate && visibility != showVisible) {
+					//todo 开始一个动画
+					Animation animation1 = AnimationUtils.loadAnimation(getActivity(), show ? R.anim.slide_in_left : R.anim.slide_out_left);
+					animation1.setInterpolator(new DecelerateInterpolator());
+					animation1.setAnimationListener(
+							new Animation.AnimationListener() {
+								@Override
+								public void onAnimationStart(Animation animation) {
+
+								}
+
+								@Override
+								public void onAnimationEnd(Animation animation) {
+
+								}
+
+								@Override
+								public void onAnimationRepeat(Animation animation) {
+
+								}
+							}
+					);
+					mRcvMovieTypeList.clearAnimation();
+					mRcvMovieTypeList.startAnimation(animation1);
+				}
+				break;
+			case ObserverConst.CODE_MOVIE_TYPE_TRANSLATE:
+				mShowTranslate = (boolean) var2;
 				break;
 			default:
 				break;

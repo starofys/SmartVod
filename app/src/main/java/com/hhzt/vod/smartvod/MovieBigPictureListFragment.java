@@ -29,10 +29,11 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.List;
 
 /**
+ * 大图
+ * <p>
  * Created by zengxiaoping on 2017/12/29.
  *
- * @description TODO
- * @Author 大图
+ * @Author
  */
 
 @ContentView(R.layout.fragment_big_picture_list)
