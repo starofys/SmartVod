@@ -40,6 +40,10 @@ public abstract class BasePicturePresenter extends OpenPresenter {
 		this.mAdapter.notifyDataSetChanged();
 	}
 
+	public List<MovieInfoData> getDatas() {
+		return mMovieInfoList;
+	}
+
 	@Override
 	public int getItemCount() {
 		return mMovieInfoList.size();

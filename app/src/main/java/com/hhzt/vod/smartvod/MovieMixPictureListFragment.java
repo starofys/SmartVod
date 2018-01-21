@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +43,7 @@ import java.util.List;
  */
 @ContentView(R.layout.fragment_mix_picture_list)
 public class MovieMixPictureListFragment extends MovieListFragment implements HomeMovieListContract.HomeMovieListView {
+	public static final int PAGE_SIZE = 10;
 	@ViewInject(R.id.rcv_movie_big_picture)
 	private RecyclerViewTV mRcvMovieBigPicture;
 	@ViewInject(R.id.rcv_movie_small_picture)
@@ -60,8 +62,11 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	private int mSelectRecylerType;
 	private int mSelectSmallRecyclerIndex;
 	private int mSelectBigRecyclerIndex;
+	private int mPageNumber = 1;
 
 	private MovieBroadCastReceiver mMovieBroadCastReceiver;
+	private GridLayoutManagerTV mGridlayoutManager;
+	private Handler mHandler = new Handler();
 
 	/**
 	 * @param catagoryid
@@ -94,7 +99,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		initView();
-		mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, 1, 30);
+		mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
 
 		mMovieBroadCastReceiver = new MovieBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
@@ -104,7 +109,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-
+		mHandler.removeCallbacks(null);
 		getActivity().unregisterReceiver(mMovieBroadCastReceiver);
 	}
 
@@ -124,9 +129,9 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 		GeneralAdapter generalAdapter = new GeneralAdapter(new HomeBigPicturePresenter(getContext(), mMovieBigPictureList));
 		mRcvMovieBigPicture.setAdapter(generalAdapter);
 
-		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
-		gridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
-		mRcvMovieSmallPicture.setLayoutManager(gridlayoutManager);
+		mGridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
+		mGridlayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+		mRcvMovieSmallPicture.setLayoutManager(mGridlayoutManager);
 		mRcvMovieSmallPicture.setFocusable(false);
 		generalAdapter = new GeneralAdapter(new HomeSmallPicturePresenter(getContext(), mMovieSmallPictureList));
 		mRcvMovieSmallPicture.setAdapter(generalAdapter);
@@ -175,6 +180,11 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				mSelectRecylerType = 1;
 				mSelectSmallRecyclerIndex = position;
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
+				if ((position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2)
+						&& (mMovieSmallPictureList.size() + mMovieBigPictureList.size()) % PAGE_SIZE == 0) {
+					mPageNumber++;
+					mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
+				}
 			}
 
 			/**
@@ -210,6 +220,11 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 					int index = mRcvMovieSmallPicture.getSelectPostion();
 					if (index % 2 != 0) {
 						return true;
+					}
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+					if (mSelectSmallRecyclerIndex == mMovieSmallPictureList.size() - 3
+							|| mSelectSmallRecyclerIndex == mMovieSmallPictureList.size() - 4) {
+						return false;
 					}
 				}
 				return false;
@@ -263,6 +278,8 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	@Override
 	public void showData(List<MovieInfoData> movieInfoData) {
 		int size = movieInfoData.size();
+		mMovieBigPictureList.clear();
+		mMovieSmallPictureList.clear();
 		for (int i = 0; i < size; i++) {
 			if (i <= 1) {
 				mMovieBigPictureList.add(movieInfoData.get(i));
@@ -272,6 +289,15 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 		}
 		bindAdater();
 		initEvent();
+
+		if (mPageNumber != 1) {
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
+				}
+			}, 10);
+		}
 	}
 
 	private final class MovieBroadCastReceiver extends BroadcastReceiver {
@@ -304,6 +330,14 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 					break;
 				}
 			}
+		}
+	}
+
+	private void focusView(RecyclerViewBridge recyclerViewBridge, View view, float scale) {
+		recyclerViewBridge.setFocusView(view, scale);
+		if (view != null) {
+			view.requestLayout();
+			view.requestFocus();
 		}
 	}
 }

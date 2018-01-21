@@ -3,8 +3,8 @@
 <com.hhzt.vod.viewlayer.androidtvwidget.view.RelativeMainLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:clipChildren="false"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content"
+	android:clipChildren="false">
 
 	<com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout
 		android:layout_width="match_parent"
@@ -36,18 +36,27 @@
 				android:id="@+id/fragment_movie_container"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:paddingBottom="@dimen/layy20"
-				android:paddingTop="@dimen/layy20"
-				android:clipToPadding="false"
+				android:layout_marginLeft="@dimen/layx24"
 				android:clipChildren="false"
-				android:layout_marginLeft="@dimen/layx24"/>
+				android:clipToPadding="false"
+				android:paddingBottom="@dimen/layy20"
+				android:paddingTop="@dimen/layy20"/>
 		</LinearLayout>
 
-		<ImageView
-			android:layout_width="wrap_content"
-			android:layout_height="@dimen/layy45"
-			android:layout_gravity="center_horizontal|bottom"
-			android:src="@mipmap/ic_enter_down"/>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/layy45">
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/layy45"
+				android:layout_centerHorizontal="true"
+				android:src="@mipmap/ic_enter_down"/>
+			<!--<TextView-->
+				<!--android:layout_width=""-->
+				<!--android:layout_height=""/>-->
+		</RelativeLayout>
+
 
 	</com.hhzt.vod.viewlayer.androidtvwidget.view.LinearMainLayout>
 </com.hhzt.vod.viewlayer.androidtvwidget.view.RelativeMainLayout>
