@@ -19,6 +19,8 @@ import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieListLinkPresenter;
+import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
+import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.GridLayoutManagerTV;
@@ -169,6 +171,11 @@ public class MovieSmallPictureListFragment extends MovieListFragment implements 
 	public void showData(List<MovieInfoData> movieInfoData) {
 		bindAdater(movieInfoData);
 		initEvent();
+	}
+
+	@Override
+	public void showTotalPage(int totalPage) {
+		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TOTAL_PAGE, totalPage);
 	}
 
 	private final class MovieBroadCastReceiver extends BroadcastReceiver {

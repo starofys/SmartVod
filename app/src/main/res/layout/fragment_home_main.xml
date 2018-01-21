@@ -52,9 +52,16 @@
 				android:layout_height="@dimen/layy45"
 				android:layout_centerHorizontal="true"
 				android:src="@mipmap/ic_enter_down"/>
-			<!--<TextView-->
-				<!--android:layout_width=""-->
-				<!--android:layout_height=""/>-->
+
+			<TextView
+				android:id="@+id/tv_current_page"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:layout_marginRight="@dimen/layx88"
+				android:textColor="@color/tv_white"
+				android:textSize="@dimen/layx24"/>
 		</RelativeLayout>
 
 

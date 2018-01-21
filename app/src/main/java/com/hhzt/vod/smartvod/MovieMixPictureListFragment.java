@@ -22,6 +22,8 @@ import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieListContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieListLinkPresenter;
+import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
+import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.GridLayoutManagerTV;
@@ -35,6 +37,8 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hhzt.vod.smartvod.mvp.presenter.HomeMovieListLinkPresenter.PAGE_SIZE;
+
 /**
  * Created by zengxaioping on 2017/12/29.
  *
@@ -43,7 +47,7 @@ import java.util.List;
  */
 @ContentView(R.layout.fragment_mix_picture_list)
 public class MovieMixPictureListFragment extends MovieListFragment implements HomeMovieListContract.HomeMovieListView {
-	public static final int PAGE_SIZE = 10;
+
 	@ViewInject(R.id.rcv_movie_big_picture)
 	private RecyclerViewTV mRcvMovieBigPicture;
 	@ViewInject(R.id.rcv_movie_small_picture)
@@ -185,6 +189,10 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 					mPageNumber++;
 					mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
 				}
+
+				int currentPosition = position + 2;
+				int currentPage = currentPosition / PAGE_SIZE + 1;
+				AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_CURRENT_PAGE, currentPage);
 			}
 
 			/**
@@ -298,6 +306,11 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				}
 			}, 10);
 		}
+	}
+
+	@Override
+	public void showTotalPage(int totalPage) {
+		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TOTAL_PAGE, totalPage);
 	}
 
 	private final class MovieBroadCastReceiver extends BroadcastReceiver {

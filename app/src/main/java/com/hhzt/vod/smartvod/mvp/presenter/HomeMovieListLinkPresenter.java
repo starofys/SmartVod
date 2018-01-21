@@ -21,6 +21,8 @@ import java.util.List;
  */
 
 public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMovieListPresenter {
+	public static final int PAGE_SIZE = 10;
+
 	private Context mContext;
 	private IHomeTypeList mIHomeTypeList;
 	private HomeMovieListContract.HomeMovieListView mHomeMovieListView;
@@ -55,6 +57,7 @@ public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMov
 			public void onResponseSuccess(CommonRspRetBean bean, VodGroupDetailDataRep vodGroupDetailDataRep) {
 				mMovieInfoData.addAll(vodGroupDetailDataRep.getProgramSimpleBoList());
 				mHomeMovieListView.showData(mMovieInfoData);
+				mHomeMovieListView.showTotalPage(vodGroupDetailDataRep.getTotal() % PAGE_SIZE > 0 ? (vodGroupDetailDataRep.getTotal() / PAGE_SIZE) + 1 : (vodGroupDetailDataRep.getTotal() / PAGE_SIZE));
 			}
 
 			@Override

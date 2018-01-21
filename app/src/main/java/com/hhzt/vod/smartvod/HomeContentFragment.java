@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.repBean.CategoryRepBean;
@@ -18,6 +19,9 @@ import com.hhzt.vod.smartvod.adapter.LeftMenuPresenter;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieTypeContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieTypeLinkPresenter;
+import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
+import com.hhzt.vod.smartvod.observer.ObserverConst;
+import com.hhzt.vod.smartvod.observer.ObserverWatcher;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
 
@@ -30,13 +34,17 @@ import java.util.List;
  * Created by wujichang on 2017/12/28.
  */
 @ContentView(R.layout.fragment_home_main)
-public class HomeContentFragment extends BaseFragment implements HomeMovieTypeContract.IHomeMovieTypeView {
+public class HomeContentFragment extends BaseFragment implements HomeMovieTypeContract.IHomeMovieTypeView, ObserverWatcher {
 	@ViewInject(R.id.rcv_movie_type_list)
 	private RecyclerViewTV mRcvMovieTypeList;
+	@ViewInject(R.id.tv_current_page)
+	private TextView mTvCurrentPage;
 
 	private HomeMovieTypeContract.HomeMovieTypePresenter mHomeMovieTypeLinkPresenter;
 
 	private int mVodListItemSelectedIndex;
+	private int mPageTotal = 1;
+	private int mPageCurrent = 1;
 
 	private ListSelectFoucsBroadCastReceiver mListSelectFoucsBroadCastReceiver;
 
@@ -51,6 +59,13 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		mHomeMovieTypeLinkPresenter = new HomeMovieTypeLinkPresenter(context, InJection.initHomeType(), this);
 		mHomeMovieTypeLinkPresenter.init();
 		mHomeMovieTypeLinkPresenter.start();
+		AchieveObserverWatched.getInstance().add(this);
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		AchieveObserverWatched.getInstance().remove(this);
 	}
 
 	@Override
@@ -143,6 +158,21 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		super.onDestroy();
 		mHomeMovieTypeLinkPresenter.destoryInit();
 		getActivity().unregisterReceiver(mListSelectFoucsBroadCastReceiver);
+	}
+
+	@Override
+	public void updataNotify(int code, Object var2) {
+		switch (code) {
+			case ObserverConst.CODE_MOVIE_CURRENT_PAGE:
+				mPageCurrent = (int) var2;
+				break;
+			case ObserverConst.CODE_MOVIE_TOTAL_PAGE:
+				mPageTotal = (int) var2;
+				break;
+			default:
+				break;
+		}
+		mTvCurrentPage.setText(mPageCurrent + "/" + mPageTotal);
 	}
 
 	private final class ListSelectFoucsBroadCastReceiver extends BroadcastReceiver {
