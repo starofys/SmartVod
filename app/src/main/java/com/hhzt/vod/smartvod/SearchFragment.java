@@ -113,7 +113,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		initEvent();
 		mSearchMoviePresenter.showFullKeyboardData();
 		mSearchMoviePresenter.showHotMovieData();
-		mSearchMoviePresenter.showSearchHistoryMovie();
+//		mSearchMoviePresenter.showSearchHistoryMovie();
 
 		mHandler.postDelayed(new Runnable() {
 			@Override
@@ -199,7 +199,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	}
 
 	@Override
-	public void showHotMovieData(ArrayList<SimpleRepBean> hotSearchList, ArrayList<MovieInfoData> hotList) {
+	public void showHotMovieData(ArrayList<SimpleRepBean> historySearchList, ArrayList<MovieInfoData> hotList) {
 		mLlHotSearch.setVisibility(View.VISIBLE);
 		mLlSearchResult.setVisibility(View.GONE);
 
@@ -213,10 +213,10 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 
 		GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 2);
 		gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-		mRcvHotSearchDown.setLayoutManager(gridlayoutManager);
-		mRcvHotSearchDown.setFocusable(false);
-		generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(hotSearchList));
-		mRcvHotSearchDown.setAdapter(generalAdapter);
+		mRcvSearchHistory.setLayoutManager(gridlayoutManager);
+		mRcvSearchHistory.setFocusable(false);
+		generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(historySearchList));
+		mRcvSearchHistory.setAdapter(generalAdapter);
 	}
 
 	@Override
