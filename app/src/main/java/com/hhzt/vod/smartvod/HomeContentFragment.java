@@ -185,7 +185,6 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 				int showVisible = show ? View.VISIBLE : View.GONE;
 				mRcvMovieTypeList.setVisibility(show ? View.VISIBLE : View.GONE);
 				if (mShowTranslate && visibility != showVisible) {
-					//todo 开始一个动画
 					Animation animation1 = AnimationUtils.loadAnimation(getActivity(), show ? R.anim.slide_in_left : R.anim.slide_out_left);
 					animation1.setInterpolator(new DecelerateInterpolator());
 					animation1.setAnimationListener(
@@ -208,6 +207,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 					);
 					mRcvMovieTypeList.clearAnimation();
 					mRcvMovieTypeList.startAnimation(animation1);
+					mShowTranslate = false;
 				}
 				break;
 			case ObserverConst.CODE_MOVIE_TYPE_TRANSLATE:

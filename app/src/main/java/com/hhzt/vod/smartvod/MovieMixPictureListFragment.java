@@ -234,6 +234,14 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
 					int index = mRcvMovieSmallPicture.getSelectPostion();
 					if (index % 2 != 0) {
+						AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
+						AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, true);
+						mHandler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
+							}
+						}, 201);
 						return true;
 					}
 				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
@@ -278,6 +286,8 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						return true;
 					}
 				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
+					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, true);
 					return true;
 				}
 				return false;
