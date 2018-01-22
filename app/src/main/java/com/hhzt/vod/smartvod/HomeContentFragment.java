@@ -24,8 +24,10 @@ import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
 import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.smartvod.observer.ObserverWatcher;
 import com.hhzt.vod.smartvod.view.ViewWrapper;
+import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
+import com.hhzt.vod.viewlayer.androidtvwidget.view.MainUpView;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -41,7 +43,10 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	private RecyclerViewTV mRcvMovieTypeList;
 	@ViewInject(R.id.tv_current_page)
 	private TextView mTvCurrentPage;
+	@ViewInject(R.id.mainUpView1)
+	private MainUpView mMainUpView;
 
+	private RecyclerViewBridge mRecyclerViewBridge;
 	private HomeMovieTypeContract.HomeMovieTypePresenter mHomeMovieTypeLinkPresenter;
 
 	private int mVodListItemSelectedIndex;
@@ -49,6 +54,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	private int mPageCurrent = 1;
 	private boolean mShowCurrentPage = true;
 	private boolean mShowTranslate = false;
+	private LeftMenuPresenter mLeftMenuPresenter;
 
 	private ListSelectFoucsBroadCastReceiver mListSelectFoucsBroadCastReceiver;
 
@@ -75,6 +81,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		initView();
 		mHomeMovieTypeLinkPresenter.showData(ConfigMgr.getInstance().getGroupID());
 
 		mListSelectFoucsBroadCastReceiver = new ListSelectFoucsBroadCastReceiver();
@@ -82,11 +89,18 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		getActivity().registerReceiver(mListSelectFoucsBroadCastReceiver, intentFilter);
 	}
 
+	private void initView() {
+		mMainUpView.setEffectBridge(new RecyclerViewBridge());
+		mRecyclerViewBridge = (RecyclerViewBridge) mMainUpView.getEffectBridge();
+		mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
+	}
+
 	private void bindAdater(List<CategoryRepBean> movieTypeNames) {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 		mRcvMovieTypeList.setLayoutManager(layoutManager);
-		GeneralAdapter generalAdapter = new GeneralAdapter(new LeftMenuPresenter(movieTypeNames));
+		mLeftMenuPresenter = new LeftMenuPresenter(movieTypeNames);
+		GeneralAdapter generalAdapter = new GeneralAdapter(mLeftMenuPresenter);
 		mRcvMovieTypeList.setAdapter(generalAdapter);
 	}
 
@@ -95,7 +109,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		mRcvMovieTypeList.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
 			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-
+				mRecyclerViewBridge.setUnFocusView(itemView);
 			}
 
 			@Override
@@ -104,6 +118,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 					mVodListItemSelectedIndex = position;
 					mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
 				}
+				mRecyclerViewBridge.setFocusView(itemView, 1.0f);
 			}
 
 			/**
@@ -111,12 +126,15 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			 */
 			@Override
 			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setFocusView(itemView, 1.0f);
 			}
 		});
 		mRcvMovieTypeList.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
 				mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
+				mLeftMenuPresenter.setSelectPosition(position);
+
 			}
 		});
 
@@ -137,6 +155,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 					}
 				} else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
 					KeyBroadcastSender.getInstance().sendRightBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_LIST);
+					mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 					return true;
 				}
 
@@ -236,6 +255,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 						String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
 						if (KeyFactoryConst.KEY_CODE_LEFT.equalsIgnoreCase(keyType)) {
 							mRcvMovieTypeList.setItemSelected(mVodListItemSelectedIndex);
+							mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 						}
 						break;
 					default:

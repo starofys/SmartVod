@@ -345,8 +345,10 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						} else {
 							view = mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex);
 						}
-						view.requestLayout();
-						view.requestFocus();
+						if (view != null) {
+							view.requestLayout();
+							view.requestFocus();
+						}
 						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 					}
 					break;
