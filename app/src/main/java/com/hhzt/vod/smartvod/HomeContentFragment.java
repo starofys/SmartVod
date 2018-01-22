@@ -117,7 +117,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
 //				if (position != mVodListItemSelectedIndex) {
-//					mVodListItemSelectedIndex = position;
+					mVodListItemSelectedIndex = position;
 //					mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
 //				}
 				mRecyclerViewBridge.setFocusView(itemView, 1.0f);
