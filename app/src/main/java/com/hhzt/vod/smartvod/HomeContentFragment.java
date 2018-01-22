@@ -1,5 +1,6 @@
 package com.hhzt.vod.smartvod;
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.hhzt.vod.api.ConfigMgr;
@@ -25,6 +23,7 @@ import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieTypeLinkPresenter;
 import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
 import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.smartvod.observer.ObserverWatcher;
+import com.hhzt.vod.smartvod.view.ViewWrapper;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
 
@@ -181,33 +180,40 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 				break;
 			case ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT:
 				final boolean show = (boolean) var2;
-				int visibility = mRcvMovieTypeList.getVisibility();
-				int showVisible = show ? View.VISIBLE : View.GONE;
-				mRcvMovieTypeList.setVisibility(show ? View.VISIBLE : View.GONE);
-				if (mShowTranslate && visibility != showVisible) {
-					Animation animation1 = AnimationUtils.loadAnimation(getActivity(), show ? R.anim.slide_in_left : R.anim.slide_out_left);
-					animation1.setInterpolator(new DecelerateInterpolator());
-					animation1.setAnimationListener(
-							new Animation.AnimationListener() {
-								@Override
-								public void onAnimationStart(Animation animation) {
+				/**
+				 * 	平移动画改成属性动画
+				 */
+//				int visibility = mRcvMovieTypeList.getVisibility();
+//				int showVisible = show ? View.VISIBLE : View.GONE;
+//				mRcvMovieTypeList.setVisibility(show ? View.VISIBLE : View.GONE);
+				if (mShowTranslate /*&& visibility != showVisible*/) {
+//					Animation animation1 = AnimationUtils.loadAnimation(getActivity(), show ? R.anim.slide_in_left : R.anim.slide_out_left);
+//					animation1.setInterpolator(new DecelerateInterpolator());
+//					animation1.setAnimationListener(
+//							new Animation.AnimationListener() {
+//								@Override
+//								public void onAnimationStart(Animation animation) {
+//
+//								}
+//
+//								@Override
+//								public void onAnimationEnd(Animation animation) {
+//
+//								}
+//
+//								@Override
+//								public void onAnimationRepeat(Animation animation) {
+//
+//								}
+//							}
+//					);
+//					mRcvMovieTypeList.clearAnimation();
+//					mRcvMovieTypeList.startAnimation(animation1);
+//					mShowTranslate = false;
 
-								}
-
-								@Override
-								public void onAnimationEnd(Animation animation) {
-
-								}
-
-								@Override
-								public void onAnimationRepeat(Animation animation) {
-
-								}
-							}
-					);
-					mRcvMovieTypeList.clearAnimation();
-					mRcvMovieTypeList.startAnimation(animation1);
-					mShowTranslate = false;
+					ViewWrapper wrapper = new ViewWrapper(mRcvMovieTypeList);
+					int dimension = (int) getResources().getDimension(R.dimen.layx365);
+					ObjectAnimator.ofInt(wrapper, "width", show ? dimension : 0).setDuration(200).start();
 				}
 				break;
 			case ObserverConst.CODE_MOVIE_TYPE_TRANSLATE:

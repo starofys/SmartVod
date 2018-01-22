@@ -193,7 +193,8 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				int currentPosition = position + 2;
 				int currentPage = currentPosition / PAGE_SIZE + 1;
 				AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_CURRENT_PAGE, currentPage);
-				if (currentPage > 1) {
+
+				if (currentPage > 1 && (position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2)) {
 					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
 					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, false);
 					mHandler.postDelayed(new Runnable() {
@@ -201,7 +202,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						public void run() {
 							focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
 						}
-					}, 50);
+					}, 201);
 				}
 			}
 
