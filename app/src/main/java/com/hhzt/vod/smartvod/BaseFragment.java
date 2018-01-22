@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
+
 import org.xutils.x;
 
 /**
@@ -46,5 +48,13 @@ public class BaseFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+	}
+
+	public void focusView(RecyclerViewBridge recyclerViewBridge, View view, float scale) {
+		recyclerViewBridge.setFocusView(view, scale);
+		if (view != null) {
+			view.requestLayout();
+			view.requestFocus();
+		}
 	}
 }

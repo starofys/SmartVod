@@ -365,12 +365,4 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 			}
 		}
 	}
-
-	private void focusView(RecyclerViewBridge recyclerViewBridge, View view, float scale) {
-		recyclerViewBridge.setFocusView(view, scale);
-		if (view != null) {
-			view.requestLayout();
-			view.requestFocus();
-		}
-	}
 }

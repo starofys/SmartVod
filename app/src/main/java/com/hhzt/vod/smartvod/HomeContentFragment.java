@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
@@ -55,6 +56,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	private boolean mShowCurrentPage = true;
 	private boolean mShowTranslate = false;
 	private LeftMenuPresenter mLeftMenuPresenter;
+	private Handler mHandler = new Handler();
 
 	private ListSelectFoucsBroadCastReceiver mListSelectFoucsBroadCastReceiver;
 
@@ -114,11 +116,12 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-				if (position != mVodListItemSelectedIndex) {
-					mVodListItemSelectedIndex = position;
-					mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
-				}
+//				if (position != mVodListItemSelectedIndex) {
+//					mVodListItemSelectedIndex = position;
+//					mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
+//				}
 				mRecyclerViewBridge.setFocusView(itemView, 1.0f);
+//				mLeftMenuPresenter.setSelectPosition(position);
 			}
 
 			/**
@@ -131,10 +134,16 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		});
 		mRcvMovieTypeList.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
-			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+			public void onItemClick(RecyclerViewTV parent, View itemView, final int position) {
+				mVodListItemSelectedIndex = position;
 				mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
 				mLeftMenuPresenter.setSelectPosition(position);
-
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						focusView(mRecyclerViewBridge, mRcvMovieTypeList.getChildAt(position), 1.0f);
+					}
+				}, 10);
 			}
 		});
 
@@ -181,6 +190,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		super.onDestroy();
 		mHomeMovieTypeLinkPresenter.destoryInit();
 		getActivity().unregisterReceiver(mListSelectFoucsBroadCastReceiver);
+		mHandler.removeCallbacks(null);
 	}
 
 	@Override

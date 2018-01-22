@@ -318,14 +318,6 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		});
 	}
 
-	private void focusView(RecyclerViewBridge recyclerViewBridge, View view, float scale) {
-		recyclerViewBridge.setFocusView(view, scale);
-		if (view != null) {
-			view.requestLayout();
-			view.requestFocus();
-		}
-	}
-
 	private void initDefaultFouces() {
 		mHandler.postDelayed(new Runnable() {
 			@Override
