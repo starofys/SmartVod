@@ -21,7 +21,9 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/layy734"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:clipChildren="false"
+			android:clipToPadding="false">
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_movie_type_list"
@@ -38,9 +40,7 @@
 				android:layout_height="match_parent"
 				android:layout_marginLeft="@dimen/layx24"
 				android:clipChildren="false"
-				android:clipToPadding="false"
-				android:paddingBottom="@dimen/layy20"
-				android:paddingTop="@dimen/layy20"/>
+				android:clipToPadding="false"/>
 		</LinearLayout>
 
 		<RelativeLayout
