@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
+import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
+import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
 
 import org.xutils.x;
 
@@ -53,6 +56,18 @@ public class BaseFragment extends Fragment {
 	public void focusView(RecyclerViewBridge recyclerViewBridge, View view, float scale) {
 		recyclerViewBridge.setFocusView(view, scale);
 		if (view != null) {
+			view.requestLayout();
+			view.requestFocus();
+		}
+	}
+
+	public void requestDefaultFocus(RecyclerViewBridge recyclerViewBridge, RecyclerViewTV recyclerViewTV) {
+		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
+		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, true);
+		if (recyclerViewTV.getChildCount() == 0) return;
+		View view = recyclerViewTV.getChildAt(0);
+		recyclerViewBridge.setFocusView(view, 1.0f);
+		if (null != view) {
 			view.requestLayout();
 			view.requestFocus();
 		}

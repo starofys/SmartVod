@@ -36,6 +36,7 @@
 				android:layout_width="@dimen/layx170"
 				android:layout_height="@dimen/layy64"
 				android:background="@drawable/bg_color_blue_gray_selector"
+				android:visibility="gone"
 				android:clickable="true"
 				android:focusable="true"
 				android:focusableInTouchMode="true"

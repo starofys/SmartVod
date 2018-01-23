@@ -183,18 +183,11 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				mSelectRecylerType = 1;
 				mSelectSmallRecyclerIndex = position;
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
-				if ((position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2
-						|| position == mMovieSmallPictureList.size() - 3 || position == mMovieSmallPictureList.size() - 4)
-						&& (mMovieSmallPictureList.size() + mMovieBigPictureList.size()) % PAGE_SIZE == 0) {
-					mPageNumber++;
-					mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
-				}
-
-				int currentPosition = position + 2;
-				int currentPage = currentPosition / PAGE_SIZE + 1;
-				AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_CURRENT_PAGE, currentPage);
-
-				if (currentPage > 1 && (position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2)) {
+				if ((position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2)) {
+					if ((mMovieSmallPictureList.size() + mMovieBigPictureList.size()) % PAGE_SIZE == 0) {
+						mPageNumber++;
+						mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
+					}
 					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
 					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, false);
 					mHandler.postDelayed(new Runnable() {
@@ -204,6 +197,10 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						}
 					}, 201);
 				}
+
+				int currentPosition = position + 2;
+				int currentPage = currentPosition / PAGE_SIZE + 1;
+				AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_CURRENT_PAGE, currentPage);
 			}
 
 			@Override
@@ -223,32 +220,23 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent event) {
 				int keyCode = event.getKeyCode();
+				int index = mRcvMovieSmallPicture.getSelectPostion();
+				View itemView = mRcvMovieSmallPicture.getFocusedChild();
 				if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-					int index = mRcvMovieSmallPicture.getSelectPostion();
-					View itemView = mRcvMovieSmallPicture.getFocusedChild();
 					if (index % 2 == 0) {
+						requestDefaultFocus(mRecyclerViewBridge, mRcvMovieBigPicture);
 						mRecyclerViewBridge.setUnFocusView(itemView);
 						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
 						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 						return true;
 					}
 				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-					int index = mRcvMovieSmallPicture.getSelectPostion();
 					if (index % 2 != 0) {
-						AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
-						AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, true);
-						mHandler.postDelayed(new Runnable() {
-							@Override
-							public void run() {
-								focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
-							}
-						}, 201);
+						requestDefaultFocus(mRecyclerViewBridge, mRcvMovieBigPicture);
+						mRecyclerViewBridge.setUnFocusView(itemView);
+						KeyBroadcastSender.getInstance().sendDownBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 						return true;
-					}
-				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
-					if (mSelectSmallRecyclerIndex == mMovieSmallPictureList.size() - 3
-							|| mSelectSmallRecyclerIndex == mMovieSmallPictureList.size() - 4) {
-						return false;
 					}
 				}
 				return false;
@@ -257,26 +245,15 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 		mRcvMovieBigPicture.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent event) {
-				int keyCode = event.getKeyCode();
-				if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-					int index = mRcvMovieBigPicture.getSelectPostion();
+				int index = mRcvMovieBigPicture.getSelectPostion();
+				View itemView = mRcvMovieBigPicture.getFocusedChild();
+				if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
 					if (index == 0) {
 						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
 						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 						return true;
 					}
-				} else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-					int index = mRcvMovieBigPicture.getSelectPostion();
-					if (index % 2 == 0) {
-						if (index <= 1) {
-							mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
-						}
-						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-						return true;
-					} else {
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
-					}
-				} else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
 					if (mSelectRecylerType == 0 && mSelectBigRecyclerIndex == 1) {
 						mSelectRecylerType = 1;
 						mSelectSmallRecyclerIndex = 0;
@@ -286,10 +263,19 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						mRcvMovieSmallPicture.getChildAt(0).requestFocus();
 						return true;
 					}
-				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
-					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, true);
-					return true;
+				} else {
+					requestDefaultFocus(mRecyclerViewBridge, mRcvMovieBigPicture);
+					if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+						mRecyclerViewBridge.setUnFocusView(itemView);
+						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+					}
+					if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+						mRecyclerViewBridge.setUnFocusView(itemView);
+						KeyBroadcastSender.getInstance().sendDownBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
+						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						return true;
+					}
 				}
 				return false;
 			}
@@ -338,20 +324,6 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 			if (KeyFactoryConst.KEY_LISTEN_ACTION.equals(intent.getAction())) {
 				String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
 				switch (keyType) {
-					case KeyFactoryConst.KEY_CODE_DOWN: {
-						View view;
-						if (mSelectRecylerType == 0) {
-							view = mRcvMovieBigPicture.getChildAt(mSelectBigRecyclerIndex);
-						} else {
-							view = mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex);
-						}
-						if (view != null) {
-							view.requestLayout();
-							view.requestFocus();
-						}
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
-					}
-					break;
 					case KeyFactoryConst.KEY_CODE_RIGHT: {
 						View view = mRcvMovieBigPicture.getChildAt(0);
 						if (null != view) {

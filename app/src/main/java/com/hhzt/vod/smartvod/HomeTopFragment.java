@@ -1,19 +1,14 @@
 package com.hhzt.vod.smartvod;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
-import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.mvp.link.HomeTopConstract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.presenter.HomeTopLinkPresenter;
@@ -47,8 +42,6 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
 
     private HomeTopConstract.HomeTopPresenter mHomeTopPresenter;
 
-    private HomeTopBroadCastReceiver mHomeTopBroadCastReceiver;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -64,42 +57,12 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
         mHomeTopPresenter.showDataTime();
         mHomeTopPresenter.showWeek();
         mHomeTopPresenter.showWeather();
-        initEvent();
-
-        mHomeTopBroadCastReceiver = new HomeTopBroadCastReceiver();
-        IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
-        getActivity().registerReceiver(mHomeTopBroadCastReceiver, intentFilter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mHomeTopPresenter.showWeather();
-    }
-
-    private void initEvent() {
-        mLlSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        mLlSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                int currentKeyCode = event.getKeyCode();
-                if (currentKeyCode == KeyEvent.KEYCODE_DPAD_LEFT
-                        || currentKeyCode == KeyEvent.KEYCODE_DPAD_RIGHT
-                        || currentKeyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                    return true;
-                } else if (currentKeyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                    KeyBroadcastSender.getInstance().sendDownBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_TOP);
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -136,20 +99,5 @@ public class HomeTopFragment extends BaseFragment implements HomeTopConstract.Ho
     public void onDestroy() {
         super.onDestroy();
         mHomeTopPresenter.destoryInit();
-        getActivity().unregisterReceiver(mHomeTopBroadCastReceiver);
-    }
-
-    private final class HomeTopBroadCastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (KeyFactoryConst.KEY_LISTEN_ACTION.equals(intent.getAction())) {
-                String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
-                if (KeyFactoryConst.KEY_CODE_UP.equalsIgnoreCase(keyType)) {
-                    mLlSearch.requestLayout();
-                    mLlSearch.requestFocus();
-                }
-            }
-        }
     }
 }

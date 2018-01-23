@@ -9,8 +9,5 @@ package com.hhzt.vod.smartvod;
 
 public class MovieListFragment extends BaseFragment {
 
-	//发广播
-	protected void sendKeyMessage(int keyEventId) {
 
-	}
 }
