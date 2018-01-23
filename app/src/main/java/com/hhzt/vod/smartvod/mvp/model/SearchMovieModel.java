@@ -6,7 +6,6 @@ import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repData.ProgramSuperDataRep;
 import com.hhzt.vod.api.repData.SearchMainDataV1_1Rep;
-import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 import com.hhzt.vod.smartvod.R;
 import com.hhzt.vod.smartvod.VodApp;
@@ -80,6 +79,21 @@ public class SearchMovieModel implements ISearchMovie {
 				SearchMainDataV1_1Rep.class,
 				iHttpRetCallBack
 		);
+	}
+
+	@Override
+	public void postSearchPlayRecord(int programId, String requestIp, IHttpRetCallBack<String> iHttpRetCallBack) {
+		HttpVod.getVodItemSearchRecordNumberDatas(
+				HttpConst.APP_KEY,
+				HttpConst.FORMAT,
+				HttpConst.METHOD_07,
+				HttpConst.VERSION_1_1,
+				"",
+				programId,
+				requestIp,
+				"getVodItemSearchRecordNumberDatas",
+				String.class,
+				iHttpRetCallBack);
 	}
 
 	@Override

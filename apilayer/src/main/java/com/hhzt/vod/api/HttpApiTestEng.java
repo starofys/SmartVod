@@ -289,6 +289,7 @@ public class HttpApiTestEng {
 				HttpConst.VERSION,
 				"",
 				1,
+				HttpConst.DEFAULT_HOST,
 				"getVodItemSearchRecordNumberDatas",
 				SimpleResultRep.class,
 				new IHttpRetCallBack<SimpleResultRep>() {

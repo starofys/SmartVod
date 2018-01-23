@@ -6,11 +6,14 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hhzt.vod.api.CommonRspRetBean;
+import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
@@ -189,6 +192,32 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
 				mSearchMoviePresenter.clickOtherMovieDetail(getActivity(), SearchMovieLinkPresenter.TYPE_SEARCH_RESULT, position);
+				mSearchMoviePresenter.postSearchPlayRecord(position, new IHttpRetCallBack<String>() {
+					@Override
+					public void onResponseSuccess(CommonRspRetBean bean, String s) {
+						Log.d(ConfigX.HHZT_SMART_LOG, "postSearchPlayRecord-->onResponseSuccess:" + s);
+					}
+
+					@Override
+					public void onResponseFailed(CommonRspRetBean bean) {
+						Log.d(ConfigX.HHZT_SMART_LOG, "postSearchPlayRecord-->onResponseFailed:" + bean.msg);
+					}
+
+					@Override
+					public void onError(String result) {
+						Log.d(ConfigX.HHZT_SMART_LOG, "postSearchPlayRecord-->onError:" + result);
+					}
+
+					@Override
+					public void onCancelled() {
+						Log.d(ConfigX.HHZT_SMART_LOG, "postSearchPlayRecord-->onCancelled");
+					}
+
+					@Override
+					public void onFinish() {
+						Log.d(ConfigX.HHZT_SMART_LOG, "postSearchPlayRecord-->onFinish");
+					}
+				});
 			}
 		});
 	}

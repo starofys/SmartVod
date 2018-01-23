@@ -2,6 +2,7 @@ package com.hhzt.vod.smartvod.mvp.link;
 
 import android.content.Context;
 
+import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
@@ -46,6 +47,8 @@ public class SearchMovieContract {
 		void showSearchHistoryMovie();
 
 		void clickOtherMovieDetail(Context packageContext, int type, int position);
+
+		void postSearchPlayRecord(int position, IHttpRetCallBack<String> iHttpRetCallBack);
 
 		void clickFullKey(int position, String currentName);
 

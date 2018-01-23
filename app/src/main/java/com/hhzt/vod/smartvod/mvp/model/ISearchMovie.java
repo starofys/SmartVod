@@ -4,7 +4,6 @@ import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repData.ProgramSuperDataRep;
 import com.hhzt.vod.api.repData.SearchMainDataV1_1Rep;
-import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 
 import java.util.ArrayList;
@@ -24,6 +23,8 @@ public interface ISearchMovie {
 //	void requestHotMovie(IHttpRetCallBack<SearchMainDatasRep> iHttpRetCallBack);
 
 	void requestHotMovie(IHttpRetCallBack<SearchMainDataV1_1Rep> iHttpRetCallBack);
+
+	void postSearchPlayRecord(int programId, String requestIp, IHttpRetCallBack<String> iHttpRetCallBack);
 
 	ArrayList<KeyBean> getT9BoardList();
 

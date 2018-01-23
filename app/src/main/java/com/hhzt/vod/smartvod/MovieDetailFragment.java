@@ -418,27 +418,27 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
         mMovieDetailLinkPresenter.recordPlayVideo(mMovieProgramId, playUrl, playingTime, 0, new IHttpRetCallBack<String>() {
             @Override
             public void onResponseSuccess(CommonRspRetBean bean, String s) {
-                Log.d(ConfigX.HHZT_SMART_LOG, "onResponseSuccess:" + s);
+                Log.d(ConfigX.HHZT_SMART_LOG, "recordPlayVideo--->onResponseSuccess:" + s);
             }
 
             @Override
             public void onResponseFailed(CommonRspRetBean bean) {
-                Log.d(ConfigX.HHZT_SMART_LOG, "onResponseFailed:" + bean.msg);
+                Log.d(ConfigX.HHZT_SMART_LOG, "recordPlayVideo--->onResponseFailed:" + bean.msg);
             }
 
             @Override
             public void onError(String result) {
-                Log.d(ConfigX.HHZT_SMART_LOG, "onError" + result);
+                Log.d(ConfigX.HHZT_SMART_LOG, "recordPlayVideo--->onError" + result);
             }
 
             @Override
             public void onCancelled() {
-                Log.d(ConfigX.HHZT_SMART_LOG, "onCancelled");
+                Log.d(ConfigX.HHZT_SMART_LOG, "recordPlayVideo--->onCancelled");
             }
 
             @Override
             public void onFinish() {
-                Log.d(ConfigX.HHZT_SMART_LOG, "onFinish");
+                Log.d(ConfigX.HHZT_SMART_LOG, "recordPlayVideo--->onFinish");
             }
         });
     }

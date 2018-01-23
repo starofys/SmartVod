@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.hhzt.vod.api.CommonRspRetBean;
+import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
@@ -72,13 +73,6 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 				mHotSearchList.addAll(searchMainDatasRep.getHotSearchList());
 				mSearchHistoryList.addAll(searchMainDatasRep.getSearchHistoryList());
 
-				if (mHotSearchList.size() > 10) {
-					ArrayList<SimpleRepBean> hotSearchList = new ArrayList<>();
-					for (int i = 10; i < 10; i++) {
-						hotSearchList.add(mSearchHistoryList.get(i));
-					}
-					mSearchHistoryList = hotSearchList;
-				}
 				mSearchMovieView.showHotMovieData(mSearchHistoryList, mHotSearchList);
 			}
 
@@ -211,6 +205,14 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 		intent.putExtra(MovieDetailActivity.MOVIE_PROGRAM_ID, programId);
 		packageContext.startActivity(intent);
 	}
+
+	@Override
+	public void postSearchPlayRecord(int position, IHttpRetCallBack<String> iHttpRetCallBack) {
+		int programId = mSearchMovieReultList.get(position).getId();
+		String requestIp = ConfigMgr.getInstance().getEpgUrlHost();
+		mISearchMovie.postSearchPlayRecord(programId, requestIp, iHttpRetCallBack);
+	}
+
 
 	@Override
 	public void clickFullKey(int position, String currentName) {

@@ -198,6 +198,7 @@ public class HttpVod {
 	 * @param v
 	 * @param session
 	 * @param programId
+	 * @param requestIp
 	 * @param tag
 	 * @param tClass
 	 * @param iHttpRetCallBack
@@ -209,10 +210,11 @@ public class HttpVod {
 	                                                         String v,
 	                                                         String session,
 	                                                         int programId,
+	                                                         String requestIp,
 	                                                         String tag,
 	                                                         Class<T> tClass,
 	                                                         IHttpRetCallBack<T> iHttpRetCallBack) {
-		String url = HttpUrlCreator.getVodItemSearchStarUrl(appkey, format, method, v, session, programId);
+		String url = HttpUrlCreator.getVodItemSearchStarUrl(appkey, format, method, v, session, programId, requestIp, ConfigMgr.getInstance().getUserName());
 		HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
 	}
 

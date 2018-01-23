@@ -224,14 +224,18 @@ public class HttpUrlCreator {
 	                                             String method,
 	                                             String v,
 	                                             String session,
-	                                             int programId) {
+	                                             int programId,
+	                                             String requestIp,
+	                                             String userName) {
 		return ConfigMgr.getInstance().getEpgUrlHost()
 				+ "appkey=" + appkey
 				+ "&format=" + format
 				+ "&method=" + method
 				+ "&v=" + v
 				+ "&session=" + session
-				+ "&programId=" + programId;
+				+ "&programId=" + programId
+				+ "&requestIp=" + requestIp
+				+ "&username=" + userName;
 	}
 
 	/**
