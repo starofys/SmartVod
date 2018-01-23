@@ -550,7 +550,8 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
                 return true;
             case KeyEvent.KEYCODE_BACK:
             case KeyEvent.KEYCODE_BACKSLASH:
-                return super.onKeyDown(keyCode, event);
+                mNiceVideoPlayer.exitFullScreen();
+                return true;
             default:
                 if (topBottomVisible) {
                     if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
