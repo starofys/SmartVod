@@ -17,6 +17,8 @@
             android:id="@+id/rcv_movie_item_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/layy20"
+            android:layout_marginBottom="@dimen/layy20"
             android:layout_marginStart="@dimen/layx20"
             android:clipChildren="false"
             android:focusable="false" />

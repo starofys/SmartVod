@@ -11,6 +11,8 @@
 	<com.hhzt.vod.viewlayer.androidtvwidget.view.SmoothHorizontalScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:layout_marginTop="@dimen/layy20"
+		android:layout_marginBottom="@dimen/layy20"
 		android:clipChildren="false">
 
 		<LinearLayout

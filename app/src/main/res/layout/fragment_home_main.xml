@@ -22,8 +22,6 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/layy734"
-			android:clipChildren="false"
-			android:clipToPadding="false"
 			android:orientation="horizontal">
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
