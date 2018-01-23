@@ -9,7 +9,7 @@ import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.SimpleRepBean;
 import com.hhzt.vod.api.repData.ProgramSuperDataRep;
-import com.hhzt.vod.api.repData.SearchMainDatasRep;
+import com.hhzt.vod.api.repData.SearchMainDataV1_1Rep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 import com.hhzt.vod.smartvod.MovieDetailActivity;
 import com.hhzt.vod.smartvod.constant.ConfigX;
@@ -39,8 +39,7 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 	private ArrayList<KeyBean> mT9BoardList = new ArrayList<>();
 
 	//热门搜索 and  历史搜索
-	private ArrayList<SimpleRepBean> mHotSearchList = new ArrayList<>();
-	private ArrayList<MovieInfoData> mHotList = new ArrayList<>();
+	private ArrayList<MovieInfoData> mHotSearchList = new ArrayList<>();
 	private ArrayList<SimpleRepBean> mSearchHistoryList = new ArrayList<>();
 
 	//相关搜索==》即：搜索结果
@@ -67,20 +66,20 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 
 	@Override
 	public void showHotMovieData() {
-		mISearchMovie.requestHotMovie(new IHttpRetCallBack<SearchMainDatasRep>() {
+		mISearchMovie.requestHotMovie(new IHttpRetCallBack<SearchMainDataV1_1Rep>() {
 			@Override
-			public void onResponseSuccess(CommonRspRetBean bean, SearchMainDatasRep searchMainDatasRep) {
+			public void onResponseSuccess(CommonRspRetBean bean, SearchMainDataV1_1Rep searchMainDatasRep) {
 				mHotSearchList.addAll(searchMainDatasRep.getHotSearchList());
-				mHotList.addAll(searchMainDatasRep.getHotList());
+				mSearchHistoryList.addAll(searchMainDatasRep.getSearchHistoryList());
 
 				if (mHotSearchList.size() > 10) {
 					ArrayList<SimpleRepBean> hotSearchList = new ArrayList<>();
 					for (int i = 10; i < 10; i++) {
-						hotSearchList.add(mHotSearchList.get(i));
+						hotSearchList.add(mSearchHistoryList.get(i));
 					}
-					mHotSearchList = hotSearchList;
+					mSearchHistoryList = hotSearchList;
 				}
-				mSearchMovieView.showHotMovieData(mHotSearchList, mHotList);
+				mSearchMovieView.showHotMovieData(mSearchHistoryList, mHotSearchList);
 			}
 
 			@Override
@@ -197,9 +196,9 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 				vipFlag = mHotSearchList.get(position).getVipFlag() == ConfigX.NEED_VIP;
 				break;
 			case TYPE_HOT_LIST:
-				categoryId = mHotList.get(position).getCategoryId();
-				programId = mHotList.get(position).getId();
-				vipFlag = mHotList.get(position).getVipFlag() == ConfigX.NEED_VIP;
+				categoryId = mHotSearchList.get(position).getCategoryId();
+				programId = mHotSearchList.get(position).getId();
+				vipFlag = mHotSearchList.get(position).getVipFlag() == ConfigX.NEED_VIP;
 				break;
 			case TYPE_SEARCH_RESULT:
 				categoryId = mSearchMovieReultList.get(position).getCategoryId();

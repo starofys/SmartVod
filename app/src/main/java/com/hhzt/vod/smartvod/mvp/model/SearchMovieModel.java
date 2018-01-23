@@ -5,6 +5,7 @@ import com.hhzt.vod.api.HttpVod;
 import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.KeyBean;
 import com.hhzt.vod.api.repData.ProgramSuperDataRep;
+import com.hhzt.vod.api.repData.SearchMainDataV1_1Rep;
 import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 import com.hhzt.vod.smartvod.R;
@@ -53,16 +54,30 @@ public class SearchMovieModel implements ISearchMovie {
 		);
 	}
 
+//	@Override
+//	public void requestHotMovie(IHttpRetCallBack<SearchMainDatasRep> iHttpRetCallBack) {
+//		HttpVod.getVodSearchMainDatas(
+//				HttpConst.APP_KEY,
+//				HttpConst.FORMAT,
+//				HttpConst.METHOD_08,
+//				HttpConst.VERSION,
+//				"",
+//				"getVodSearchMainDatas",
+//				SearchMainDatasRep.class,
+//				iHttpRetCallBack
+//		);
+//	}
+
 	@Override
-	public void requestHotMovie(IHttpRetCallBack<SearchMainDatasRep> iHttpRetCallBack) {
+	public void requestHotMovie(IHttpRetCallBack<SearchMainDataV1_1Rep> iHttpRetCallBack) {
 		HttpVod.getVodSearchMainDatas(
 				HttpConst.APP_KEY,
 				HttpConst.FORMAT,
 				HttpConst.METHOD_08,
-				HttpConst.VERSION,
+				HttpConst.VERSION_1_1,
 				"",
 				"getVodSearchMainDatas",
-				SearchMainDatasRep.class,
+				SearchMainDataV1_1Rep.class,
 				iHttpRetCallBack
 		);
 	}
