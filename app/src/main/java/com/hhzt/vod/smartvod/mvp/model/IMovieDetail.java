@@ -15,4 +15,6 @@ public interface IMovieDetail {
 	void requestMovieDetail(int programGroupId, int categoryId, int programId, IHttpRetCallBack<ProgramDetaiContentDataRep> iHttpRetCallBack);
 
 	void requestVodPayResult(int contentId, int type, IHttpRetCallBack<PayResultRep> iHttpRetCallBack);
+
+	void postPlayRecord(int programId, String requestIp, int playingTime, int tenantId, IHttpRetCallBack<String> iHttpRetCallBack);
 }

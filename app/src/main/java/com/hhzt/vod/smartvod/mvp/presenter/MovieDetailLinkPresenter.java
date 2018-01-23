@@ -228,4 +228,9 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 			}
 		});
 	}
+
+	@Override
+	public void recordPlayVideo(int mediaId, String requestIp, int playingTime, int tenantId, IHttpRetCallBack<String> iHttpRetCallBack) {
+		mIMovieDetail.postPlayRecord(mediaId, requestIp, playingTime, tenantId, iHttpRetCallBack);
+	}
 }

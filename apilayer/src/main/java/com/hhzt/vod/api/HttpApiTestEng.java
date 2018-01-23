@@ -203,7 +203,7 @@ public class HttpApiTestEng {
 				37,
 				"192.168.1.149",
 				5555,
-				10,
+				0,
 				"getVodPlayRecordDatas",
 				SimpleResultRep.class,
 				new IHttpRetCallBack<SimpleResultRep>() {

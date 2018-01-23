@@ -52,5 +52,7 @@ public class MovieDetailContract {
 		void showPayWeb(FragmentManager fragmentManager);
 
 		void checkPayResult(int contentId, int type, IHttpRetCallBack<PayResultRep> iHttpRetCallBack);
+
+		void recordPlayVideo(int programId, String requestIp, int playingTime, int tenantId, IHttpRetCallBack<String> iHttpRetCallBack);
 	}
 }

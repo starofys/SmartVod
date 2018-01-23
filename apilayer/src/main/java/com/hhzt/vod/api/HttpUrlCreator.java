@@ -154,7 +154,6 @@ public class HttpUrlCreator {
 	 * @param mediaId
 	 * @param requestIp
 	 * @param playingTime
-	 * @param tenantId
 	 * @return
 	 */
 	public static String getVodPlayNumRecordUrl(String appkey,
