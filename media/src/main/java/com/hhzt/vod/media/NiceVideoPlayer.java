@@ -88,7 +88,7 @@ public class NiceVideoPlayer extends FrameLayout implements INiceVideoPlayer, Te
 	/**
 	 * 收费影片试看结束时间
 	 */
-	public static final int PREVIEW_LIMIT_TIME = 5 * 3600 * 1000;
+	public static final int PREVIEW_LIMIT_TIME = 5 * 60 * 1000;
 
 	private int mPlayerType = TYPE_IJK;
 	private int mCurrentState = STATE_IDLE;
