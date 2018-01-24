@@ -57,11 +57,10 @@ public class HomeMovieTypeLinkPresenter implements HomeMovieTypeContract.HomeMov
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, CategoryBoDatasRep categoryBoDatasRep) {
 				mCategoryNames.addAll(categoryBoDatasRep.getCategoryBoList());
-				mIHomeMovieTypeView.showData(mCategoryNames);
-
 				CategoryRepBean categoryRepBean = new CategoryRepBean();
 				categoryRepBean.setName(mContext.getResources().getString(R.string.recommond));
 				mCategoryNames.add(0, categoryRepBean);
+				mIHomeMovieTypeView.showData(mCategoryNames);
 			}
 
 			@Override

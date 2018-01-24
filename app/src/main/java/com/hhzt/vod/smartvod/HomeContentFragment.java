@@ -42,7 +42,7 @@ import java.util.List;
  * Created by wujichang on 2017/12/28.
  */
 @ContentView(R.layout.fragment_home_main)
-public class HomeContentFragment extends BaseFragment implements HomeMovieTypeContract.IHomeMovieTypeView, ObserverWatcher ,ViewTreeObserver.OnGlobalFocusChangeListener{
+public class HomeContentFragment extends BaseFragment implements HomeMovieTypeContract.IHomeMovieTypeView, ObserverWatcher, ViewTreeObserver.OnGlobalFocusChangeListener {
 
 	@ViewInject(R.id.lml_type)
 	private LinearMainLayout mLmlType;
@@ -129,7 +129,6 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-				mVodListItemSelectedIndex = position;
 				mRecyclerViewBridge.setFocusView(itemView, 1.0f);
 			}
 
@@ -145,14 +144,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, final int position) {
 				mVodListItemSelectedIndex = position;
-				mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, position);
-				mLeftMenuPresenter.setSelectPosition(position);
-				mHandler.postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						focusView(mRecyclerViewBridge, mRcvMovieTypeList.getChildAt(position), 1.0f);
-					}
-				}, 10);
+				selectTypePosition();
 			}
 		});
 
@@ -160,7 +152,6 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent event) {
 				int keyCode = event.getKeyCode();
-				int size = ((HomeMovieTypeLinkPresenter) mHomeMovieTypeLinkPresenter).getCategoryNames().size();
 				if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
 					KeyBroadcastSender.getInstance().sendRightBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_LIST);
 					mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
@@ -178,6 +169,17 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 				startActivity(intent);
 			}
 		});
+	}
+
+	private void selectTypePosition() {
+		mHomeMovieTypeLinkPresenter.switchFragment(getActivity(), R.id.fragment_movie_container, mVodListItemSelectedIndex);
+		mLeftMenuPresenter.setSelectPosition(mVodListItemSelectedIndex);
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				focusView(mRecyclerViewBridge, mRcvMovieTypeList.getChildAt(mVodListItemSelectedIndex), 1.0f);
+			}
+		}, 50);
 	}
 
 	private void initDefaultFouces() {
@@ -254,6 +256,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			final int size = ((HomeMovieTypeLinkPresenter) mHomeMovieTypeLinkPresenter).getCategoryNames().size();
 			if (null != intent) {
 				switch (intent.getAction()) {
 					case KeyFactoryConst.KEY_LISTEN_ACTION:
@@ -266,7 +269,12 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 								@Override
 								public void run() {
 //									focusView(mRecyclerViewBridge, mRivSearch, ConfigX.SCALE);
-									mRcvMovieTypeList.setItemSelected(mVodListItemSelectedIndex);
+									if (mVodListItemSelectedIndex == 0) {
+										mVodListItemSelectedIndex = size - 1;
+									} else {
+										mVodListItemSelectedIndex--;
+									}
+									selectTypePosition();
 									mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 								}
 							}, 200);
@@ -275,7 +283,12 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 							mHandler.postDelayed(new Runnable() {
 								@Override
 								public void run() {
-									mRcvMovieTypeList.setItemSelected(mVodListItemSelectedIndex);
+									if (mVodListItemSelectedIndex == size - 1) {
+										mVodListItemSelectedIndex = 0;
+									} else {
+										mVodListItemSelectedIndex++;
+									}
+									selectTypePosition();
 									mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 								}
 							}, 200);
