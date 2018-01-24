@@ -550,6 +550,7 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
                 return true;
             case KeyEvent.KEYCODE_BACK:
             case KeyEvent.KEYCODE_BACKSLASH:
+            case KeyEvent.KEYCODE_ESCAPE:
                 mNiceVideoPlayer.exitFullScreen();
                 return true;
             default:
