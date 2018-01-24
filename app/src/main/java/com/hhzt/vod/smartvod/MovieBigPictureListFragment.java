@@ -197,7 +197,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 								}
 								mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
 							}
-						}, 50);
+						}, 150);
 					}
 					break;
 					default:
