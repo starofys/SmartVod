@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
@@ -44,13 +45,12 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 	@ViewInject(R.id.mainUpView)
 	private MainUpView mMainUpView;
 
+	private Handler mHandler = new Handler();
 	private RecyclerViewBridge mRecyclerViewBridge;
 
 	private HomeMovieRecommodListContract.HomeMovieListPresenter mHomeMovieListLinkPresenter;
 
 	private MovieBroadCastReceiver mMovieBroadCastReceiver;
-
-	private int mSelectRecyclerIndex;
 
 	/**
 	 * @return
@@ -89,7 +89,7 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-
+		mHandler.removeCallbacks(null);
 		getActivity().unregisterReceiver(mMovieBroadCastReceiver);
 	}
 
@@ -118,7 +118,6 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-				mSelectRecyclerIndex = position;
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
 			}
 
@@ -188,12 +187,17 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 				String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
 				switch (keyType) {
 					case KeyFactoryConst.KEY_CODE_RIGHT: {
-						View view = mRcvMovieItemContainer.getChildAt(0);
-						if (null != view) {
-							view.requestLayout();
-							view.requestFocus();
-						}
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
+						mHandler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								View view = mRcvMovieItemContainer.getChildAt(0);
+								if (null != view) {
+									view.requestLayout();
+									view.requestFocus();
+								}
+								mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
+							}
+						}, 50);
 					}
 					break;
 					default:

@@ -325,12 +325,17 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				String keyType = intent.getStringExtra(KeyFactoryConst.KEY_CODE_TAG);
 				switch (keyType) {
 					case KeyFactoryConst.KEY_CODE_RIGHT: {
-						View view = mRcvMovieBigPicture.getChildAt(0);
-						if (null != view) {
-							view.requestLayout();
-							view.requestFocus();
-						}
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
+						mHandler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								View view = mRcvMovieBigPicture.getChildAt(0);
+								if (null != view) {
+									view.requestLayout();
+									view.requestFocus();
+								}
+								mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
+							}
+						}, 50);
 					}
 					break;
 				}

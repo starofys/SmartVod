@@ -107,6 +107,8 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		mMainUpView.setEffectBridge(new RecyclerViewBridge());
 		mRecyclerViewBridge = (RecyclerViewBridge) mMainUpView.getEffectBridge();
 		mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_selector);
+
+		mLmlType.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 	}
 
 	private void bindAdater(List<CategoryRepBean> movieTypeNames) {
@@ -119,7 +121,6 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	}
 
 	private void initEvent() {
-		mLmlType.getViewTreeObserver().addOnGlobalFocusChangeListener(this);
 		mRcvMovieTypeList.setItemSelected(0);
 		mRcvMovieTypeList.setOnItemListener(new RecyclerViewTV.OnItemListener() {
 			@Override
@@ -157,7 +158,6 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 					mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 					return true;
 				}
-
 				return false;
 			}
 		});
@@ -167,6 +167,18 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), SearchActivity.class);
 				startActivity(intent);
+			}
+		});
+
+		mRivSearch.setOnKeyListener(new View.OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+					KeyBroadcastSender.getInstance().sendRightBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_LIST);
+					mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+					return true;
+				}
+				return false;
 			}
 		});
 	}
@@ -268,7 +280,6 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 							mHandler.postDelayed(new Runnable() {
 								@Override
 								public void run() {
-//									focusView(mRecyclerViewBridge, mRivSearch, ConfigX.SCALE);
 									if (mVodListItemSelectedIndex == 0) {
 										mVodListItemSelectedIndex = size - 1;
 									} else {
