@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.smartvod.R;
+import com.hhzt.vod.smartvod.adapter.viewHolder.MovieGridViewHolder;
 import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;

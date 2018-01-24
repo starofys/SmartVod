@@ -353,8 +353,8 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	@Override
 	public void onGlobalFocusChanged(View oldFocus, View newFocus) {
 		if (newFocus != null)
-			newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-		float scale = 1.0f;
+			newFocus.bringToFront();
+		float scale = ConfigX.SCALE_DEFAULT;
 		mMainUpView.setFocusView(newFocus, scale);
 	}
 

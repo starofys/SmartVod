@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
 import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
@@ -66,7 +67,7 @@ public class BaseFragment extends Fragment {
 		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, true);
 		if (recyclerViewTV.getChildCount() == 0) return;
 		View view = recyclerViewTV.getChildAt(0);
-		recyclerViewBridge.setFocusView(view, 1.0f);
+		recyclerViewBridge.setFocusView(view, ConfigX.SCALE_DEFAULT);
 		if (null != view) {
 			view.requestLayout();
 			view.requestFocus();

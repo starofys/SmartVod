@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.hhzt.vod.api.repBean.CategoryRepBean;
 import com.hhzt.vod.logiclayer.App;
 import com.hhzt.vod.smartvod.R;
+import com.hhzt.vod.smartvod.adapter.viewHolder.MovieTypeViewHolder;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
 

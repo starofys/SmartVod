@@ -222,7 +222,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            focusView(mRecyclerViewBridge, mRcvEpisode.getChildAt(position), 1.0f);
+                            focusView(mRecyclerViewBridge, mRcvEpisode.getChildAt(position), ConfigX.SCALE_DEFAULT);
                         }
                     }, 10);
                 }
@@ -257,7 +257,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        focusView(mRecyclerViewBridge, mRcvEpisodeRange.getChildAt(position), 1.0f);
+                        focusView(mRecyclerViewBridge, mRcvEpisodeRange.getChildAt(position), ConfigX.SCALE_DEFAULT);
                     }
                 }, 10);
             }
@@ -365,7 +365,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
     public void onGlobalFocusChanged(View oldFocus, View newFocus) {
         if (newFocus != null)
             newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-        float scale = 1.0f;
+        float scale = ConfigX.SCALE_DEFAULT;
         mMainUpView.setFocusView(newFocus, scale);
     }
 

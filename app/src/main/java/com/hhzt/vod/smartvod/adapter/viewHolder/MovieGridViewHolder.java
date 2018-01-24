@@ -1,4 +1,4 @@
-package com.hhzt.vod.smartvod.adapter;
+package com.hhzt.vod.smartvod.adapter.viewHolder;
 
 import android.view.View;
 import android.widget.ImageView;

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hhzt.vod.smartvod.R;
+import com.hhzt.vod.smartvod.adapter.viewHolder.FullKeyboardViewHolder;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.mode.OpenPresenter;
 

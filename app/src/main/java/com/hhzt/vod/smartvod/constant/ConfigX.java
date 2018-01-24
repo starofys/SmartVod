@@ -16,6 +16,7 @@ public class ConfigX {
 
 	//图片选中缩放大小
 	public static final float SCALE = 1.05f;
+	public static final float SCALE_DEFAULT = 1.0f;
 
 	//电视剧默认可以看集数
 	public static final int FREE_SERIES_NUMBER = 3;

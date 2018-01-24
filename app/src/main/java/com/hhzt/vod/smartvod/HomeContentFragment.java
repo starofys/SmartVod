@@ -19,6 +19,7 @@ import com.hhzt.vod.api.repBean.CategoryRepBean;
 import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
 import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.adapter.LeftMenuPresenter;
+import com.hhzt.vod.smartvod.constant.ConfigX;
 import com.hhzt.vod.smartvod.mvp.link.HomeMovieTypeContract;
 import com.hhzt.vod.smartvod.mvp.link.InJection;
 import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieTypeLinkPresenter;
@@ -130,7 +131,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 
 			@Override
 			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-				mRecyclerViewBridge.setFocusView(itemView, 1.0f);
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE_DEFAULT);
 			}
 
 			/**
@@ -138,7 +139,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			 */
 			@Override
 			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-				mRecyclerViewBridge.setFocusView(itemView, 1.0f);
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE_DEFAULT);
 			}
 		});
 		mRcvMovieTypeList.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
@@ -189,7 +190,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				focusView(mRecyclerViewBridge, mRcvMovieTypeList.getChildAt(mVodListItemSelectedIndex), 1.0f);
+				focusView(mRecyclerViewBridge, mRcvMovieTypeList.getChildAt(mVodListItemSelectedIndex), ConfigX.SCALE_DEFAULT);
 			}
 		}, 50);
 	}
@@ -260,7 +261,7 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	public void onGlobalFocusChanged(View oldFocus, View newFocus) {
 		if (newFocus != null)
 			newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-		float scale = 1.0f;
+		float scale = ConfigX.SCALE_DEFAULT;
 		mMainUpView.setFocusView(newFocus, scale);
 	}
 
