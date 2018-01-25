@@ -17,6 +17,7 @@
 		android:id="@+id/iv_movie_label_item"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:src="@mipmap/ic_pay_lable"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentTop="true" />
 

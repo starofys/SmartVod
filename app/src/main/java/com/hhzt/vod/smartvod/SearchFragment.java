@@ -118,6 +118,9 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mSearchMoviePresenter.showHotMovieData();
 //		mSearchMoviePresenter.showSearchHistoryMovie();
 
+		mRivFullKeyboard.setNextFocusLeftId(R.id.riv_t9_keyboard);
+		mRivT9Keyboard.setNextFocusRightId(R.id.riv_full_keyboard);
+
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {

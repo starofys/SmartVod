@@ -70,7 +70,14 @@ public class SearchMovieLinkPresenter implements SearchMovieContract.SearchMovie
 		mISearchMovie.requestHotMovie(new IHttpRetCallBack<SearchMainDataV1_1Rep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, SearchMainDataV1_1Rep searchMainDatasRep) {
-				mHotSearchList.addAll(searchMainDatasRep.getHotSearchList());
+				mHotSearchList.clear();
+				mSearchHistoryList.clear();
+
+				for (int i = 0; i < searchMainDatasRep.getHotSearchList().size(); i++) {
+					if (i < 5) {
+						mHotSearchList.add(searchMainDatasRep.getHotSearchList().get(i));
+					}
+				}
 				mSearchHistoryList.addAll(searchMainDatasRep.getSearchHistoryList());
 
 				mSearchMovieView.showHotMovieData(mSearchHistoryList, mHotSearchList);

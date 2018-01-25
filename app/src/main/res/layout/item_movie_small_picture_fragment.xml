@@ -2,8 +2,8 @@
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="@dimen/layx221"
-	android:layout_height="@dimen/layy331"
-	android:layout_marginRight="@dimen/layx82"
+	android:layout_height="@dimen/layy332"
+	android:layout_marginRight="@dimen/layx81"
 	android:focusable="true"
 	android:focusableInTouchMode="true"
 	android:clipChildren="false"
@@ -20,6 +20,7 @@
 		android:id="@+id/iv_movie_label_item"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:src="@mipmap/ic_pay_lable"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentTop="true"/>
 
