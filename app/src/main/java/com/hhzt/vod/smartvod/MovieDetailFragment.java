@@ -433,7 +433,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		int playingTime = (int) NiceUtil.getSavedPlayPosition(getActivity(), playUrl);
 		recordPlayVideo(playUrl, playingTime);
 
-		if(playFullScreen){
+		if (playFullScreen) {
 			mNiceVideoPlayer.enterFullScreen();
 			delayPlayVideo();
 		}
@@ -607,7 +607,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		mHandler.removeCallbacks(null);
 	}
 
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		return ((TxVideoPlayerController) mNiceVideoPlayer.getController()).onKeyDown(keyCode, event);
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		return ((TxVideoPlayerController) mNiceVideoPlayer.getController()).dispatchKeyEvent(event);
 	}
 }

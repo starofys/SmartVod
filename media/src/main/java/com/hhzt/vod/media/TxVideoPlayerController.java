@@ -372,10 +372,13 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
 			mRetry.performClick();
 		} else if (v == this) {
 			if (mNiceVideoPlayer.isPlaying()
-					|| mNiceVideoPlayer.isPaused()
-					|| mNiceVideoPlayer.isBufferingPlaying()
+					|| mNiceVideoPlayer.isBufferingPlaying()) {
+				mNiceVideoPlayer.pause();
+				setTopBottomVisible(true);
+			} else if (mNiceVideoPlayer.isPaused()
 					|| mNiceVideoPlayer.isBufferingPaused()) {
-				setTopBottomVisible(!topBottomVisible);
+				mNiceVideoPlayer.restart();
+				setTopBottomVisible(false);
 			}
 		}
 	}
@@ -533,8 +536,8 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		switch (event.getKeyCode()) {
 			case KeyEvent.KEYCODE_DPAD_CENTER:
 			case KeyEvent.KEYCODE_SPACE:
 			case KeyEvent.KEYCODE_ENTER:
@@ -546,37 +549,6 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
 					setTopBottomVisible(false);
 				}
 				return true;
-//			case KeyEvent.KEYCODE_VOLUME_UP: {
-//				int maxVolume = mNiceVideoPlayer.getMaxVolume();
-//				int currentVolume = mNiceVideoPlayer.getVolume();
-//				currentVolume += 1;
-//
-//				if (currentVolume >= maxVolume) {
-//					currentVolume = maxVolume;
-//				}
-//				mNiceVideoPlayer.setVolume(currentVolume);
-//				int newVolumeProgress = (int) (100f * currentVolume / maxVolume);
-//				showChangeVolume(newVolumeProgress);
-//			}
-//			return true;
-//			case KeyEvent.KEYCODE_VOLUME_DOWN: {
-//				int maxVolume = mNiceVideoPlayer.getMaxVolume();
-//				int currentVolume = mNiceVideoPlayer.getVolume();
-//				currentVolume -= 1;
-//
-//				if (currentVolume < 0) {
-//					currentVolume = 0;
-//				}
-//				mNiceVideoPlayer.setVolume(currentVolume);
-//				int newVolumeProgress = (int) (100f * currentVolume / maxVolume);
-//				showChangeVolume(newVolumeProgress);
-//			}
-//			return true;
-//			case KeyEvent.KEYCODE_VOLUME_MUTE: {
-//				mNiceVideoPlayer.setVolume(0);
-//				showChangeVolume(0);
-//			}
-//			return true;
 			case KeyEvent.KEYCODE_BACK:
 			case KeyEvent.KEYCODE_ESCAPE:
 				mNiceVideoPlayer.exitFullScreen();
