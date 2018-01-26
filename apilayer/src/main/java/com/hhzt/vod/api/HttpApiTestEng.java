@@ -2,12 +2,14 @@ package com.hhzt.vod.api;
 
 import com.hhzt.vod.api.repData.CategoryBoDatasRep;
 import com.hhzt.vod.api.repData.PayResultRep;
+import com.hhzt.vod.api.repData.PreviewDataRep;
 import com.hhzt.vod.api.repData.ProgramDatasRep;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 import com.hhzt.vod.api.repData.ProgramSuperDataRep;
 import com.hhzt.vod.api.repData.SearchMainDatasRep;
 import com.hhzt.vod.api.repData.SimpleResultRep;
 import com.hhzt.vod.api.repData.VodGroupDetailDataRep;
+import com.hhzt.vod.api.repData.VodPauseAdDataRep;
 import com.hhzt.vod.api.repData.VodSearchDataRep;
 
 /**
@@ -562,6 +564,77 @@ public class HttpApiTestEng {
 					@Override
 					public void onError(String result) {
 						System.out.print("onError:" + result);
+					}
+
+					@Override
+					public void onCancelled() {
+						System.out.print("onCancelled");
+					}
+
+					@Override
+					public void onFinish() {
+						System.out.print("onFinish");
+					}
+				});
+	}
+
+	public void testHttpVod15() {
+		HttpVod.getVodPreviewTime(HttpConst.VERSION,
+				HttpConst.METHOD_12,
+				HttpConst.APP_KEY,
+				HttpConst.FORMAT,
+				"",
+				PreviewDataRep.class,
+				new IHttpRetCallBack<PreviewDataRep>() {
+					@Override
+					public void onResponseSuccess(CommonRspRetBean bean, PreviewDataRep previewDataRep) {
+						System.out.println("onResponseSuccess:" + previewDataRep.toString());
+					}
+
+					@Override
+					public void onResponseFailed(CommonRspRetBean bean) {
+						System.out.println("onResponseFailed:" + bean.msg);
+					}
+
+					@Override
+					public void onError(String result) {
+						System.out.println("onError:" + result);
+					}
+
+					@Override
+					public void onCancelled() {
+						System.out.print("onCancelled");
+					}
+
+					@Override
+					public void onFinish() {
+						System.out.print("onFinish");
+					}
+				});
+	}
+
+	public void testHttpVod16() {
+		HttpVod.getVodPauseAd(HttpConst.VERSION,
+				HttpConst.METHOD_13,
+				HttpConst.APP_KEY,
+				HttpConst.FORMAT,
+				"",
+				"",
+				VodPauseAdDataRep.class,
+				new IHttpRetCallBack<VodPauseAdDataRep>() {
+					@Override
+					public void onResponseSuccess(CommonRspRetBean bean, VodPauseAdDataRep vodPauseAdDataRep) {
+						System.out.println("onResponseSuccess:" + vodPauseAdDataRep.toString());
+					}
+
+					@Override
+					public void onResponseFailed(CommonRspRetBean bean) {
+						System.out.println("onResponseFailed:" + bean.msg);
+					}
+
+					@Override
+					public void onError(String result) {
+						System.out.println("onError:" + result);
 					}
 
 					@Override

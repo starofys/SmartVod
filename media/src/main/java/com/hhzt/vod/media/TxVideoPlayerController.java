@@ -180,10 +180,10 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
 		mImage.setImageResource(resId);
 	}
 
-//    @Override
-//    public void setPreViewLimit(long length) {
-//        mLength.setText(NiceUtil.formatTime(length));
-//    }
+	@Override
+	public void setPreViewLimit(long length) {
+		mPreviewLimit = length * 1000;
+	}
 
 	@Override
 	public void setNiceVideoPlayer(INiceVideoPlayer niceVideoPlayer) {
@@ -484,7 +484,7 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
 		/**
 		 * 正在播放而且到达试看时间
 		 */
-		if (mNiceVideoPlayer.isPlaying() && position >= NiceVideoPlayer.PREVIEW_LIMIT_TIME) {
+		if (mNiceVideoPlayer.isPlaying() && position >= mPreviewLimit) {
 			showPayActionTips();
 		}
 	}
@@ -529,7 +529,7 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
 	@Override
 	protected void showPayActionTips() {
 		if (null != mIPayLogic) {
-			mNiceVideoPlayer.seekTo(NiceVideoPlayer.PREVIEW_LIMIT_TIME);
+			mNiceVideoPlayer.seekTo(mPreviewLimit);
 			mNiceVideoPlayer.pause();
 			mIPayLogic.showPayTips();
 		}

@@ -13,6 +13,7 @@ import com.hhzt.vod.api.repBean.MediaRepBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.ProgrameDetailBo;
 import com.hhzt.vod.api.repData.PayResultRep;
+import com.hhzt.vod.api.repData.PreviewDataRep;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 import com.hhzt.vod.media.Clarity;
 import com.hhzt.vod.smartvod.R;
@@ -246,5 +247,35 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 	@Override
 	public void recordPlayVideo(int mediaId, String requestIp, int playingTime, int tenantId, IHttpRetCallBack<String> iHttpRetCallBack) {
 		mIMovieDetail.postPlayRecord(mediaId, requestIp, playingTime, tenantId, iHttpRetCallBack);
+	}
+
+	@Override
+	public void setVodPreviewTime() {
+		mIMovieDetail.getPreviewTime(new IHttpRetCallBack<PreviewDataRep>() {
+			@Override
+			public void onResponseSuccess(CommonRspRetBean bean, PreviewDataRep previewDataRep) {
+				mMovieDetailView.showMoviePreviewtime(previewDataRep.getDescription(), previewDataRep.getValue());
+			}
+
+			@Override
+			public void onResponseFailed(CommonRspRetBean bean) {
+				mMovieDetailView.showMoviePreviewtime("", 0);
+			}
+
+			@Override
+			public void onError(String result) {
+				mMovieDetailView.showMoviePreviewtime("", 0);
+			}
+
+			@Override
+			public void onCancelled() {
+				mMovieDetailView.showMoviePreviewtime("", 0);
+			}
+
+			@Override
+			public void onFinish() {
+				mMovieDetailView.showMoviePreviewtime("", 0);
+			}
+		});
 	}
 }

@@ -34,6 +34,8 @@ public class MovieDetailContract {
 		void showMovieHot(ArrayList<MovieInfoData> hotList);
 
 		void isTvSeries(boolean isTvSeries);
+
+		void showMoviePreviewtime(String desc, int previewLimit);
 	}
 
 	public interface MovieDetailPresenter extends BasePresenter {
@@ -56,5 +58,7 @@ public class MovieDetailContract {
 		void checkPayResult(int contentId, int type, IHttpRetCallBack<PayResultRep> iHttpRetCallBack);
 
 		void recordPlayVideo(int programId, String requestIp, int playingTime, int tenantId, IHttpRetCallBack<String> iHttpRetCallBack);
+
+		void setVodPreviewTime();
 	}
 }

@@ -36,4 +36,6 @@ public class HttpConst {
 	public static final String METHOD_09 = "api.program.search";
 	public static final String METHOD_10 = "api.program.historicalRecord";
 	public static final String METHOD_11 = "api.weather.today";
+	public static final String METHOD_12 = "api.program.lookTime";
+	public static final String METHOD_13 = "api.advertising.programPauseAd";
 }

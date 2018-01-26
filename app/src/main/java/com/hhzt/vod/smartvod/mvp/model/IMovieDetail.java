@@ -2,6 +2,7 @@ package com.hhzt.vod.smartvod.mvp.model;
 
 import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.repData.PayResultRep;
+import com.hhzt.vod.api.repData.PreviewDataRep;
 import com.hhzt.vod.api.repData.ProgramDetaiContentDataRep;
 
 /**
@@ -17,4 +18,6 @@ public interface IMovieDetail {
 	void requestVodPayResult(int contentId, int type, IHttpRetCallBack<PayResultRep> iHttpRetCallBack);
 
 	void postPlayRecord(int programId, String requestIp, int playingTime, int tenantId, IHttpRetCallBack<String> iHttpRetCallBack);
+
+	void getPreviewTime(IHttpRetCallBack<PreviewDataRep> iHttpRetCallBack);
 }

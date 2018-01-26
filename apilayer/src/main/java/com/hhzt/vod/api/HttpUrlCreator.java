@@ -394,4 +394,50 @@ public class HttpUrlCreator {
 				+ "&format=" + format;
 
 	}
+
+	/**
+	 * 点播试看时间
+	 *
+	 * @param v
+	 * @param method
+	 * @param appkey
+	 * @param format
+	 * @return
+	 */
+	public static String getVodPreviewTimeUrl(String v,
+	                                       String method,
+	                                       String appkey,
+	                                       String format) {
+		return ConfigMgr.getInstance().getEpgUrlHost()
+				+ "appkey=" + appkey
+				+ "&format=" + format
+				+ "&method=" + method
+				+ "&v=" + v;
+	}
+
+	/**
+	 * 获取点播暂停广告
+	 *
+	 * @param v
+	 * @param method
+	 * @param appkey
+	 * @param format
+	 * @param userName
+	 * @param session
+	 * @return
+	 */
+	public static String getVodPauseAd(String v,
+	                                     String method,
+	                                     String appkey,
+	                                     String format,
+	                                     String userName,
+	                                     String session) {
+		return ConfigMgr.getInstance().getEpgUrlHost()
+				+ "v=" + v
+				+ "&method=" + method
+				+ "&appkey=" + appkey
+				+ "&format=" + format
+				+ "&username=" + userName
+				+ "&session=" + session;
+	}
 }

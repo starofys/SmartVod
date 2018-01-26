@@ -33,6 +33,8 @@ public abstract class NiceVideoPlayerController extends FrameLayout implements V
     private int mGestureDownVolume;
     private long mNewPosition;
 
+    protected long mPreviewLimit;
+
     public NiceVideoPlayerController(Context context) {
         super(context);
         mContext = context;
@@ -71,7 +73,7 @@ public abstract class NiceVideoPlayerController extends FrameLayout implements V
     /**
      * 设置试看时长.
      */
-//    public abstract void setPreViewLimit(long length);
+    public abstract void setPreViewLimit(long length);
 
     /**
      * 当播放器的播放状态发生变化，在此方法中国你更新不同的播放状态的UI

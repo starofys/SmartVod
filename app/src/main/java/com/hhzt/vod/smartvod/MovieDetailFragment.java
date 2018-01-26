@@ -113,6 +113,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 
 	private int mPlayLocation;
 	private boolean mNeedPayTag;
+	private int mPreviewLimit;
 	private int mMovieCategoryId;
 	private int mMovieProgramId;
 
@@ -399,13 +400,20 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_NATIVE); // IjkPlayer or MediaPlayer
 		TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
 		controller.setTitle(movieName);
-		//controller.setPreViewLimit(NiceVideoPlayer.PREVIEW_LIMIT_TIME);
 		controller.setClarity(clarities, claritiesPosition);
+
+		Glide.with(getActivity())
+				.load(urlIcon)
+				.placeholder(R.drawable.img_default)
+				.crossFade()
+				.into(controller.imageView());
+		mNiceVideoPlayer.setController(controller);
 
 		/**
 		 * 需要支付的影片才需要设置视频预览时间到达逻辑
 		 */
 		if (mNeedPayTag) {
+			mMovieDetailLinkPresenter.setVodPreviewTime();
 			controller.setPreviewPayLogic(new IPayLogic() {
 				@Override
 				public void showPayTips() {
@@ -418,13 +426,6 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 				}
 			});
 		}
-
-		Glide.with(getActivity())
-				.load(urlIcon)
-				.placeholder(R.drawable.img_default)
-				.crossFade()
-				.into(controller.imageView());
-		mNiceVideoPlayer.setController(controller);
 
 		/**
 		 * 播放记录
@@ -554,6 +555,12 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	@Override
 	public void isTvSeries(boolean isTvSeries) {
 		mLlTvSeries.setVisibility(isTvSeries ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showMoviePreviewtime(String desc, int previewLimit) {
+		mTtvMovieWatchForFreeTime.setText(desc + ":" + previewLimit);
+		mNiceVideoPlayer.getController().setPreViewLimit(previewLimit);
 	}
 
 	private void updatePayUILogic() {

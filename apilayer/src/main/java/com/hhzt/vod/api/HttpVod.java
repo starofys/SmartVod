@@ -376,4 +376,52 @@ public class HttpVod {
 		String url = HttpUrlCreator.getWeatherUrl(v, method, appkey, format);
 		HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
 	}
+
+	/**
+	 * 获取免费试看时间
+	 *
+	 * @param v
+	 * @param method
+	 * @param appkey
+	 * @param format
+	 * @param tag
+	 * @param tClass
+	 * @param iHttpRetCallBack
+	 * @param <T>
+	 */
+	public static <T> void getVodPreviewTime(String v,
+	                                      String method,
+	                                      String appkey,
+	                                      String format,
+	                                      String tag,
+	                                      Class<T> tClass,
+	                                      IHttpRetCallBack<T> iHttpRetCallBack) {
+		String url = HttpUrlCreator.getVodPreviewTimeUrl(v,method, appkey, format);
+		HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
+	}
+
+	/**
+	 * 获取点播暂停广告
+	 *
+	 * @param v
+	 * @param method
+	 * @param appkey
+	 * @param format
+	 * @param session
+	 * @param tag
+	 * @param tClass
+	 * @param iHttpRetCallBack
+	 * @param <T>
+	 */
+	public static <T> void getVodPauseAd(String v,
+	                                     String method,
+	                                     String appkey,
+	                                     String format,
+	                                     String session,
+	                                     String tag,
+	                                     Class<T> tClass,
+	                                     IHttpRetCallBack<T> iHttpRetCallBack) {
+		String url = HttpUrlCreator.getVodPauseAd(v,method, appkey, format,ConfigMgr.getInstance().getUserName(), session);
+		HttpX.get(url, null, iHttpRetCallBack, tClass, tag);
+	}
 }
