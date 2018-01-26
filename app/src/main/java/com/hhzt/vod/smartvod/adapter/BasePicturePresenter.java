@@ -67,6 +67,7 @@ public abstract class BasePicturePresenter extends OpenPresenter {
 
 		MovieInfoData movieInfoBean = mMovieInfoList.get(position);
 		movieGridViewHolder.ivMovieName.setText(movieInfoBean.getName());
+		movieGridViewHolder.ivMovieName.setHorizontallyScrolling(true);
 
 		movieGridViewHolder.ivPayLable.setVisibility(movieInfoBean.getVipFlag() == ConfigX.NEED_VIP ? View.VISIBLE : View.GONE);
 
