@@ -11,9 +11,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.repBean.MovieInfoData;
+import com.hhzt.vod.logiclayer.App;
 import com.hhzt.vod.logiclayer.keydispatch.KeyBroadcastSender;
 import com.hhzt.vod.logiclayer.keydispatch.KeyFactoryConst;
 import com.hhzt.vod.smartvod.adapter.HomeBigPicturePresenter;
@@ -68,6 +70,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	private int mSelectBigRecyclerIndex;
 	private int mPageNumber = 1;
 	private int mTotalPage = 1;
+	private boolean isFrist = true;
 
 	private MovieBroadCastReceiver mMovieBroadCastReceiver;
 	private GridLayoutManagerTV mGridlayoutManager;
@@ -204,7 +207,6 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 			public boolean dispatchKeyEvent(KeyEvent event) {
 				int keyCode = event.getKeyCode();
 				int index = mRcvMovieSmallPicture.getSelectPostion();
-				View itemView = mRcvMovieSmallPicture.getFocusedChild();
 				if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
 					if (index % 2 == 0) {
 						if (mPageNumber > 1) {
@@ -229,7 +231,6 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent event) {
 				int index = mRcvMovieBigPicture.getSelectPostion();
-				View itemView = mRcvMovieBigPicture.getFocusedChild();
 				if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
 					if (index == 0) {
 						KeyBroadcastSender.getInstance().sendLeftBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
@@ -287,61 +288,47 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 		bindAdater();
 		initEvent();
 
-		if (mPageNumber != 1) {
-			mHandler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
-				}
-			}, 10);
-		}
-
-//		switch (mSelectRecylerType) {
-//			case 0:
-//				if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
-//					mHandler.postDelayed(new Runnable() {
-//						@Override
-//						public void run() {
-//							focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
-//						}
-//					}, 51);
-//				} else {
-//					mHandler.postDelayed(new Runnable() {
-//						@Override
-//						public void run() {
-//							focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(mSelectBigRecyclerIndex), ConfigX.SCALE);
-//						}
-//					}, 51);
-//				}
-//				break;
-//			case 1:
-//				if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
-//					mHandler.postDelayed(new Runnable() {
-//						@Override
-//						public void run() {
-//							focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
-//						}
-//					}, 51);
-//				} else {
-//					mHandler.postDelayed(new Runnable() {
-//						@Override
-//						public void run() {
-//							focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
-//						}
-//					}, 51);
-//				}
-//				break;
-//			default:
-//				break;
-//		}
-
-		if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
-			mHandler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
-				}
-			}, 51);
+		if (!isFrist) {
+			switch (mSelectRecylerType) {
+				case 0:
+					if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
+						mHandler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
+							}
+						}, 10);
+					} else {
+						mHandler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(mSelectBigRecyclerIndex), ConfigX.SCALE);
+							}
+						}, 10);
+					}
+					break;
+				case 1:
+					if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
+						mHandler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
+							}
+						}, 10);
+					} else {
+						mHandler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
+							}
+						}, 10);
+					}
+					break;
+				default:
+					break;
+			}
+		} else {
+			isFrist = false;
 		}
 	}
 
