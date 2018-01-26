@@ -89,6 +89,13 @@ public class PayDialogFragment extends DialogFragment {
 //		webSettings.setLoadWithOverviewMode(true);
 
 		mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+
+		webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+		mWebView.clearHistory();
+		mWebView.clearCache(true);
+
+		mWebView.setBackgroundColor(0);
+
 		mWebView.addJavascriptInterface(this, "hhzt");
 		if (mPayPath == ConfigX.MEDIA_PAY_PATH_DIRECT) {
 			mWebView.loadUrl(HttpUrlCreator.getVodPayActionTipsUrl(mUserName, mContentId, mMediaType));

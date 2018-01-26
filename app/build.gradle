@@ -49,13 +49,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: '*.jar', dir: 'libs')
-    compile project(':apilayer')
-    compile project(':logiclayer')
-    compile project(':viewlayer')
-    compile project(path: ':media')
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: '*.jar', dir: 'libs')
+    implementation project(':apilayer')
+    implementation project(':logiclayer')
+    implementation project(':viewlayer')
+    implementation project(path: ':media')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies.xutils
     implementation rootProject.ext.dependencies.appcompatV7
     implementation rootProject.ext.dependencies.recyclerview

@@ -70,7 +70,11 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCall
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (NiceVideoPlayerManager.instance().getCurrentNiceVideoPlayer().isFullScreen()) {
-            return mMovieDetailFragment.onKeyDown(keyCode, event);
+             if (!mMovieDetailFragment.onKeyDown(keyCode, event)) {
+                 return super.onKeyDown(keyCode, event);
+             }
+
+             return true;
         } else {
             return super.onKeyDown(keyCode, event);
         }

@@ -110,7 +110,7 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 				clarities.add(new Clarity(resources.getString(R.string.media_clarities_high), resources.getString(R.string.media_clarities_480p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
 				clarities.add(new Clarity(resources.getString(R.string.media_clarities_super), resources.getString(R.string.media_clarities_720p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
 				clarities.add(new Clarity(resources.getString(R.string.media_clarities_blue), resources.getString(R.string.media_clarities_1080p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-				mMovieDetailView.showSmallVideo(clarities, mProgramDetailBo.getName(), mProgramDetailBo.getSmallPoster());
+				mMovieDetailView.showSmallVideo(clarities, mProgramDetailBo.getName(), mProgramDetailBo.getBigPoster());
 			}
 
 			@Override

@@ -17,6 +17,8 @@
         <activity
             android:name=".HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:stateNotNeeded="true"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +29,13 @@
             android:name=".MovieDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".SearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".VideoPlayerActivity"
