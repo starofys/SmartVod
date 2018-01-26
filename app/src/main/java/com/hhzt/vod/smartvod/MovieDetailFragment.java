@@ -316,6 +316,26 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 					mMovieDetailLinkPresenter.clickOtherMovieDetail(mMovieDetailCallBack, MovieDetailLinkPresenter.TYPE_HOT, position);
 			}
 		});
+
+		//全屏、付费
+		mRivMovieFullScreen.setOnKeyListener(new View.OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
+					return true;
+				}
+				return false;
+			}
+		});
+		mRivMoviePay.setOnKeyListener(new View.OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	private void initDefaultFouces() {
