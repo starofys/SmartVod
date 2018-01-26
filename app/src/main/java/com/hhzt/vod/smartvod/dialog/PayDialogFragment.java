@@ -91,8 +91,6 @@ public class PayDialogFragment extends DialogFragment {
 		mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 		webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-		mWebView.clearHistory();
-		mWebView.clearCache(true);
 
 		mWebView.setBackgroundColor(0);
 
