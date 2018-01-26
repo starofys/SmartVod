@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/iv_movie_label_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/layx53"
+        android:layout_height="@dimen/layy51"
         android:layout_alignParentStart="true"
         android:src="@mipmap/ic_pay_lable"
         android:layout_alignParentTop="true" />
