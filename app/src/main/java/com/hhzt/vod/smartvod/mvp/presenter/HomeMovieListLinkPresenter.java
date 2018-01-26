@@ -51,13 +51,14 @@ public class HomeMovieListLinkPresenter implements HomeMovieListContract.HomeMov
 	}
 
 	@Override
-	public void showData(int programGroupId, int categoryId, int pageNum, int pageSize) {
+	public void showData(int programGroupId, int categoryId, final int pageNum, int pageSize) {
 		mIHomeTypeList.showData(programGroupId, categoryId, pageNum, pageSize, new IHttpRetCallBack<VodGroupDetailDataRep>() {
 			@Override
 			public void onResponseSuccess(CommonRspRetBean bean, VodGroupDetailDataRep vodGroupDetailDataRep) {
+				mMovieInfoData.clear();
 				mMovieInfoData.addAll(vodGroupDetailDataRep.getProgramSimpleBoList());
 				mHomeMovieListView.showData(mMovieInfoData);
-				mHomeMovieListView.showTotalPage(vodGroupDetailDataRep.getTotal() % PAGE_SIZE > 0 ? (vodGroupDetailDataRep.getTotal() / PAGE_SIZE) + 1 : (vodGroupDetailDataRep.getTotal() / PAGE_SIZE));
+				mHomeMovieListView.showPageInfo(pageNum, vodGroupDetailDataRep.getTotal() % PAGE_SIZE > 0 ? (vodGroupDetailDataRep.getTotal() / PAGE_SIZE) + 1 : (vodGroupDetailDataRep.getTotal() / PAGE_SIZE));
 			}
 
 			@Override

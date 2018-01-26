@@ -18,7 +18,7 @@ public class HomeMovieListContract {
 	public interface HomeMovieListView extends BaseView<HomeMovieListPresenter> {
 		void showData(List<MovieInfoData> movieInfoData);
 
-		void showTotalPage(int totalPage);
+		void showPageInfo(int currentPage,int totalPage);
 	}
 
 	public interface HomeMovieListPresenter extends BasePresenter {

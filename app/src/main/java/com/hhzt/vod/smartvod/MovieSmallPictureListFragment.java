@@ -174,7 +174,7 @@ public class MovieSmallPictureListFragment extends MovieListFragment implements 
 	}
 
 	@Override
-	public void showTotalPage(int totalPage) {
+	public void showPageInfo(int currentPage, int totalPage) {
 		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TOTAL_PAGE, totalPage);
 	}
 

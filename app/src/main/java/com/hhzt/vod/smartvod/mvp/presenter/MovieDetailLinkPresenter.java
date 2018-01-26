@@ -9,6 +9,7 @@ import com.hhzt.vod.api.CommonRspRetBean;
 import com.hhzt.vod.api.ConfigMgr;
 import com.hhzt.vod.api.IHttpRetCallBack;
 import com.hhzt.vod.api.otherBean.EpisodeBean;
+import com.hhzt.vod.api.repBean.MediaRepBean;
 import com.hhzt.vod.api.repBean.MovieInfoData;
 import com.hhzt.vod.api.repBean.ProgrameDetailBo;
 import com.hhzt.vod.api.repData.PayResultRep;
@@ -104,13 +105,14 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 				mMovieDetailView.showMovieRelate(mReleteList);
 				mMovieDetailView.showMovieHot(mHotList);
 
-				List<Clarity> clarities = new ArrayList<>();
 				Resources resources = mContext.getResources();
-				clarities.add(new Clarity(resources.getString(R.string.media_clarities_normal), resources.getString(R.string.media_clarities_270p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-				clarities.add(new Clarity(resources.getString(R.string.media_clarities_high), resources.getString(R.string.media_clarities_480p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-				clarities.add(new Clarity(resources.getString(R.string.media_clarities_super), resources.getString(R.string.media_clarities_720p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-				clarities.add(new Clarity(resources.getString(R.string.media_clarities_blue), resources.getString(R.string.media_clarities_1080p), mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0).getFilePath()));
-				mMovieDetailView.showSmallVideo(clarities, mProgramDetailBo.getName(), mProgramDetailBo.getBigPoster());
+				List<Clarity> clarities = new ArrayList<>();
+				MediaRepBean mediaRepBean = mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(0);
+				clarities.add(new Clarity(resources.getString(R.string.media_clarities_normal), resources.getString(R.string.media_clarities_270p), mediaRepBean.getFilePath()));
+				clarities.add(new Clarity(resources.getString(R.string.media_clarities_high), resources.getString(R.string.media_clarities_480p), mediaRepBean.getFilePath()));
+				clarities.add(new Clarity(resources.getString(R.string.media_clarities_super), resources.getString(R.string.media_clarities_720p), mediaRepBean.getFilePath()));
+				clarities.add(new Clarity(resources.getString(R.string.media_clarities_blue), resources.getString(R.string.media_clarities_1080p), mediaRepBean.getFilePath()));
+				mMovieDetailView.showSmallVideo(clarities, mediaRepBean.getName(), mProgramDetailBo.getBigPoster(), 0, false);
 			}
 
 			@Override
@@ -152,6 +154,18 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 				break;
 		}
 		movieDetailCallBack.showMovieDetailCallBack(0, categoryId, programId);
+	}
+
+	@Override
+	public void choosePlayNumber(int position) {
+		Resources resources = mContext.getResources();
+		List<Clarity> clarities = new ArrayList<>();
+		MediaRepBean mediaRepBean = mProgramDetaiContentDataRep.programDetailBo.getMediaList().get(position);
+		clarities.add(new Clarity(resources.getString(R.string.media_clarities_normal), resources.getString(R.string.media_clarities_270p), mediaRepBean.getFilePath()));
+		clarities.add(new Clarity(resources.getString(R.string.media_clarities_high), resources.getString(R.string.media_clarities_480p), mediaRepBean.getFilePath()));
+		clarities.add(new Clarity(resources.getString(R.string.media_clarities_super), resources.getString(R.string.media_clarities_720p), mediaRepBean.getFilePath()));
+		clarities.add(new Clarity(resources.getString(R.string.media_clarities_blue), resources.getString(R.string.media_clarities_1080p), mediaRepBean.getFilePath()));
+		mMovieDetailView.showSmallVideo(clarities, mediaRepBean.getName(), mProgramDetailBo.getSmallPoster(), 0, true);
 	}
 
 	@Override

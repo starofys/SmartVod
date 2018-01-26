@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MovieDetailContract {
 	public interface MovieDetailView extends BaseView<MovieDetailPresenter> {
-		void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon);
+		void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon, int claritiesPosition, boolean playFullScreen);
 
 		void showMovieDetail(List<EpisodeBean> episodeList, List<String> episodeRangeList, ProgrameDetailBo programDetailBo);
 
@@ -42,6 +42,8 @@ public class MovieDetailContract {
 		void showData(int programGroupId, int categoryId, int programId);
 
 		void clickOtherMovieDetail(MovieDetailCallBack movieDetailCallBack, int type, int position);
+
+		void choosePlayNumber(int position);
 
 		void clearData();
 

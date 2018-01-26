@@ -15,4 +15,10 @@ public class ObserverConst {
 	public static final int BASE_MOVIE_TYPE = 2000;
 	public static final int CODE_MOVIE_TYPE_SHOW_OR_HINT = BASE_MOVIE_TYPE + 1; //类型显示隐藏
 	public static final int CODE_MOVIE_TYPE_TRANSLATE = BASE_MOVIE_TYPE + 2;    //是否开启动画
+
+	public static final int BASE_SHOW_PAGE = 3000;
+	public static final int BASE_SHOW_PREVIOUS_PAGE = BASE_SHOW_PAGE + 1;       //有上一页
+	public static final int BASE_SHOW_NEXT_PAGE = BASE_SHOW_PAGE + 2;           //有下一页
+	public static final int BASE_SHOW_MIX_PAGE = BASE_SHOW_PAGE + 3;            //有上、下页
+	public static final int BASE_SHOW_ONLY_PAGE = BASE_SHOW_PAGE + 4;           //不可上、下页
 }

@@ -67,6 +67,7 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	private int mSelectSmallRecyclerIndex;
 	private int mSelectBigRecyclerIndex;
 	private int mPageNumber = 1;
+	private int mTotalPage = 1;
 
 	private MovieBroadCastReceiver mMovieBroadCastReceiver;
 	private GridLayoutManagerTV mGridlayoutManager;
@@ -183,24 +184,6 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				mSelectRecylerType = 1;
 				mSelectSmallRecyclerIndex = position;
 				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE);
-				if ((position == mMovieSmallPictureList.size() - 1 || position == mMovieSmallPictureList.size() - 2)) {
-					if ((mMovieSmallPictureList.size() + mMovieBigPictureList.size()) % PAGE_SIZE == 0) {
-						mPageNumber++;
-						mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
-					}
-					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_TRANSLATE, true);
-					AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT, false);
-					mHandler.postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
-						}
-					}, 201);
-				}
-
-				int currentPosition = position + 2;
-				int currentPage = currentPosition / PAGE_SIZE + 1;
-				AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_CURRENT_PAGE, currentPage);
 			}
 
 			@Override
@@ -224,18 +207,18 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				View itemView = mRcvMovieSmallPicture.getFocusedChild();
 				if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
 					if (index % 2 == 0) {
-						requestDefaultFocus(mRecyclerViewBridge, mRcvMovieBigPicture);
-						mRecyclerViewBridge.setUnFocusView(itemView);
-						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						if (mPageNumber > 1) {
+							mPageNumber--;
+							mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
+						}
 						return true;
 					}
 				} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
 					if (index % 2 != 0) {
-						requestDefaultFocus(mRecyclerViewBridge, mRcvMovieBigPicture);
-						mRecyclerViewBridge.setUnFocusView(itemView);
-						KeyBroadcastSender.getInstance().sendDownBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						if (mPageNumber < mTotalPage) {
+							mPageNumber++;
+							mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
+						}
 						return true;
 					}
 				}
@@ -264,16 +247,18 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 						return true;
 					}
 				} else {
-					requestDefaultFocus(mRecyclerViewBridge, mRcvMovieBigPicture);
 					if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
-						mRecyclerViewBridge.setUnFocusView(itemView);
-						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						if (mPageNumber > 1) {
+							mPageNumber--;
+							mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
+						}
+						return true;
 					}
 					if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-						mRecyclerViewBridge.setUnFocusView(itemView);
-						KeyBroadcastSender.getInstance().sendDownBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
+						if (mPageNumber < mTotalPage) {
+							mPageNumber++;
+							mHomeMovieListLinkPresenter.showData(ConfigMgr.getInstance().getGroupID(), mCategoryId, mPageNumber, PAGE_SIZE);
+						}
 						return true;
 					}
 				}
@@ -313,8 +298,19 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 	}
 
 	@Override
-	public void showTotalPage(int totalPage) {
+	public void showPageInfo(int currentPage, int totalPage) {
+		mTotalPage = totalPage;
+		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_CURRENT_PAGE, currentPage);
 		AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.CODE_MOVIE_TOTAL_PAGE, totalPage);
+		if (currentPage == 1 && totalPage == 1) {
+			AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.BASE_SHOW_ONLY_PAGE, totalPage);
+		} else if (currentPage > 1 && mTotalPage > 1 && currentPage == mTotalPage) {
+			AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.BASE_SHOW_PREVIOUS_PAGE, totalPage);
+		} else if (currentPage == 1 && currentPage < mTotalPage) {
+			AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.BASE_SHOW_NEXT_PAGE, totalPage);
+		} else {
+			AchieveObserverWatched.getInstance().notifyWatcher(ObserverConst.BASE_SHOW_MIX_PAGE, totalPage);
+		}
 	}
 
 	private final class MovieBroadCastReceiver extends BroadcastReceiver {

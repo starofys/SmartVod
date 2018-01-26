@@ -147,19 +147,6 @@ public class MovieBigPictureListFragment extends MovieListFragment implements Ho
 						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
 						return true;
 					}
-				} else {
-					requestDefaultFocus(mRecyclerViewBridge, mRcvMovieItemContainer);
-					if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
-						mRecyclerViewBridge.setUnFocusView(itemView);
-						KeyBroadcastSender.getInstance().sendUpBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
-						return true;
-					} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-						mRecyclerViewBridge.setUnFocusView(itemView);
-						KeyBroadcastSender.getInstance().sendDownBordKey(KeyFactoryConst.KEY_SOURCE_ITEM_CONTENT);
-						mRecyclerViewBridge.setUpRectResource(R.drawable.bg_border_translate_selector);
-						return true;
-					}
 				}
 				return false;
 			}

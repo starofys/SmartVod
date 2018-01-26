@@ -1,6 +1,5 @@
 package com.hhzt.vod.smartvod;
 
-import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hhzt.vod.api.ConfigMgr;
@@ -26,7 +26,6 @@ import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieTypeLinkPresenter;
 import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
 import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.smartvod.observer.ObserverWatcher;
-import com.hhzt.vod.smartvod.view.ViewWrapper;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
@@ -55,6 +54,10 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 	private TextView mTvCurrentPage;
 	@ViewInject(R.id.mainUpView1)
 	private MainUpView mMainUpView;
+	@ViewInject(R.id.iv_enter_up)
+	private ImageView mIvEnterUp;
+	@ViewInject(R.id.iv_enter_down)
+	private ImageView mIvEnterDown;
 
 	private RecyclerViewBridge mRecyclerViewBridge;
 	private HomeMovieTypeContract.HomeMovieTypePresenter mHomeMovieTypeLinkPresenter;
@@ -94,10 +97,6 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		super.onActivityCreated(savedInstanceState);
 		initView();
 		mHomeMovieTypeLinkPresenter.showData(ConfigMgr.getInstance().getGroupID());
-
-		ViewWrapper wrapper = new ViewWrapper(mLmlType);
-		int dimension = (int) getResources().getDimension(R.dimen.layx365);
-		ObjectAnimator.ofInt(wrapper, "width", dimension).setDuration(200).start();
 
 		mListSelectFoucsBroadCastReceiver = new ListSelectFoucsBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);
@@ -239,16 +238,21 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 			case ObserverConst.CODE_MOVIE_SHOW_OR_HINT_PAGE:
 				mShowCurrentPage = false;
 				break;
-			case ObserverConst.CODE_MOVIE_TYPE_SHOW_OR_HINT:
-				final boolean show = (boolean) var2;
-				if (mShowTranslate) {
-					ViewWrapper wrapper = new ViewWrapper(mLmlType);
-					int dimension = (int) getResources().getDimension(R.dimen.layx365);
-					ObjectAnimator.ofInt(wrapper, "width", show ? dimension : 0).setDuration(200).start();
-				}
+			case ObserverConst.BASE_SHOW_PREVIOUS_PAGE:
+				mIvEnterUp.setVisibility(View.VISIBLE);
+				mIvEnterDown.setVisibility(View.INVISIBLE);
 				break;
-			case ObserverConst.CODE_MOVIE_TYPE_TRANSLATE:
-				mShowTranslate = (boolean) var2;
+			case ObserverConst.BASE_SHOW_NEXT_PAGE:
+				mIvEnterUp.setVisibility(View.INVISIBLE);
+				mIvEnterDown.setVisibility(View.VISIBLE);
+				break;
+			case ObserverConst.BASE_SHOW_MIX_PAGE:
+				mIvEnterUp.setVisibility(View.VISIBLE);
+				mIvEnterDown.setVisibility(View.VISIBLE);
+				break;
+			case ObserverConst.BASE_SHOW_ONLY_PAGE:
+				mIvEnterUp.setVisibility(View.INVISIBLE);
+				mIvEnterDown.setVisibility(View.INVISIBLE);
 				break;
 			default:
 				break;
