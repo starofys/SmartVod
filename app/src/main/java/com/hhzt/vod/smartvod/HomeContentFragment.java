@@ -1,5 +1,6 @@
 package com.hhzt.vod.smartvod;
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import com.hhzt.vod.smartvod.mvp.presenter.HomeMovieTypeLinkPresenter;
 import com.hhzt.vod.smartvod.observer.AchieveObserverWatched;
 import com.hhzt.vod.smartvod.observer.ObserverConst;
 import com.hhzt.vod.smartvod.observer.ObserverWatcher;
+import com.hhzt.vod.smartvod.view.ViewWrapper;
 import com.hhzt.vod.viewlayer.androidtvwidget.bridge.RecyclerViewBridge;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV;
@@ -97,6 +99,10 @@ public class HomeContentFragment extends BaseFragment implements HomeMovieTypeCo
 		super.onActivityCreated(savedInstanceState);
 		initView();
 		mHomeMovieTypeLinkPresenter.showData(ConfigMgr.getInstance().getGroupID());
+
+		ViewWrapper wrapper = new ViewWrapper(mLmlType);
+		int dimension = (int) getResources().getDimension(R.dimen.layx365);
+		ObjectAnimator.ofInt(wrapper, "width", dimension).setDuration(200).start();
 
 		mListSelectFoucsBroadCastReceiver = new ListSelectFoucsBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter(KeyFactoryConst.KEY_LISTEN_ACTION);

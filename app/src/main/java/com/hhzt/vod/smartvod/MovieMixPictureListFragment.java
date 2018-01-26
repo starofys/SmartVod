@@ -295,6 +295,54 @@ public class MovieMixPictureListFragment extends MovieListFragment implements Ho
 				}
 			}, 10);
 		}
+
+//		switch (mSelectRecylerType) {
+//			case 0:
+//				if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
+//					mHandler.postDelayed(new Runnable() {
+//						@Override
+//						public void run() {
+//							focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
+//						}
+//					}, 51);
+//				} else {
+//					mHandler.postDelayed(new Runnable() {
+//						@Override
+//						public void run() {
+//							focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(mSelectBigRecyclerIndex), ConfigX.SCALE);
+//						}
+//					}, 51);
+//				}
+//				break;
+//			case 1:
+//				if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
+//					mHandler.postDelayed(new Runnable() {
+//						@Override
+//						public void run() {
+//							focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
+//						}
+//					}, 51);
+//				} else {
+//					mHandler.postDelayed(new Runnable() {
+//						@Override
+//						public void run() {
+//							focusView(mRecyclerViewBridge, mRcvMovieSmallPicture.getChildAt(mSelectSmallRecyclerIndex), ConfigX.SCALE);
+//						}
+//					}, 51);
+//				}
+//				break;
+//			default:
+//				break;
+//		}
+
+		if (movieInfoData.size() < HomeMovieListLinkPresenter.PAGE_SIZE) {
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					focusView(mRecyclerViewBridge, mRcvMovieBigPicture.getChildAt(0), ConfigX.SCALE);
+				}
+			}, 51);
+		}
 	}
 
 	@Override
