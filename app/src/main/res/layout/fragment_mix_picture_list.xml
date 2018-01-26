@@ -23,7 +23,7 @@
 
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_movie_big_picture"
-				android:layout_width="@dimen/layx980"
+				android:layout_width="@dimen/layx970"
 				android:layout_height="@dimen/layy694"
 				android:clipChildren="false"
 				android:focusable="true"/>
@@ -32,7 +32,6 @@
 				android:id="@+id/rcv_movie_small_picture"
 				android:layout_width="wrap_content"
 				android:layout_height="@dimen/layy694"
-				android:layout_marginLeft="@dimen/layx20"
 				android:clipChildren="false"
 				android:focusable="true"/>
 		</LinearLayout>
