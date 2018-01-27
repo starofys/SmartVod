@@ -166,7 +166,7 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 		clarities.add(new Clarity(resources.getString(R.string.media_clarities_high), resources.getString(R.string.media_clarities_480p), mediaRepBean.getFilePath()));
 		clarities.add(new Clarity(resources.getString(R.string.media_clarities_super), resources.getString(R.string.media_clarities_720p), mediaRepBean.getFilePath()));
 		clarities.add(new Clarity(resources.getString(R.string.media_clarities_blue), resources.getString(R.string.media_clarities_1080p), mediaRepBean.getFilePath()));
-		boolean needPayTag = position < ConfigX.FREE_SERIES_NUMBER;
+		boolean needPayTag = position >= ConfigX.FREE_SERIES_NUMBER;
 		mMovieDetailView.showSmallVideo(clarities, mediaRepBean.getName(), mProgramDetailBo.getSmallPoster(), 0, true, needPayTag);
 	}
 
