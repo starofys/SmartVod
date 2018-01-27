@@ -48,13 +48,22 @@ public class LeftMenuPresenter extends OpenPresenter {
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder viewHolder, int position) {
-		MovieTypeViewHolder movieTypeViewHolder = (MovieTypeViewHolder) viewHolder;
+	public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+		final MovieTypeViewHolder movieTypeViewHolder = (MovieTypeViewHolder) viewHolder;
 		movieTypeViewHolder.ivMovieTypeName.setText(mCategoryName.get(position).getName());
 		movieTypeViewHolder.ivMovieTypeName.setFocusableInTouchMode(true);
 		movieTypeViewHolder.ivMovieTypeName.setFocusable(true);
 
-		movieTypeViewHolder.viewBackgroud.setBackground(mSelectPosition==position?mResources.getDrawable(R.mipmap.ic_movie_type_selected):mResources.getDrawable(R.drawable.bg_border_translate_selector));
+		movieTypeViewHolder.viewBackgroud.setBackground(mSelectPosition == position ? mResources.getDrawable(R.mipmap.ic_movie_type_selected) : mResources.getDrawable(R.drawable.bg_border_translate_selector));
+		movieTypeViewHolder.mRlContainer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				movieTypeViewHolder.viewBackgroud.setBackground(mSelectPosition == position ? mResources.getDrawable(R.mipmap.ic_movie_type_selected) : mResources.getDrawable(R.drawable.bg_border_translate_selector));
+				if(hasFocus){
+					movieTypeViewHolder.viewBackgroud.setBackground(mResources.getDrawable(R.drawable.bg_border_translate_selector));
+				}
+			}
+		});
 	}
 
 	public void setSelectPosition(int selectPosition) {
