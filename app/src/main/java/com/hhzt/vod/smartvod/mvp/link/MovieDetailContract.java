@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MovieDetailContract {
 	public interface MovieDetailView extends BaseView<MovieDetailPresenter> {
-		void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon, int claritiesPosition, boolean playFullScreen);
+		void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon, int claritiesPosition, boolean playFullScreen, boolean needPayTag);
 
 		void showMovieDetail(List<EpisodeBean> episodeList, List<String> episodeRangeList, ProgrameDetailBo programDetailBo);
 

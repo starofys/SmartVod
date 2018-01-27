@@ -113,7 +113,6 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 
 	private int mPlayLocation;
 	private boolean mNeedPayTag;
-	private int mPreviewLimit;
 	private int mMovieCategoryId;
 	private int mMovieProgramId;
 
@@ -395,7 +394,7 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 	}
 
 	@Override
-	public void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon, int claritiesPosition, boolean playFullScreen) {
+	public void showSmallVideo(List<Clarity> clarities, String movieName, String urlIcon, int claritiesPosition, boolean playFullScreen, boolean needPayTag) {
 		mNiceVideoPlayer.release();
 		mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_NATIVE); // IjkPlayer or MediaPlayer
 		TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
@@ -412,7 +411,8 @@ public class MovieDetailFragment extends BaseFragment implements View.OnClickLis
 		/**
 		 * 需要支付的影片才需要设置视频预览时间到达逻辑
 		 */
-		if (mNeedPayTag) {
+		if (needPayTag) {
+			mNeedPayTag = needPayTag;
 			mMovieDetailLinkPresenter.setVodPreviewTime();
 			controller.setPreviewPayLogic(new IPayLogic() {
 				@Override

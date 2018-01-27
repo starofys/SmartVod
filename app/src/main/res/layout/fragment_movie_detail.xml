@@ -142,28 +142,17 @@
 						android:focusableInTouchMode="true"
 						app:reflect_height="@dimen/layy80">
 
-						<LinearLayout
+						<TextView
+							android:id="@+id/btn_movie_full_screen"
 							android:layout_width="@dimen/layx186"
 							android:layout_height="@dimen/layy77"
 							android:background="@drawable/ic_search_backgroud"
-							android:gravity="center_vertical"
-							android:orientation="horizontal">
-
-							<ImageView
-								android:layout_width="@dimen/layx34"
-								android:layout_height="@dimen/layy34"
-								android:layout_marginLeft="@dimen/layx20"
-								android:background="@mipmap/ic_full_screen"/>
-
-							<TextView
-								android:id="@+id/btn_movie_full_screen"
-								android:layout_width="match_parent"
-								android:layout_height="match_parent"
-								android:gravity="center"
-								android:text="@string/movie_detail_full_screen"
-								android:textColor="@color/tv_white"
-								android:textSize="@dimen/layx33"/>
-						</LinearLayout>
+							android:paddingLeft="@dimen/layx20"
+							android:drawableLeft="@mipmap/ic_full_screen"
+							android:gravity="center"
+							android:text="@string/movie_detail_full_screen"
+							android:textColor="@color/tv_white"
+							android:textSize="@dimen/layx33"/>
 
 					</com.hhzt.vod.viewlayer.androidtvwidget.view.ReflectItemView>
 

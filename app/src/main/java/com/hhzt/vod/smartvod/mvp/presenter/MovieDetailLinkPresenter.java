@@ -84,7 +84,7 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 					EpisodeBean episodeBean = new EpisodeBean();
 					episodeBean.setEpisode(i + "");
 					if (mProgramDetailBo.getVipFlag() == ConfigX.NEED_VIP)
-						episodeBean.setTable((i < ConfigX.FREE_SERIES_NUMBER) ? ConfigX.FREE : ConfigX.NEED_VIP);
+						episodeBean.setTable((i <= ConfigX.FREE_SERIES_NUMBER) ? ConfigX.FREE : ConfigX.NEED_VIP);
 					else episodeBean.setTable(ConfigX.FREE);
 
 					mEpisodeList.add(episodeBean);
@@ -113,7 +113,7 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 				clarities.add(new Clarity(resources.getString(R.string.media_clarities_high), resources.getString(R.string.media_clarities_480p), mediaRepBean.getFilePath()));
 				clarities.add(new Clarity(resources.getString(R.string.media_clarities_super), resources.getString(R.string.media_clarities_720p), mediaRepBean.getFilePath()));
 				clarities.add(new Clarity(resources.getString(R.string.media_clarities_blue), resources.getString(R.string.media_clarities_1080p), mediaRepBean.getFilePath()));
-				mMovieDetailView.showSmallVideo(clarities, mediaRepBean.getName(), mProgramDetailBo.getBigPoster(), 0, false);
+				mMovieDetailView.showSmallVideo(clarities, mediaRepBean.getName(), mProgramDetailBo.getBigPoster(), 0, false, false);
 			}
 
 			@Override
@@ -166,7 +166,8 @@ public class MovieDetailLinkPresenter implements MovieDetailContract.MovieDetail
 		clarities.add(new Clarity(resources.getString(R.string.media_clarities_high), resources.getString(R.string.media_clarities_480p), mediaRepBean.getFilePath()));
 		clarities.add(new Clarity(resources.getString(R.string.media_clarities_super), resources.getString(R.string.media_clarities_720p), mediaRepBean.getFilePath()));
 		clarities.add(new Clarity(resources.getString(R.string.media_clarities_blue), resources.getString(R.string.media_clarities_1080p), mediaRepBean.getFilePath()));
-		mMovieDetailView.showSmallVideo(clarities, mediaRepBean.getName(), mProgramDetailBo.getSmallPoster(), 0, true);
+		boolean needPayTag = position < ConfigX.FREE_SERIES_NUMBER;
+		mMovieDetailView.showSmallVideo(clarities, mediaRepBean.getName(), mProgramDetailBo.getSmallPoster(), 0, true, needPayTag);
 	}
 
 	@Override
