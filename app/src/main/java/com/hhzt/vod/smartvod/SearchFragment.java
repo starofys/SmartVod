@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -120,6 +121,8 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 
 		mRivFullKeyboard.setNextFocusLeftId(R.id.riv_t9_keyboard);
 		mRivT9Keyboard.setNextFocusRightId(R.id.riv_full_keyboard);
+		mRivDelete.setNextFocusLeftId(R.id.riv_clear);
+		mRivClear.setNextFocusRightId(R.id.riv_delete);
 
 		mHandler.postDelayed(new Runnable() {
 			@Override
@@ -170,6 +173,15 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 				mSearchMoviePresenter.clickOtherMovieDetail(getActivity(), SearchMovieLinkPresenter.TYPE_HOT_LIST, position);
 			}
 		});
+		mRcvHotSearchUp.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+					return true;
+				}
+				return false;
+			}
+		});
 
 		//热门电影down
 //		mRcvHotSearchDown.setOnItemListener(this);
@@ -181,7 +193,22 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		});
 
 		//历史搜索电影
-//		mRcvSearchHistory.setOnItemKeyListener(this);
+		mRcvSearchHistory.setOnItemListener(new RecyclerViewTV.OnItemListener() {
+			@Override
+			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setUnFocusView(itemView);
+			}
+
+			@Override
+			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE_DEFAULT);
+			}
+
+			@Override
+			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE_DEFAULT);
+			}
+		});
 		mRcvSearchHistory.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
@@ -190,7 +217,22 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		});
 
 		//搜索结果
-//		mRcvSearchResult.setOnItemListener(this);
+		mRcvSearchResult.setOnItemListener(new RecyclerViewTV.OnItemListener() {
+			@Override
+			public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setUnFocusView(itemView);
+			}
+
+			@Override
+			public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE_DEFAULT);
+			}
+
+			@Override
+			public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
+				mRecyclerViewBridge.setFocusView(itemView, ConfigX.SCALE_DEFAULT);
+			}
+		});
 		mRcvSearchResult.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 			@Override
 			public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
@@ -231,7 +273,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	}
 
 	@Override
-	public void showHotMovieData(ArrayList<SimpleRepBean> historySearchList, ArrayList<MovieInfoData> hotList) {
+	public void showHotMovieData(final ArrayList<SimpleRepBean> historySearchList, ArrayList<MovieInfoData> hotList) {
 		mLlHotSearch.setVisibility(View.VISIBLE);
 		mLlSearchResult.setVisibility(View.GONE);
 
@@ -249,6 +291,23 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mRcvSearchHistory.setFocusable(false);
 		generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(historySearchList));
 		mRcvSearchHistory.setAdapter(generalAdapter);
+
+		mRcvSearchHistory.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				int keyCode = event.getKeyCode();
+				int index = mRcvSearchHistory.getSelectPostion();
+				if (historySearchList.size() <= 2 && keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+					return true;
+				} else {
+					if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN
+							&& (index == historySearchList.size() - 1 || index == historySearchList.size() - 2)) {
+						return true;
+					}
+				}
+				return false;
+			}
+		});
 	}
 
 	@Override
@@ -269,7 +328,7 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 	}
 
 	@Override
-	public void showSearchMovieReultData(ArrayList<MovieInfoData> searchMovieResultData) {
+	public void showSearchMovieReultData(final ArrayList<MovieInfoData> searchMovieResultData) {
 		mLlHotSearch.setVisibility(View.GONE);
 		mLlSearchResult.setVisibility(View.VISIBLE);
 
@@ -288,6 +347,26 @@ public class SearchFragment extends BaseFragment implements SearchMovieContract.
 		mRcvSearchResult.setFocusable(false);
 		GeneralAdapter generalAdapter = new GeneralAdapter(new SearchMovieKeyPresenter(movieList));
 		mRcvSearchResult.setAdapter(generalAdapter);
+
+		mRcvSearchResult.setOnItemKeyListener(new RecyclerViewTV.OnItemKeyListener() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent event) {
+				int keyCode = event.getKeyCode();
+				int index = mRcvSearchResult.getSelectPostion();
+				if (searchMovieResultData.size() <= 2 && (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP)) {
+					return true;
+				} else {
+					if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN
+							&& (index == searchMovieResultData.size() - 1 || index == searchMovieResultData.size() - 2)) {
+						return true;
+					} else if (keyCode == KeyEvent.KEYCODE_DPAD_UP
+							&& (index == 0 || index == 1)) {
+						return true;
+					}
+				}
+				return false;
+			}
+		});
 	}
 
 	@Override

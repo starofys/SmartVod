@@ -239,7 +239,7 @@
 			<com.hhzt.vod.viewlayer.androidtvwidget.leanback.recycle.RecyclerViewTV
 				android:id="@+id/rcv_search_history"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/layy248"
+				android:layout_height="@dimen/layy288"
 				android:layout_marginTop="@dimen/layy18"/>
 
 		</LinearLayout>

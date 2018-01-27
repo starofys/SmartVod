@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="@dimen/layx163"
+	android:layout_width="@dimen/layx156"
 	android:layout_height="@dimen/layy246"
 	android:layout_marginRight="@dimen/layx12"
 	android:focusable="true"
