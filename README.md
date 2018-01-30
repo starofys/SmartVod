@@ -28,18 +28,31 @@ public static final String HOST = "host";
 public static final String USERNAME = "userName";
 >>>* 媒体大组ID<br>
 public static final String GROUPID = "programGroupID";
-### 接收端代码
+#### 启动端
+```Java
+private void launchOtherApp(String packageName, String className) {
+	Intent intent = new Intent(Intent.ACTION_MAIN);
+	intent.addCategory(Intent.CATEGORY_LAUNCHER);
+	ComponentName cn = new ComponentName(packageName, className);
+	intent.setComponent(cn);
+	intent.putExtra("host", "http://szhhzt.cn:8001");
+	intent.putExtra("userName", "10002");
+	intent.putExtra("programGroupID", 2);
+	startActivity(intent);
+}
+```
+#### 接收端
 ```Java
 Intent intent = getIntent();
- if (null != intent) {
-  String host = intent.getStringExtra(ConfigX.HOST);
+	if (null != intent) {
+ 		String host = intent.getStringExtra(ConfigX.HOST);
 		String userName = intent.getStringExtra(ConfigX.USERNAME);
 		int programProupID = intent.getIntExtra(ConfigX.GROUPID, HttpConst.DEFAULT_GROUP_ID);
 		ConfigMgr.getInstance().initEpgUrl(host);
 		ConfigMgr.getInstance().initUserName(userName);
 		ConfigMgr.getInstance().initGroupID(programProupID);
 		Log.d(ConfigX.HHZT_SMART_LOG, "host=" + host + ";userName=" + userName + ";programProupID=" + programProupID);
-	}
+}
 ```
 效果图
 --------
