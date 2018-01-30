@@ -21,12 +21,11 @@ SmartVod
 使用注意点
 -----------
 ### 传入初始化配置信息
->>* 启动app时传入配置信息
->>>* 服务器地址---pro://ip:port<br>
+* 服务器地址---pro://ip:port<br>
 public static final String HOST = "host";
->>>* 登陆的用户名称<br>
+* 登陆的用户名称<br>
 public static final String USERNAME = "userName";
->>>* 媒体大组ID<br>
+* 媒体大组ID<br>
 public static final String GROUPID = "programGroupID";
 #### 启动端
 ```Java
