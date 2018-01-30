@@ -1,5 +1,9 @@
 SmartVod
 =========
+[![Build Status](https://travis-ci.org/meolu/walle-web.svg?branch=master)](https://travis-ci.org/meolu/walle-web)
+[![Packagist](https://img.shields.io/packagist/v/meolu/walle-web.svg)](https://packagist.org/packages/meolu/walle-web)
+[![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
+
 简介
 ---------
 - 整体工程采用MVP设计框架
@@ -39,7 +43,12 @@ Intent intent = getIntent();
 ```
 效果图
 --------
-
+![](https://github.com/wujichang/SmartVod/blob/master/img/1.home.jpg)<br>
+![](https://github.com/wujichang/SmartVod/blob/master/img/2.detail.jpg)<br>
+![](https://github.com/wujichang/SmartVod/blob/master/img/3.eps.jpg)<br>
+![](https://github.com/wujichang/SmartVod/blob/master/img/4.pay.jpg)<br>
+![](https://github.com/wujichang/SmartVod/blob/master/img/5.play.jpg)<br>
+![](https://github.com/wujichang/SmartVod/blob/master/img/6.search.jpg)<br>
 LICENSE
 --------
 ```Java
