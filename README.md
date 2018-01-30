@@ -37,7 +37,11 @@ Intent intent = getIntent();
 		Log.d(ConfigX.HHZT_SMART_LOG, "host=" + host + ";userName=" + userName + ";programProupID=" + programProupID);
 	}
 ```
-### LICENSE
+效果图
+--------
+
+LICENSE
+--------
 ```Java
 Copyright (c) 2016-present, RxJava Contributors.
 
