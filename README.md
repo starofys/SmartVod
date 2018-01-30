@@ -44,14 +44,14 @@ private void launchOtherApp(String packageName, String className) {
 #### 接收端
 ```Java
 Intent intent = getIntent();
-	if (null != intent) {
- 		String host = intent.getStringExtra(ConfigX.HOST);
-		String userName = intent.getStringExtra(ConfigX.USERNAME);
-		int programProupID = intent.getIntExtra(ConfigX.GROUPID, HttpConst.DEFAULT_GROUP_ID);
-		ConfigMgr.getInstance().initEpgUrl(host);
-		ConfigMgr.getInstance().initUserName(userName);
-		ConfigMgr.getInstance().initGroupID(programProupID);
-		Log.d(ConfigX.HHZT_SMART_LOG, "host=" + host + ";userName=" + userName + ";programProupID=" + programProupID);
+if (null != intent) {
+ 	String host = intent.getStringExtra(ConfigX.HOST);
+	String userName = intent.getStringExtra(ConfigX.USERNAME);
+	int programProupID = intent.getIntExtra(ConfigX.GROUPID, HttpConst.DEFAULT_GROUP_ID);
+	ConfigMgr.getInstance().initEpgUrl(host);
+	ConfigMgr.getInstance().initUserName(userName);
+	ConfigMgr.getInstance().initGroupID(programProupID);
+	Log.d(ConfigX.HHZT_SMART_LOG, "host=" + host + ";userName=" + userName + ";programProupID=" + programProupID);
 }
 ```
 效果图
