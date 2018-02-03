@@ -4,8 +4,7 @@ SmartVod
 [![Packagist](https://img.shields.io/packagist/v/meolu/walle-web.svg)](https://packagist.org/packages/meolu/walle-web)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
-简介
----------
+# 简介
 - 整体工程采用MVP设计框架
 - 模块化编程思想 降低各模块之间的耦合度
 - 工程主要划分为：<br>
@@ -18,8 +17,7 @@ SmartVod
 - 播放器方面兼容了Native Player和IJK Player
 - 播放器在单独进程中开启，避免播放器的异常问题导致App的Crash
 
-使用注意点
------------
+# 使用注意点
 ### 传入初始化配置信息
 * 服务器地址---pro://ip:port<br>
 public static final String HOST = "host";
@@ -53,16 +51,14 @@ if (null != intent) {
 	Log.d(ConfigX.HHZT_SMART_LOG, "host=" + host + ";userName=" + userName + ";programProupID=" + programProupID);
 }
 ```
-效果图
---------
+# 效果图
 ![](https://github.com/wujichang/SmartVod/blob/master/img/1.home.jpg)<br>
 ![](https://github.com/wujichang/SmartVod/blob/master/img/2.detail.jpg)<br>
 ![](https://github.com/wujichang/SmartVod/blob/master/img/3.eps.jpg)<br>
 ![](https://github.com/wujichang/SmartVod/blob/master/img/4.pay.jpg)<br>
 ![](https://github.com/wujichang/SmartVod/blob/master/img/5.play.jpg)<br>
 ![](https://github.com/wujichang/SmartVod/blob/master/img/6.search.jpg)<br>
-LICENSE
---------
+# LICENSE
 ```Java
 Copyright (c) 2016-present, RxJava Contributors.
 
